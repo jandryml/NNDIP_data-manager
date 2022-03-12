@@ -1,40 +1,20 @@
 package cz.edu.upce.fei.datamanager.data.service;
 
 import cz.edu.upce.fei.datamanager.data.entity.User;
-import java.util.Optional;
-import java.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
-@Service
-public class UserService {
+import java.util.Optional;
+import java.util.UUID;
 
-    private UserRepository repository;
+public interface UserService {
+    Optional<User> getUser(UUID id);
 
-    public UserService(@Autowired UserRepository repository) {
-        this.repository = repository;
-    }
+    User updateUser(User entity);
 
-    public Optional<User> get(UUID id) {
-        return repository.findById(id);
-    }
+    void deleteUser(UUID id);
 
-    public User update(User entity) {
-        return repository.save(entity);
-    }
+    Page<User> listUsers(Pageable pageable);
 
-    public void delete(UUID id) {
-        repository.deleteById(id);
-    }
-
-    public Page<User> list(Pageable pageable) {
-        return repository.findAll(pageable);
-    }
-
-    public int count() {
-        return (int) repository.count();
-    }
-
+    int countUsers();
 }

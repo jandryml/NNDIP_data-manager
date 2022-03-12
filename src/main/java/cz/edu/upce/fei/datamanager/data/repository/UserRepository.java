@@ -1,4 +1,4 @@
-package cz.edu.upce.fei.datamanager.data.service;
+package cz.edu.upce.fei.datamanager.data.repository;
 
 import cz.edu.upce.fei.datamanager.data.entity.User;
 import java.util.UUID;

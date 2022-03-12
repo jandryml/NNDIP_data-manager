@@ -3,7 +3,7 @@ package cz.edu.upce.fei.datamanager.security;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.server.VaadinServletRequest;
 import cz.edu.upce.fei.datamanager.data.entity.User;
-import cz.edu.upce.fei.datamanager.data.service.UserRepository;
+import cz.edu.upce.fei.datamanager.data.repository.UserRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -34,5 +34,4 @@ public class AuthenticatedUser {
         SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
         logoutHandler.logout(VaadinServletRequest.getCurrent().getHttpServletRequest(), null, null);
     }
-
 }

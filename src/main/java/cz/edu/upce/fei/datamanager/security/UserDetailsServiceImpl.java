@@ -1,7 +1,7 @@
 package cz.edu.upce.fei.datamanager.security;
 
 import cz.edu.upce.fei.datamanager.data.entity.User;
-import cz.edu.upce.fei.datamanager.data.service.UserRepository;
+import cz.edu.upce.fei.datamanager.data.repository.UserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
