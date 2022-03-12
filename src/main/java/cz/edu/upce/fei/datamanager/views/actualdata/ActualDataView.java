@@ -1,35 +1,61 @@
 package cz.edu.upce.fei.datamanager.views.actualdata;
 
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
+import cz.edu.upce.fei.datamanager.data.entity.SensorData;
+import cz.edu.upce.fei.datamanager.data.service.SensorDataService;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
 
 @PageTitle("Actual Data")
 @Route(value = "actual-data", layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
 @AnonymousAllowed
-public class ActualDataView extends HorizontalLayout {
+public class ActualDataView extends VerticalLayout {
 
-    private TextField name;
-    private Button sayHello;
+    private final SensorDataService sensorDataService;
 
-    public ActualDataView() {
-        name = new TextField("Your name");
-        sayHello = new Button("Say hello");
-        sayHello.addClickListener(e -> {
-            Notification.show("Hello " + name.getValue());
-        });
+    private final TextField hitsTextField = new TextField();
+    private final TextField timestampTextField = new TextField();
+    private final TextField temperature1TextField = new TextField();
+    private final TextField humidityTextField = new TextField();
+    private final TextField co2_1TextField = new TextField();
+    private final TextField co2_2TextField = new TextField();
+    private final TextField temperature2TextField = new TextField();
+
+    public ActualDataView(SensorDataService sensorDataService) {
+        this.sensorDataService = sensorDataService;
 
         setMargin(true);
-        setVerticalComponentAlignment(Alignment.END, name, sayHello);
 
-        add(name, sayHello);
+        initLabel("Hits", hitsTextField);
+        initLabel("Timestamp", timestampTextField);
+        initLabel("Temperature 1", temperature1TextField);
+        initLabel("Humidity", humidityTextField);
+        initLabel("Co2 1", co2_1TextField);
+        initLabel("Co2 2", co2_2TextField);
+        initLabel("Temperature 2", temperature2TextField);
+
+        updateValues();
     }
 
+    private void initLabel(String name, TextField textField) {
+        textField.setReadOnly(true);
+        textField.setLabel(name);
+        add(textField);
+    }
+
+    public void updateValues() {
+        SensorData sensorData = sensorDataService.getLatestData(1);
+        hitsTextField.setValue(String.valueOf(sensorData.getHits()));
+        timestampTextField.setValue(sensorData.getTimestamp().toLocalDateTime().toString());
+        temperature1TextField.setValue(String.valueOf(sensorData.getTemperature1()));
+        humidityTextField.setValue(String.valueOf(sensorData.getHumidity()));
+        co2_1TextField.setValue(String.valueOf(sensorData.getCo2_1()));
+        co2_2TextField.setValue(String.valueOf(sensorData.getCo2_2()));
+        temperature2TextField.setValue(String.valueOf(sensorData.getTemperature2()));
+    }
 }
