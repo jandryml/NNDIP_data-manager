@@ -1,24 +1,21 @@
 package cz.edu.upce.fei.datamanager.data;
 
-import java.util.UUID;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import java.util.UUID;
 
+@Getter
+@Setter
 @MappedSuperclass
 public abstract class AbstractEntity {
 
     @Id
     @GeneratedValue
     private UUID id;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     @Override
     public int hashCode() {
@@ -30,10 +27,9 @@ public abstract class AbstractEntity {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof AbstractEntity)) {
+        if (!(obj instanceof AbstractEntity other)) {
             return false; // null or other class
         }
-        AbstractEntity other = (AbstractEntity) obj;
 
         if (id != null) {
             return id.equals(other.id);
