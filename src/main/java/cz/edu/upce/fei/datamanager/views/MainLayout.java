@@ -21,7 +21,7 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
 import cz.edu.upce.fei.datamanager.data.entity.User;
 import cz.edu.upce.fei.datamanager.security.AuthenticatedUser;
-import cz.edu.upce.fei.datamanager.views.actionconfig.ActionconfigView;
+import cz.edu.upce.fei.datamanager.views.actionconfig.ActionConfigView;
 import cz.edu.upce.fei.datamanager.views.actualdata.ActualDataView;
 import cz.edu.upce.fei.datamanager.views.dashboard.DashboardView;
 import cz.edu.upce.fei.datamanager.views.limitconfig.LimitconfigView;
@@ -141,7 +141,7 @@ public class MainLayout extends AppLayout {
 
                 new MenuItemInfo("Limit config", "la la-cog", LimitconfigView.class), //
 
-                new MenuItemInfo("Action config", "la la-cogs", ActionconfigView.class), //
+                new MenuItemInfo("Action config", "la la-cogs", ActionConfigView.class), //
 
         };
     }
