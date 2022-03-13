@@ -15,13 +15,15 @@ import cz.edu.upce.fei.datamanager.views.MainLayout;
 
 import javax.annotation.security.PermitAll;
 
+import static cz.edu.upce.fei.datamanager.views.actionconfig.ActionConfigForm.*;
+
 @PageTitle("Action config")
 @Route(value = "actions", layout = MainLayout.class)
 @PermitAll
 public class ActionConfigView extends VerticalLayout {
     Grid<ThresholdAction> grid = new Grid<>(ThresholdAction.class);
     TextField filterText = new TextField();
-    ThresholdActionForm form;
+    ActionConfigForm form;
     private ThresholdActionService thresholdActionService;
 
     public ActionConfigView(ThresholdActionService thresholdActionService) {
@@ -46,20 +48,20 @@ public class ActionConfigView extends VerticalLayout {
     }
 
     private void configureForm() {
-        form = new ThresholdActionForm();
+        form = new ActionConfigForm();
         form.setWidth("25em");
-        form.addListener(ThresholdActionForm.SaveEvent.class, this::saveThresholdAction);
-        form.addListener(ThresholdActionForm.DeleteEvent.class, this::deleteThresholdAction);
-        form.addListener(ThresholdActionForm.CloseEvent.class, e -> closeEditor());
+        form.addListener(SaveEvent.class, this::saveThresholdAction);
+        form.addListener(DeleteEvent.class, this::deleteThresholdAction);
+        form.addListener(CloseEvent.class, e -> closeEditor());
     }
 
-    private void saveThresholdAction(ThresholdActionForm.SaveEvent event) {
+    private void saveThresholdAction(SaveEvent event) {
         thresholdActionService.saveThresholdAction(event.getThresholdAction());
         updateList();
         closeEditor();
     }
 
-    private void deleteThresholdAction(ThresholdActionForm.DeleteEvent event) {
+    private void deleteThresholdAction(DeleteEvent event) {
         thresholdActionService.deleteThresholdAction(event.getThresholdAction());
         updateList();
         closeEditor();

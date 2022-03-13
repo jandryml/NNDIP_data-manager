@@ -19,7 +19,7 @@ import cz.edu.upce.fei.datamanager.data.entity.ThresholdAction;
 
 import java.util.Objects;
 
-public class ThresholdActionForm extends FormLayout {
+public class ActionConfigForm extends FormLayout {
     private ThresholdAction thresholdAction;
 
     TextField name = new TextField("Name");
@@ -34,7 +34,7 @@ public class ThresholdActionForm extends FormLayout {
 
     Binder<ThresholdAction> binder = new BeanValidationBinder<>(ThresholdAction.class);
 
-    public ThresholdActionForm() {
+    public ActionConfigForm() {
         addClassName("contact-form");
 
         ///TODO refactor - split to methods
@@ -109,10 +109,10 @@ public class ThresholdActionForm extends FormLayout {
     }
 
     // Events
-    public static abstract class ThresholdActionFormEvent extends ComponentEvent<ThresholdActionForm> {
+    public static abstract class ThresholdActionFormEvent extends ComponentEvent<ActionConfigForm> {
         private ThresholdAction thresholdAction;
 
-        protected ThresholdActionFormEvent(ThresholdActionForm source, ThresholdAction thresholdAction) {
+        protected ThresholdActionFormEvent(ActionConfigForm source, ThresholdAction thresholdAction) {
             super(source, false);
             this.thresholdAction = thresholdAction;
         }
@@ -123,20 +123,20 @@ public class ThresholdActionForm extends FormLayout {
     }
 
     public static class SaveEvent extends ThresholdActionFormEvent {
-        SaveEvent(ThresholdActionForm source, ThresholdAction thresholdAction) {
+        SaveEvent(ActionConfigForm source, ThresholdAction thresholdAction) {
             super(source, thresholdAction);
         }
     }
 
     public static class DeleteEvent extends ThresholdActionFormEvent {
-        DeleteEvent(ThresholdActionForm source, ThresholdAction thresholdAction) {
+        DeleteEvent(ActionConfigForm source, ThresholdAction thresholdAction) {
             super(source, thresholdAction);
         }
 
     }
 
     public static class CloseEvent extends ThresholdActionFormEvent {
-        CloseEvent(ThresholdActionForm source) {
+        CloseEvent(ActionConfigForm source) {
             super(source, null);
         }
     }
