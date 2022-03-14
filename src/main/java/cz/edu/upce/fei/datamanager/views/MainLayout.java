@@ -25,6 +25,8 @@ import cz.edu.upce.fei.datamanager.views.actionconfig.ActionConfigView;
 import cz.edu.upce.fei.datamanager.views.actualdata.ActualDataView;
 import cz.edu.upce.fei.datamanager.views.dashboard.DashboardView;
 import cz.edu.upce.fei.datamanager.views.limitconfig.LimitconfigView;
+import cz.edu.upce.fei.datamanager.views.sensor.SensorView;
+
 import java.util.Optional;
 
 /**
