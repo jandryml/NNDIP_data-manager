@@ -143,6 +143,9 @@ public class MainLayout extends AppLayout {
 
                 new MenuItemInfo("Action config", "la la-cogs", ActionConfigView.class), //
 
+                // TODO change icon
+                new MenuItemInfo("Sensors", "la la-cogs", SensorView.class), //
+
         };
     }
 
