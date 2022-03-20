@@ -25,7 +25,7 @@ import cz.edu.upce.fei.datamanager.views.actionconfig.ActionConfigView;
 import cz.edu.upce.fei.datamanager.views.actualdata.legacy.ActualDataViewLegacy;
 import cz.edu.upce.fei.datamanager.views.dashboard.legacy.DashboardViewLegacy;
 import cz.edu.upce.fei.datamanager.views.limitconfig.legacy.LimitConfigViewLegacy;
-import cz.edu.upce.fei.datamanager.views.sensor.legacy.SensorViewLegacy;
+import cz.edu.upce.fei.datamanager.views.sensor.SensorView;
 
 import java.util.Optional;
 
@@ -142,8 +142,7 @@ public class MainLayout extends AppLayout {
                 new MenuItemInfo("Limit config", "la la-cog", LimitConfigViewLegacy.class), //
                 new MenuItemInfo("Action config", "la la-cogs", ActionConfigView.class), //
                 // TODO change icon
-                new MenuItemInfo("Sensors", "la la-cogs", SensorViewLegacy.class), //
-
+                new MenuItemInfo("Sensors", "la la-cogs", SensorView.class), //
         };
     }
 
