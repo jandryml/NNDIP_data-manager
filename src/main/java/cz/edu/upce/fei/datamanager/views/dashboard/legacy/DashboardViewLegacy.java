@@ -1,4 +1,4 @@
-package cz.edu.upce.fei.datamanager.views.dashboard;
+package cz.edu.upce.fei.datamanager.views.dashboard.legacy;
 
 
 import com.vaadin.flow.component.Component;
@@ -22,14 +22,14 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
-import cz.edu.upce.fei.datamanager.views.dashboard.ServiceHealth.Status;
+import cz.edu.upce.fei.datamanager.views.dashboard.legacy.ServiceHealthLegacy.Status;
 
 @PageTitle("Dashboard")
 @Route(value = "dashboard", layout = MainLayout.class)
 @AnonymousAllowed
-public class DashboardView extends Main {
+public class DashboardViewLegacy extends Main {
 
-    public DashboardView() {
+    public DashboardViewLegacy() {
         addClassName("dashboard-view");
 
         Board board = new Board();
@@ -117,26 +117,26 @@ public class DashboardView extends Main {
         HorizontalLayout header = createHeader("Service health", "Input / output");
 
         // Grid
-        Grid<ServiceHealth> grid = new Grid();
+        Grid<ServiceHealthLegacy> grid = new Grid();
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
         grid.setAllRowsVisible(true);
 
-        grid.addColumn(new ComponentRenderer<>(serviceHealth -> {
+        grid.addColumn(new ComponentRenderer<>(serviceHealthLegacy -> {
             Span status = new Span();
-            String statusText = getStatusDisplayName(serviceHealth);
+            String statusText = getStatusDisplayName(serviceHealthLegacy);
             status.getElement().setAttribute("aria-label", "Status: " + statusText);
             status.getElement().setAttribute("title", "Status: " + statusText);
-            status.getElement().getThemeList().add(getStatusTheme(serviceHealth));
+            status.getElement().getThemeList().add(getStatusTheme(serviceHealthLegacy));
             return status;
         })).setHeader("").setFlexGrow(0).setAutoWidth(true);
-        grid.addColumn(ServiceHealth::getCity).setHeader("City").setFlexGrow(1);
-        grid.addColumn(ServiceHealth::getInput).setHeader("Input").setAutoWidth(true).setTextAlign(ColumnTextAlign.END);
-        grid.addColumn(ServiceHealth::getOutput).setHeader("Output").setAutoWidth(true)
+        grid.addColumn(ServiceHealthLegacy::getCity).setHeader("City").setFlexGrow(1);
+        grid.addColumn(ServiceHealthLegacy::getInput).setHeader("Input").setAutoWidth(true).setTextAlign(ColumnTextAlign.END);
+        grid.addColumn(ServiceHealthLegacy::getOutput).setHeader("Output").setAutoWidth(true)
                 .setTextAlign(ColumnTextAlign.END);
 
-        grid.setItems(new ServiceHealth(Status.EXCELLENT, "Münster", 324, 1540),
-                new ServiceHealth(Status.OK, "Cluj-Napoca", 311, 1320),
-                new ServiceHealth(Status.FAILING, "Ciudad Victoria", 300, 1219));
+        grid.setItems(new ServiceHealthLegacy(Status.EXCELLENT, "Münster", 324, 1540),
+                new ServiceHealthLegacy(Status.OK, "Cluj-Napoca", 311, 1320),
+                new ServiceHealthLegacy(Status.FAILING, "Ciudad Victoria", 300, 1219));
 
         // Add it all together
         VerticalLayout serviceHealth = new VerticalLayout(header, grid);
@@ -190,8 +190,8 @@ public class DashboardView extends Main {
         return header;
     }
 
-    private String getStatusDisplayName(ServiceHealth serviceHealth) {
-        Status status = serviceHealth.getStatus();
+    private String getStatusDisplayName(ServiceHealthLegacy serviceHealthLegacy) {
+        Status status = serviceHealthLegacy.getStatus();
         if (status == Status.OK) {
             return "Ok";
         } else if (status == Status.FAILING) {
@@ -203,8 +203,8 @@ public class DashboardView extends Main {
         }
     }
 
-    private String getStatusTheme(ServiceHealth serviceHealth) {
-        Status status = serviceHealth.getStatus();
+    private String getStatusTheme(ServiceHealthLegacy serviceHealthLegacy) {
+        Status status = serviceHealthLegacy.getStatus();
         String theme = "badge primary small";
         if (status == Status.EXCELLENT) {
             theme += " success";

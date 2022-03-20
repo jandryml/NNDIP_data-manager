@@ -22,10 +22,10 @@ import com.vaadin.flow.server.auth.AccessAnnotationChecker;
 import cz.edu.upce.fei.datamanager.data.entity.User;
 import cz.edu.upce.fei.datamanager.security.AuthenticatedUser;
 import cz.edu.upce.fei.datamanager.views.actionconfig.ActionConfigView;
-import cz.edu.upce.fei.datamanager.views.actualdata.ActualDataView;
-import cz.edu.upce.fei.datamanager.views.dashboard.DashboardView;
-import cz.edu.upce.fei.datamanager.views.limitconfig.LimitconfigView;
-import cz.edu.upce.fei.datamanager.views.sensor.SensorView;
+import cz.edu.upce.fei.datamanager.views.actualdata.legacy.ActualDataViewLegacy;
+import cz.edu.upce.fei.datamanager.views.dashboard.legacy.DashboardViewLegacy;
+import cz.edu.upce.fei.datamanager.views.limitconfig.legacy.LimitConfigViewLegacy;
+import cz.edu.upce.fei.datamanager.views.sensor.legacy.SensorViewLegacy;
 
 import java.util.Optional;
 
@@ -137,12 +137,12 @@ public class MainLayout extends AppLayout {
 
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{ //
-                new MenuItemInfo("Actual Data", "la la-vials", ActualDataView.class), //
-                new MenuItemInfo("Dashboard", "la la-chart-area", DashboardView.class), //
-                new MenuItemInfo("Limit config", "la la-cog", LimitconfigView.class), //
+                new MenuItemInfo("Actual Data", "la la-vials", ActualDataViewLegacy.class), //
+                new MenuItemInfo("Dashboard", "la la-chart-area", DashboardViewLegacy.class), //
+                new MenuItemInfo("Limit config", "la la-cog", LimitConfigViewLegacy.class), //
                 new MenuItemInfo("Action config", "la la-cogs", ActionConfigView.class), //
                 // TODO change icon
-                new MenuItemInfo("Sensors", "la la-cogs", SensorView.class), //
+                new MenuItemInfo("Sensors", "la la-cogs", SensorViewLegacy.class), //
 
         };
     }

@@ -1,4 +1,4 @@
-package cz.edu.upce.fei.datamanager.views.sensor;
+package cz.edu.upce.fei.datamanager.views.sensor.legacy;
 
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -15,7 +15,7 @@ import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 import cz.edu.upce.fei.datamanager.data.entity.Sensor;
 
-public class SensorForm extends FormLayout {
+public class SensorFormLegacy extends FormLayout {
     private Sensor sensor;
 
     TextField id = new TextField("ID");
@@ -27,7 +27,7 @@ public class SensorForm extends FormLayout {
 
     Binder<Sensor> binder = new BeanValidationBinder<>(Sensor.class);
 
-    public SensorForm() {
+    public SensorFormLegacy() {
         addClassName("contact-form");
 
         id.setReadOnly(true);
@@ -81,10 +81,10 @@ public class SensorForm extends FormLayout {
     }
 
     // Events
-    public static abstract class SensorFormEvent extends ComponentEvent<SensorForm> {
+    public static abstract class SensorFormEvent extends ComponentEvent<SensorFormLegacy> {
         private Sensor sensor;
 
-        protected SensorFormEvent(SensorForm source, Sensor sensor) {
+        protected SensorFormEvent(SensorFormLegacy source, Sensor sensor) {
             super(source, false);
             this.sensor = sensor;
         }
@@ -95,20 +95,20 @@ public class SensorForm extends FormLayout {
     }
 
     public static class SaveEvent extends SensorFormEvent {
-        SaveEvent(SensorForm source, Sensor sensor) {
+        SaveEvent(SensorFormLegacy source, Sensor sensor) {
             super(source, sensor);
         }
     }
 
     public static class DeleteEvent extends SensorFormEvent {
-        DeleteEvent(SensorForm source, Sensor sensor) {
+        DeleteEvent(SensorFormLegacy source, Sensor sensor) {
             super(source, sensor);
         }
 
     }
 
     public static class CloseEvent extends SensorFormEvent {
-        CloseEvent(SensorForm source) {
+        CloseEvent(SensorFormLegacy source) {
             super(source, null);
         }
     }

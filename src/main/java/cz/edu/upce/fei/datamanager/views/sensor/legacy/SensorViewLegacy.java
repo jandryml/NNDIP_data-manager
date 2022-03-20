@@ -1,4 +1,4 @@
-package cz.edu.upce.fei.datamanager.views.sensor;
+package cz.edu.upce.fei.datamanager.views.sensor.legacy;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.grid.Grid;
@@ -14,20 +14,20 @@ import cz.edu.upce.fei.datamanager.views.MainLayout;
 
 import javax.annotation.security.PermitAll;
 
-import static cz.edu.upce.fei.datamanager.views.sensor.SensorForm.*;
+import static cz.edu.upce.fei.datamanager.views.sensor.legacy.SensorFormLegacy.*;
 
 
 @PageTitle("Sensors")
 @Route(value = "sensors", layout = MainLayout.class)
 @PermitAll
-public class SensorView extends VerticalLayout {
+public class SensorViewLegacy extends VerticalLayout {
     Grid<Sensor> grid = new Grid<>(Sensor.class);
     TextField filterText = new TextField();
-    SensorForm form;
+    SensorFormLegacy form;
 
     private final SensorService sensorService;
 
-    public SensorView(SensorService sensorService) {
+    public SensorViewLegacy(SensorService sensorService) {
         this.sensorService = sensorService;
         addClassName("list-view");
         setSizeFull();
@@ -49,7 +49,7 @@ public class SensorView extends VerticalLayout {
     }
 
     private void configureForm() {
-        form = new SensorForm();
+        form = new SensorFormLegacy();
         form.setWidth("25em");
         form.addListener(SaveEvent.class, this::saveSensor);
         form.addListener(DeleteEvent.class, this::deleteSensor);
