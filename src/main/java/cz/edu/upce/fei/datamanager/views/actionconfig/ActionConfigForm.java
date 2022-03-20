@@ -51,8 +51,6 @@ public class ActionConfigForm extends LitTemplate {
         outputType.setItems(OutputType.values());
         outputType.setItemLabelGenerator(OutputType::name);
 
-
-
         save.addClickListener(event -> validateAndSave());
         delete.addClickListener(event -> fireEvent(new DeleteEvent(this, thresholdAction)));
         close.addClickListener(event -> fireEvent(new CloseEvent(this)));

@@ -17,12 +17,13 @@ import javax.annotation.security.PermitAll;
 import static cz.edu.upce.fei.datamanager.views.sensor.legacy.SensorFormLegacy.*;
 
 
-@PageTitle("Sensors")
-@Route(value = "sensors", layout = MainLayout.class)
+@PageTitle("Sensors - Legacy")
+@Route(value = "sensors-legacy", layout = MainLayout.class)
 @PermitAll
+//TODO remove legacy code
 public class SensorViewLegacy extends VerticalLayout {
-    Grid<Sensor> grid = new Grid<>(Sensor.class);
     TextField filterText = new TextField();
+    Grid<Sensor> grid = new Grid<>(Sensor.class);
     SensorFormLegacy form;
 
     private final SensorService sensorService;

@@ -24,8 +24,8 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
 import cz.edu.upce.fei.datamanager.views.dashboard.legacy.ServiceHealthLegacy.Status;
 
-@PageTitle("Dashboard")
-@Route(value = "dashboard", layout = MainLayout.class)
+@PageTitle("Dashboard - Legacy")
+@Route(value = "dashboard-legacy", layout = MainLayout.class)
 @AnonymousAllowed
 public class DashboardViewLegacy extends Main {
 

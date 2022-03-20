@@ -9,8 +9,8 @@ import com.vaadin.flow.router.Route;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
 import javax.annotation.security.PermitAll;
 
-@PageTitle("Limit config")
-@Route(value = "limits", layout = MainLayout.class)
+@PageTitle("Limit config - Legacy")
+@Route(value = "limits-legacy", layout = MainLayout.class)
 @PermitAll
 public class LimitConfigViewLegacy extends HorizontalLayout {
 

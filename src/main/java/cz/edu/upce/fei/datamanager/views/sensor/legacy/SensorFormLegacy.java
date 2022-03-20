@@ -15,6 +15,7 @@ import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 import cz.edu.upce.fei.datamanager.data.entity.Sensor;
 
+//TODO remove legacy code
 public class SensorFormLegacy extends FormLayout {
     private Sensor sensor;
 
