@@ -13,8 +13,8 @@ import javax.persistence.Enumerated;
 @Entity
 public class ThresholdAction extends AbstractEntity {
     private String name;
-    private String pin;
+    private String address;
     private String value;
     @Enumerated(EnumType.STRING)
-    private RegisterType registerType;
+    private OutputType outputType;
 }
