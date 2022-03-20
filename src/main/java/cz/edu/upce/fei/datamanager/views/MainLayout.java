@@ -22,7 +22,6 @@ import com.vaadin.flow.server.auth.AccessAnnotationChecker;
 import cz.edu.upce.fei.datamanager.data.entity.User;
 import cz.edu.upce.fei.datamanager.security.AuthenticatedUser;
 import cz.edu.upce.fei.datamanager.views.actionconfig.ActionConfigView;
-import cz.edu.upce.fei.datamanager.views.actionconfig.ActionConfigViewLegacy;
 import cz.edu.upce.fei.datamanager.views.actualdata.ActualDataView;
 import cz.edu.upce.fei.datamanager.views.dashboard.DashboardView;
 import cz.edu.upce.fei.datamanager.views.limitconfig.LimitconfigView;
@@ -139,14 +138,9 @@ public class MainLayout extends AppLayout {
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{ //
                 new MenuItemInfo("Actual Data", "la la-vials", ActualDataView.class), //
-
                 new MenuItemInfo("Dashboard", "la la-chart-area", DashboardView.class), //
-
                 new MenuItemInfo("Limit config", "la la-cog", LimitconfigView.class), //
-
-                new MenuItemInfo("Action config - legacy", "la la-cogs", ActionConfigViewLegacy.class), //
                 new MenuItemInfo("Action config", "la la-cogs", ActionConfigView.class), //
-
                 // TODO change icon
                 new MenuItemInfo("Sensors", "la la-cogs", SensorView.class), //
 

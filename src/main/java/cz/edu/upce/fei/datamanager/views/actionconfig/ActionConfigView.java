@@ -5,11 +5,8 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.littemplate.LitTemplate;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.template.Id;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.BeanValidationBinder;
-import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -18,6 +15,8 @@ import cz.edu.upce.fei.datamanager.data.service.ThresholdActionService;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
 
 import javax.annotation.security.PermitAll;
+
+import static cz.edu.upce.fei.datamanager.views.actionconfig.ActionConfigForm.*;
 
 /**
  * A Designer generated component for the action-config-view template.
@@ -42,9 +41,6 @@ public class ActionConfigView extends LitTemplate {
     @Id("contactForm")
     private ActionConfigForm contactForm;
 
-    private ThresholdAction currentThresholdAction;
-    private BeanValidationBinder<ThresholdAction> binder;
-
     private final ThresholdActionService thresholdActionService;
 
     /**
@@ -53,76 +49,69 @@ public class ActionConfigView extends LitTemplate {
     public ActionConfigView(ThresholdActionService thresholdActionService) {
         this.thresholdActionService = thresholdActionService;
 
-        grid.addColumn(ThresholdAction::getName).setHeader("First name");
-        grid.addColumn(ThresholdAction::getAddress).setHeader("Address");
-        grid.addColumn(ThresholdAction::getValue).setHeader("Email");
-        grid.addColumn(ThresholdAction::getOutputType).setHeader("Output type");
-        grid.getColumns().forEach(col -> col.setAutoWidth(true));
+        configureGrid();
         updateList();
 
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
 
         configureBinding();
+        closeEditor();
+    }
+
+    private void configureGrid() {
+        grid.addColumn(ThresholdAction::getName).setHeader("First name");
+        grid.addColumn(ThresholdAction::getAddress).setHeader("Address");
+        grid.addColumn(ThresholdAction::getValue).setHeader("Email");
+        grid.addColumn(ThresholdAction::getOutputType).setHeader("Output type");
+        grid.getColumns().forEach(col -> col.setAutoWidth(true));
+
+        grid.asSingleSelect().addValueChangeListener(event ->
+                editThresholdAction(event.getValue()));
     }
 
     private void configureBinding() {
-        grid.asSingleSelect().addValueChangeListener(event -> {
-            ThresholdAction thresholdAction = event.getValue();
-            if (thresholdAction != null) {
-                populateForm(thresholdAction);
-            } else {
-                clearForm();
-            }
-        });
+        addContactButton.addClickListener(click -> addThresholdAction());
 
-        binder = new BeanValidationBinder<>(ThresholdAction.class);
-        binder.bindInstanceFields(contactForm);
-
-        contactForm.getDelete().addClickListener(e -> {
-            if (this.currentThresholdAction != null) {
-                thresholdActionService.deleteThresholdAction(this.currentThresholdAction);
-                updateList();
-                clearForm();
-                Notification.show("Action deleted.");
-            }
-        });
-
-        contactForm.getClose().addClickListener(e -> {
-            clearForm();
-        });
-
-        contactForm.getSave().addClickListener(e -> {
-            try {
-                if (this.currentThresholdAction == null) {
-                    this.currentThresholdAction = new ThresholdAction();
-                }
-                binder.writeBean(this.currentThresholdAction);
-                thresholdActionService.saveThresholdAction(this.currentThresholdAction);
-                updateList();
-                clearForm();
-                Notification.show("Contact details stored.");
-            } catch (ValidationException validationException) {
-                Notification.show("Please enter a valid contact details.");
-            }
-        });
+        contactForm.addListener(SaveEvent.class, this::saveThresholdAction);
+        contactForm.addListener(DeleteEvent.class, this::deleteThresholdAction);
+        contactForm.addListener(CloseEvent.class, e -> closeEditor());
     }
 
-    void clearForm() {
-        populateForm(null);
+    private void addThresholdAction() {
+        grid.asSingleSelect().clear();
+        editThresholdAction(new ThresholdAction());
     }
 
-    void populateForm(ThresholdAction thresholdAction) {
-        this.currentThresholdAction = thresholdAction;
-        binder.readBean(this.currentThresholdAction);
+    private void saveThresholdAction(SaveEvent event) {
+        thresholdActionService.saveThresholdAction(event.getThresholdAction());
+        updateList();
+        closeEditor();
+    }
+
+    private void deleteThresholdAction(DeleteEvent event) {
+        thresholdActionService.deleteThresholdAction(event.getThresholdAction());
+        updateList();
+        closeEditor();
+    }
+
+    public void editThresholdAction(ThresholdAction action) {
+        if (action == null) {
+            closeEditor();
+        } else {
+            contactForm.setThresholdAction(action);
+            contactForm.setVisible(true);
+            addClassName("editing");
+        }
+    }
+
+    private void closeEditor() {
+        contactForm.setThresholdAction(null);
+        contactForm.setVisible(false);
+        removeClassName("editing");
     }
 
     private void updateList() {
-        String filterValue = filterText.getValue();
-        if (filterValue == null || filterValue.isBlank()) {
-            grid.setItems(thresholdActionService.findAllThresholdActions());
-        } else {
-            grid.setItems(thresholdActionService.findAllThresholdActions(filterValue));
-        }
+        grid.setItems(thresholdActionService.findAllThresholdActions(filterText.getValue()));
     }
 }
