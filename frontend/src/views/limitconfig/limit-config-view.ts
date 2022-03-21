@@ -5,7 +5,7 @@ import '@vaadin/text-field/src/vaadin-text-field.js';
 import '@vaadin/combo-box/src/vaadin-combo-box.js';
 import '@vaadin/vertical-layout/src/vaadin-vertical-layout.js';
 import '@vaadin/button/src/vaadin-button.js';
-import '@polymer/paper-toggle-button/paper-toggle-button.js';
+import '@vaadin/checkbox/src/vaadin-checkbox.js';
 
 @customElement('limit-config-view')
 export class LimitConfigView extends LitElement {
@@ -25,7 +25,9 @@ export class LimitConfigView extends LitElement {
   <vaadin-horizontal-layout theme="spacing" style="align-self: center;">
    <label>Temperature config</label>
   </vaadin-horizontal-layout>
-  <paper-toggle-button style="align-self: center;" active></paper-toggle-button>
+  <vaadin-checkbox style="align-self: center;" tabindex="" type="checkbox" value="on" checked>
+    Enable 
+  </vaadin-checkbox>
   <vaadin-text-field label="Threshold" style="align-self: center;" type="text" tabindex=""></vaadin-text-field>
   <vaadin-text-field label="Tolerance" style="align-self: center;" type="text" tabindex=""></vaadin-text-field>
   <vaadin-horizontal-layout theme="spacing" style="align-self: center;">
@@ -40,7 +42,9 @@ export class LimitConfigView extends LitElement {
   <vaadin-horizontal-layout theme="spacing" style="align-self: center;">
    <label>Humidity config</label>
   </vaadin-horizontal-layout>
-  <paper-toggle-button style="align-self: center;" pressed></paper-toggle-button>
+  <vaadin-checkbox style="align-self: center;" tabindex="" type="checkbox" value="on">
+    Enable 
+  </vaadin-checkbox>
   <vaadin-text-field label="Threshold" style="align-self: center;" type="text" tabindex=""></vaadin-text-field>
   <vaadin-text-field label="Tolerance" style="align-self: center;" type="text" tabindex=""></vaadin-text-field>
   <vaadin-horizontal-layout theme="spacing" style="align-self: center;">
@@ -55,7 +59,9 @@ export class LimitConfigView extends LitElement {
   <vaadin-horizontal-layout theme="spacing" style="align-self: center;">
    <label>Co2 config</label>
   </vaadin-horizontal-layout>
-  <paper-toggle-button style="align-self: center;" active></paper-toggle-button>
+  <vaadin-checkbox style="align-self: center;" tabindex="" type="checkbox" value="on" checked>
+    Enable 
+  </vaadin-checkbox>
   <vaadin-text-field label="Threshold" style="align-self: center;" type="text" tabindex=""></vaadin-text-field>
   <vaadin-text-field label="Tolerance" style="align-self: center;" type="text" tabindex=""></vaadin-text-field>
   <vaadin-horizontal-layout theme="spacing" style="align-self: center;">
