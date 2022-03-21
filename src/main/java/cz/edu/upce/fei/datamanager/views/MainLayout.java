@@ -24,6 +24,7 @@ import cz.edu.upce.fei.datamanager.security.AuthenticatedUser;
 import cz.edu.upce.fei.datamanager.views.actionconfig.ActionConfigView;
 import cz.edu.upce.fei.datamanager.views.actualdata.legacy.ActualDataViewLegacy;
 import cz.edu.upce.fei.datamanager.views.dashboard.DashboardView;
+import cz.edu.upce.fei.datamanager.views.limitconfig.LimitConfigView;
 import cz.edu.upce.fei.datamanager.views.limitconfig.legacy.LimitConfigViewLegacy;
 import cz.edu.upce.fei.datamanager.views.sensor.SensorView;
 
@@ -139,7 +140,7 @@ public class MainLayout extends AppLayout {
         return new MenuItemInfo[]{ //
                 new MenuItemInfo("Actual Data", "la la-vials", ActualDataViewLegacy.class), //
                 new MenuItemInfo("Dashboard", "la la-chart-area", DashboardView.class), //
-                new MenuItemInfo("Limit config", "la la-cog", LimitConfigViewLegacy.class), //
+                new MenuItemInfo("Limit config", "la la-cog", LimitConfigView.class), //
                 new MenuItemInfo("Action config", "la la-cogs", ActionConfigView.class), //
                 // TODO change icon
                 new MenuItemInfo("Sensors", "la la-cogs", SensorView.class), //
