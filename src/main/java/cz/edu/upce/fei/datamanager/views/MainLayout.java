@@ -25,7 +25,6 @@ import cz.edu.upce.fei.datamanager.views.actionconfig.ActionConfigView;
 import cz.edu.upce.fei.datamanager.views.actualdata.legacy.ActualDataViewLegacy;
 import cz.edu.upce.fei.datamanager.views.dashboard.DashboardView;
 import cz.edu.upce.fei.datamanager.views.limitconfig.LimitConfigView;
-import cz.edu.upce.fei.datamanager.views.limitconfig.legacy.LimitConfigViewLegacy;
 import cz.edu.upce.fei.datamanager.views.manual.ManualView;
 import cz.edu.upce.fei.datamanager.views.sensor.SensorView;
 import cz.edu.upce.fei.datamanager.views.timeplan.TimePlanView;
