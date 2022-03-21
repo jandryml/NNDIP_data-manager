@@ -1,4 +1,4 @@
-package cz.edu.upce.fei.datamanager.views.actualdata;
+package cz.edu.upce.fei.datamanager.views.actualdata.legacy;
 
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -14,7 +14,7 @@ import cz.edu.upce.fei.datamanager.views.MainLayout;
 @Route(value = "actual-data", layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
 @AnonymousAllowed
-public class ActualDataView extends VerticalLayout {
+public class ActualDataViewLegacy extends VerticalLayout {
 
     private final SensorDataService sensorDataService;
 
@@ -26,7 +26,7 @@ public class ActualDataView extends VerticalLayout {
     private final TextField co2_2TextField = new TextField();
     private final TextField temperature2TextField = new TextField();
 
-    public ActualDataView(SensorDataService sensorDataService) {
+    public ActualDataViewLegacy(SensorDataService sensorDataService) {
         this.sensorDataService = sensorDataService;
 
         setMargin(true);

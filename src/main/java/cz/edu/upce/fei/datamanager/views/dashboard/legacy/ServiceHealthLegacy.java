@@ -1,9 +1,9 @@
-package cz.edu.upce.fei.datamanager.views.dashboard;
+package cz.edu.upce.fei.datamanager.views.dashboard.legacy;
 
 /**
  * Simple DTO class for the inbox list to demonstrate complex object data
  */
-public class ServiceHealth {
+public class ServiceHealthLegacy {
 
     private Status status;
 
@@ -19,11 +19,11 @@ public class ServiceHealth {
         EXCELLENT, OK, FAILING;
     }
 
-    public ServiceHealth() {
+    public ServiceHealthLegacy() {
 
     }
 
-    public ServiceHealth(Status status, String city, int input, int output) {
+    public ServiceHealthLegacy(Status status, String city, int input, int output) {
         this.status = status;
         this.city = city;
         this.input = input;

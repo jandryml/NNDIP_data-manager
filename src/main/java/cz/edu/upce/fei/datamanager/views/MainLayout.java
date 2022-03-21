@@ -21,10 +21,15 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
 import cz.edu.upce.fei.datamanager.data.entity.User;
 import cz.edu.upce.fei.datamanager.security.AuthenticatedUser;
-import cz.edu.upce.fei.datamanager.views.actionconfig.ActionconfigView;
-import cz.edu.upce.fei.datamanager.views.actualdata.ActualDataView;
+import cz.edu.upce.fei.datamanager.views.actionconfig.ActionConfigView;
+import cz.edu.upce.fei.datamanager.views.actualdata.legacy.ActualDataViewLegacy;
 import cz.edu.upce.fei.datamanager.views.dashboard.DashboardView;
-import cz.edu.upce.fei.datamanager.views.limitconfig.LimitconfigView;
+import cz.edu.upce.fei.datamanager.views.limitconfig.LimitConfigView;
+import cz.edu.upce.fei.datamanager.views.limitconfig.legacy.LimitConfigViewLegacy;
+import cz.edu.upce.fei.datamanager.views.manual.ManualView;
+import cz.edu.upce.fei.datamanager.views.sensor.SensorView;
+import cz.edu.upce.fei.datamanager.views.timeplan.TimePlanView;
+
 import java.util.Optional;
 
 /**
@@ -135,14 +140,14 @@ public class MainLayout extends AppLayout {
 
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{ //
-                new MenuItemInfo("Actual Data", "la la-vials", ActualDataView.class), //
-
+                new MenuItemInfo("Actual Data - legacy", "la la-vials", ActualDataViewLegacy.class), //
                 new MenuItemInfo("Dashboard", "la la-chart-area", DashboardView.class), //
-
-                new MenuItemInfo("Limit config", "la la-cog", LimitconfigView.class), //
-
-                new MenuItemInfo("Action config", "la la-cogs", ActionconfigView.class), //
-
+                new MenuItemInfo("Limit config", "la la-cog", LimitConfigView.class), //
+                new MenuItemInfo("Action config", "la la-cogs", ActionConfigView.class), //
+                // TODO change icon
+                new MenuItemInfo("Sensors", "la la-cogs", SensorView.class), //
+                new MenuItemInfo("Time plan", "la la-cogs", TimePlanView.class), //
+                new MenuItemInfo("Manual", "la la-cogs", ManualView.class), //
         };
     }
 

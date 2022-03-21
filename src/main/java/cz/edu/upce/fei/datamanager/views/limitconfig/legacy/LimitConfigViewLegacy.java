@@ -1,4 +1,4 @@
-package cz.edu.upce.fei.datamanager.views.actionconfig;
+package cz.edu.upce.fei.datamanager.views.limitconfig.legacy;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
@@ -9,15 +9,15 @@ import com.vaadin.flow.router.Route;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
 import javax.annotation.security.PermitAll;
 
-@PageTitle("Action config")
-@Route(value = "actions", layout = MainLayout.class)
+@PageTitle("Limit config - Legacy")
+@Route(value = "limits-legacy", layout = MainLayout.class)
 @PermitAll
-public class ActionconfigView extends HorizontalLayout {
+public class LimitConfigViewLegacy extends HorizontalLayout {
 
     private TextField name;
     private Button sayHello;
 
-    public ActionconfigView() {
+    public LimitConfigViewLegacy() {
         name = new TextField("Your name");
         sayHello = new Button("Say hello");
         sayHello.addClickListener(e -> {
