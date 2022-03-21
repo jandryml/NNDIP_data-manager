@@ -2,6 +2,7 @@ package cz.edu.upce.fei.datamanager.views.action;
 
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -13,12 +14,12 @@ import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
-import cz.edu.upce.fei.datamanager.data.entity.OutputType;
 import cz.edu.upce.fei.datamanager.data.entity.Action;
+import cz.edu.upce.fei.datamanager.data.entity.OutputType;
 
 /**
  * A Designer generated component for the action-form template.
- *
+ * <p>
  * Designer will add and remove fields with @Id mappings but
  * does not overwrite or otherwise change this file.
  */
@@ -43,20 +44,33 @@ public class ActionForm extends LitTemplate {
     private Button close;
 
     Binder<Action> binder = new BeanValidationBinder<>(Action.class);
+
     /**
      * Creates a new ActionForm.
      */
     public ActionForm() {
-        // You can initialise any data required for the connected UI components here.
+        configureFields();
+        configureButtons();
+        configureBinder();
+    }
+
+    private void configureFields() {
         outputType.setItems(OutputType.values());
         outputType.setItemLabelGenerator(OutputType::name);
+    }
 
+    private void configureBinder() {
+        binder.addStatusChangeListener(e -> save.setEnabled(binder.isValid()));
+        binder.bindInstanceFields(this);
+    }
+
+    private void configureButtons() {
         save.addClickListener(event -> validateAndSave());
         delete.addClickListener(event -> fireEvent(new DeleteEvent(this, action)));
         close.addClickListener(event -> fireEvent(new CloseEvent(this)));
 
-        binder.addStatusChangeListener(e -> save.setEnabled(binder.isValid()));
-        binder.bindInstanceFields(this);
+        save.addClickShortcut(Key.ENTER);
+        close.addClickShortcut(Key.ESCAPE);
     }
 
     public void setAction(Action action) {

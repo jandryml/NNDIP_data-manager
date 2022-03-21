@@ -2,6 +2,7 @@ package cz.edu.upce.fei.datamanager.views.sensor;
 
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.JsModule;
@@ -16,7 +17,7 @@ import cz.edu.upce.fei.datamanager.data.entity.Sensor;
 
 /**
  * A Designer generated component for the sensor-form template.
- *
+ * <p>
  * Designer will add and remove fields with @Id mappings but
  * does not overwrite or otherwise change this file.
  */
@@ -41,16 +42,27 @@ public class SensorForm extends LitTemplate {
      * Creates a new SensorForm.
      */
     public SensorForm() {
-        save.addClickListener(event -> validateAndSave());
-        delete.addClickListener(event -> fireEvent(new DeleteEvent(this, sensor)));
-        close.addClickListener(event -> fireEvent(new CloseEvent(this)));
+        configureButtons();
+        configureBinder();
+    }
 
+    private void configureBinder() {
         binder.forField(id)
-                .bindReadOnly(s -> s.getId()!= null ? s.getId().toString(): "New sensor");
+                .bindReadOnly(s -> s.getId() != null ? s.getId().toString() : "New sensor");
 
         binder.addStatusChangeListener(e -> save.setEnabled(binder.isValid()));
         binder.bindInstanceFields(this);
     }
+
+    private void configureButtons() {
+        save.addClickListener(event -> validateAndSave());
+        delete.addClickListener(event -> fireEvent(new DeleteEvent(this, sensor)));
+        close.addClickListener(event -> fireEvent(new CloseEvent(this)));
+
+        save.addClickShortcut(Key.ENTER);
+        close.addClickShortcut(Key.ESCAPE);
+    }
+
     public void setSensor(Sensor sensor) {
         this.sensor = sensor;
         binder.readBean(sensor);
@@ -99,8 +111,7 @@ public class SensorForm extends LitTemplate {
         }
     }
 
-    public <T extends ComponentEvent<?>> Registration addListener(Class<T> eventType,
-                                                                  ComponentEventListener<T> listener) {
+    public <T extends ComponentEvent<?>> Registration addListener(Class<T> eventType, ComponentEventListener<T> listener) {
         return getEventBus().addListener(eventType, listener);
     }
 }
