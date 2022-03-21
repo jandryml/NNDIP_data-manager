@@ -14,8 +14,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @Entity
-//TODO rename to Action
-public class ThresholdAction extends AbstractEntity {
+public class Action extends AbstractEntity {
     @NotBlank
     private String name;
     @NotBlank

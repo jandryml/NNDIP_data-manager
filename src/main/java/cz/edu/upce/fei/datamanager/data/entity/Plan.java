@@ -15,5 +15,5 @@ public abstract class Plan extends AbstractEntity {
     protected String name;
     protected boolean enabled;
     @ManyToMany(fetch = FetchType.EAGER)
-    protected List<ThresholdAction> actionList;
+    protected List<Action> actionList;
 }

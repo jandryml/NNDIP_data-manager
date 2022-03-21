@@ -14,7 +14,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 import cz.edu.upce.fei.datamanager.data.entity.OutputType;
-import cz.edu.upce.fei.datamanager.data.entity.ThresholdAction;
+import cz.edu.upce.fei.datamanager.data.entity.Action;
 
 /**
  * A Designer generated component for the action-config-form template.
@@ -25,7 +25,7 @@ import cz.edu.upce.fei.datamanager.data.entity.ThresholdAction;
 @Tag("action-config-form")
 @JsModule("./src/views/actionconfig/action-config-form.ts")
 public class ActionConfigForm extends LitTemplate {
-    private ThresholdAction thresholdAction;
+    private Action action;
 
     @Id("name")
     private TextField name;
@@ -42,7 +42,7 @@ public class ActionConfigForm extends LitTemplate {
     @Id("close")
     private Button close;
 
-    Binder<ThresholdAction> binder = new BeanValidationBinder<>(ThresholdAction.class);
+    Binder<Action> binder = new BeanValidationBinder<>(Action.class);
     /**
      * Creates a new ActionConfigForm.
      */
@@ -52,23 +52,23 @@ public class ActionConfigForm extends LitTemplate {
         outputType.setItemLabelGenerator(OutputType::name);
 
         save.addClickListener(event -> validateAndSave());
-        delete.addClickListener(event -> fireEvent(new DeleteEvent(this, thresholdAction)));
+        delete.addClickListener(event -> fireEvent(new DeleteEvent(this, action)));
         close.addClickListener(event -> fireEvent(new CloseEvent(this)));
 
         binder.addStatusChangeListener(e -> save.setEnabled(binder.isValid()));
         binder.bindInstanceFields(this);
     }
 
-    public void setThresholdAction(ThresholdAction thresholdAction) {
-        this.thresholdAction = thresholdAction;
-        binder.readBean(thresholdAction);
+    public void setAction(Action action) {
+        this.action = action;
+        binder.readBean(action);
     }
 
     private void validateAndSave() {
         try {
             if (binder.isValid()) {
-                binder.writeBean(thresholdAction);
-                fireEvent(new ActionConfigForm.SaveEvent(this, thresholdAction));
+                binder.writeBean(action);
+                fireEvent(new ActionConfigForm.SaveEvent(this, action));
             }
         } catch (ValidationException e) {
             e.printStackTrace();
@@ -76,32 +76,32 @@ public class ActionConfigForm extends LitTemplate {
     }
 
     // Events
-    public static abstract class ThresholdActionFormEvent extends ComponentEvent<ActionConfigForm> {
-        private ThresholdAction thresholdAction;
+    public static abstract class ActionFormEvent extends ComponentEvent<ActionConfigForm> {
+        private Action action;
 
-        protected ThresholdActionFormEvent(ActionConfigForm source, ThresholdAction thresholdAction) {
+        protected ActionFormEvent(ActionConfigForm source, Action action) {
             super(source, false);
-            this.thresholdAction = thresholdAction;
+            this.action = action;
         }
 
-        public ThresholdAction getThresholdAction() {
-            return thresholdAction;
-        }
-    }
-
-    public static class SaveEvent extends ThresholdActionFormEvent {
-        SaveEvent(ActionConfigForm source, ThresholdAction thresholdAction) {
-            super(source, thresholdAction);
+        public Action getAction() {
+            return action;
         }
     }
 
-    public static class DeleteEvent extends ThresholdActionFormEvent {
-        DeleteEvent(ActionConfigForm source, ThresholdAction thresholdAction) {
-            super(source, thresholdAction);
+    public static class SaveEvent extends ActionFormEvent {
+        SaveEvent(ActionConfigForm source, Action action) {
+            super(source, action);
         }
     }
 
-    public static class CloseEvent extends ThresholdActionFormEvent {
+    public static class DeleteEvent extends ActionFormEvent {
+        DeleteEvent(ActionConfigForm source, Action action) {
+            super(source, action);
+        }
+    }
+
+    public static class CloseEvent extends ActionFormEvent {
         CloseEvent(ActionConfigForm source) {
             super(source, null);
         }
