@@ -5,8 +5,8 @@ import '@vaadin/horizontal-layout/src/vaadin-horizontal-layout.js';
 import '@vaadin/button/src/vaadin-button.js';
 import '@vaadin/combo-box/src/vaadin-combo-box.js';
 
-@customElement('action-config-form')
-export class ActionConfigForm extends LitElement {
+@customElement('action-form')
+export class ActionForm extends LitElement {
   static get styles() {
     return css`
       :host {

@@ -4,10 +4,10 @@ import '@vaadin/horizontal-layout/src/vaadin-horizontal-layout.js';
 import '@vaadin/text-field/src/vaadin-text-field.js';
 import '@vaadin/button/src/vaadin-button.js';
 import '@vaadin/grid/src/vaadin-grid.js';
-import './action-config-form';
+import './manual-plan-form';
 
-@customElement('action-config-view')
-export class ActionConfigView extends LitElement {
+@customElement('manual-plan-view')
+export class ManualPlanView extends LitElement {
   static get styles() {
     return css`
       :host {
@@ -19,16 +19,16 @@ export class ActionConfigView extends LitElement {
 
   render() {
     return html`
-<vaadin-vertical-layout theme="spacing" style="width: 100%; height: 100%; padding: var(--lumo-space-m);">
+<vaadin-vertical-layout style="padding: var(--lumo-space-m); width: 100%; height: 100%;" theme="spacing">
  <vaadin-horizontal-layout theme="spacing">
-  <vaadin-text-field placeholder="Filter by name…" type="text" tabindex="" clear-button-visible id="filterText"></vaadin-text-field>
-  <vaadin-button id="addActionButton">
-   Add Action
+  <vaadin-text-field placeholder="Filter by name ..." type="text" tabindex=""></vaadin-text-field>
+  <vaadin-button>
+    Add 
   </vaadin-button>
  </vaadin-horizontal-layout>
- <vaadin-horizontal-layout theme="spacing" style="height: 100%; width: 100%;">
-  <vaadin-grid style="width: 100%; height: 100%;flex: 2;" tabindex="" is-attached id="grid"></vaadin-grid>
-  <action-config-form style="flex:1;" id="contactForm"></action-config-form>
+ <vaadin-horizontal-layout theme="spacing" style="width: 100%; height: 100%;">
+  <vaadin-grid style="width: 100%; height: 100%; flex: 1;" tabindex="" is-attached></vaadin-grid>
+  <manual-plan-form style="flex:1 ;"></manual-plan-form>
  </vaadin-horizontal-layout>
 </vaadin-vertical-layout>
 `;

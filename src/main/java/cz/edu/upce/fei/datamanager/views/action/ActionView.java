@@ -1,4 +1,4 @@
-package cz.edu.upce.fei.datamanager.views.actionconfig;
+package cz.edu.upce.fei.datamanager.views.action;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
@@ -16,10 +16,10 @@ import cz.edu.upce.fei.datamanager.views.MainLayout;
 
 import javax.annotation.security.PermitAll;
 
-import static cz.edu.upce.fei.datamanager.views.actionconfig.ActionConfigForm.*;
+import static cz.edu.upce.fei.datamanager.views.action.ActionForm.*;
 
 /**
- * A Designer generated component for the action-config-view template.
+ * A Designer generated component for the action-view template.
  * <p>
  * Designer will add and remove fields with @Id mappings but
  * does not overwrite or otherwise change this file.
@@ -28,9 +28,9 @@ import static cz.edu.upce.fei.datamanager.views.actionconfig.ActionConfigForm.*;
 @PageTitle("Action config")
 @Route(value = "actions", layout = MainLayout.class)
 @PermitAll
-@Tag("action-config-view")
-@JsModule("./src/views/actionconfig/action-config-view.ts")
-public class ActionConfigView extends LitTemplate {
+@Tag("action-view")
+@JsModule("./src/views/action/action-view.ts")
+public class ActionView extends LitTemplate {
 
     @Id("filterText")
     private TextField filterText;
@@ -39,14 +39,14 @@ public class ActionConfigView extends LitTemplate {
     @Id("grid")
     private Grid<Action> grid;
     @Id("contactForm")
-    private ActionConfigForm contactForm;
+    private ActionForm contactForm;
 
     private final ActionService actionService;
 
     /**
-     * Creates a new ActionConfigView.
+     * Creates a new ActionView.
      */
-    public ActionConfigView(ActionService actionService) {
+    public ActionView(ActionService actionService) {
         this.actionService = actionService;
 
         configureGrid();

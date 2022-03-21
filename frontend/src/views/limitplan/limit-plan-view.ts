@@ -7,8 +7,8 @@ import '@vaadin/text-field/src/vaadin-text-field.js';
 import '@vaadin/combo-box/src/vaadin-combo-box.js';
 import '@vaadin/button/src/vaadin-button.js';
 
-@customElement('limit-config-view')
-export class LimitConfigView extends LitElement {
+@customElement('limit-plan-view')
+export class LimitPlanView extends LitElement {
   static get styles() {
     return css`
       :host {

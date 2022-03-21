@@ -21,11 +21,11 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
 import cz.edu.upce.fei.datamanager.data.entity.User;
 import cz.edu.upce.fei.datamanager.security.AuthenticatedUser;
-import cz.edu.upce.fei.datamanager.views.actionconfig.ActionConfigView;
+import cz.edu.upce.fei.datamanager.views.action.ActionView;
 import cz.edu.upce.fei.datamanager.views.actualdata.legacy.ActualDataViewLegacy;
 import cz.edu.upce.fei.datamanager.views.dashboard.DashboardView;
-import cz.edu.upce.fei.datamanager.views.limitconfig.LimitConfigView;
-import cz.edu.upce.fei.datamanager.views.manual.ManualView;
+import cz.edu.upce.fei.datamanager.views.limitplan.LimitPlanView;
+import cz.edu.upce.fei.datamanager.views.manualplan.ManualPlanView;
 import cz.edu.upce.fei.datamanager.views.sensor.SensorView;
 import cz.edu.upce.fei.datamanager.views.timeplan.TimePlanView;
 
@@ -141,12 +141,12 @@ public class MainLayout extends AppLayout {
         return new MenuItemInfo[]{ //
                 new MenuItemInfo("Actual Data - legacy", "la la-vials", ActualDataViewLegacy.class), //
                 new MenuItemInfo("Dashboard", "la la-chart-area", DashboardView.class), //
-                new MenuItemInfo("Limit config", "la la-cog", LimitConfigView.class), //
-                new MenuItemInfo("Action config", "la la-cogs", ActionConfigView.class), //
+                new MenuItemInfo("Limit plan", "la la-cog", LimitPlanView.class), //
+                new MenuItemInfo("Time plan", "la la-cogs", TimePlanView.class), //
+                new MenuItemInfo("Manual plan", "la la-cogs", ManualPlanView.class), //
+                new MenuItemInfo("Actions", "la la-cogs", ActionView.class), //
                 // TODO change icon
                 new MenuItemInfo("Sensors", "la la-cogs", SensorView.class), //
-                new MenuItemInfo("Time plan", "la la-cogs", TimePlanView.class), //
-                new MenuItemInfo("Manual", "la la-cogs", ManualView.class), //
         };
     }
 

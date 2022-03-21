@@ -1,4 +1,4 @@
-package cz.edu.upce.fei.datamanager.views.limitconfig;
+package cz.edu.upce.fei.datamanager.views.manualplan;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
@@ -10,22 +10,22 @@ import cz.edu.upce.fei.datamanager.views.MainLayout;
 import javax.annotation.security.PermitAll;
 
 /**
- * A Designer generated component for the limit-config-view template.
- * <p>
+ * A Designer generated component for the manual-plan-view template.
+ *
  * Designer will add and remove fields with @Id mappings but
  * does not overwrite or otherwise change this file.
  */
-@PageTitle("Limit config")
-@Route(value = "limits", layout = MainLayout.class)
+@PageTitle("Manual")
+@Route(value = "manual", layout = MainLayout.class)
 @PermitAll
-@Tag("limit-config-view")
-@JsModule("./src/views/limitconfig/limit-config-view.ts")
-public class LimitConfigView extends LitTemplate {
+@Tag("manual-plan-view")
+@JsModule("./src/views/manualplan/manual-plan-view.ts")
+public class ManualPlanView extends LitTemplate {
 
     /**
-     * Creates a new LimitConfigView.
+     * Creates a new ManualPlanView.
      */
-    public LimitConfigView() {
+    public ManualPlanView() {
         // You can initialise any data required for the connected UI components here.
     }
 

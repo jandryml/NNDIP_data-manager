@@ -1,4 +1,4 @@
-package cz.edu.upce.fei.datamanager.views.actionconfig;
+package cz.edu.upce.fei.datamanager.views.action;
 
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -17,14 +17,14 @@ import cz.edu.upce.fei.datamanager.data.entity.OutputType;
 import cz.edu.upce.fei.datamanager.data.entity.Action;
 
 /**
- * A Designer generated component for the action-config-form template.
+ * A Designer generated component for the action-form template.
  *
  * Designer will add and remove fields with @Id mappings but
  * does not overwrite or otherwise change this file.
  */
-@Tag("action-config-form")
-@JsModule("./src/views/actionconfig/action-config-form.ts")
-public class ActionConfigForm extends LitTemplate {
+@Tag("action-form")
+@JsModule("./src/views/action/action-form.ts")
+public class ActionForm extends LitTemplate {
     private Action action;
 
     @Id("name")
@@ -44,9 +44,9 @@ public class ActionConfigForm extends LitTemplate {
 
     Binder<Action> binder = new BeanValidationBinder<>(Action.class);
     /**
-     * Creates a new ActionConfigForm.
+     * Creates a new ActionForm.
      */
-    public ActionConfigForm() {
+    public ActionForm() {
         // You can initialise any data required for the connected UI components here.
         outputType.setItems(OutputType.values());
         outputType.setItemLabelGenerator(OutputType::name);
@@ -68,7 +68,7 @@ public class ActionConfigForm extends LitTemplate {
         try {
             if (binder.isValid()) {
                 binder.writeBean(action);
-                fireEvent(new ActionConfigForm.SaveEvent(this, action));
+                fireEvent(new ActionForm.SaveEvent(this, action));
             }
         } catch (ValidationException e) {
             e.printStackTrace();
@@ -76,10 +76,10 @@ public class ActionConfigForm extends LitTemplate {
     }
 
     // Events
-    public static abstract class ActionFormEvent extends ComponentEvent<ActionConfigForm> {
+    public static abstract class ActionFormEvent extends ComponentEvent<ActionForm> {
         private Action action;
 
-        protected ActionFormEvent(ActionConfigForm source, Action action) {
+        protected ActionFormEvent(ActionForm source, Action action) {
             super(source, false);
             this.action = action;
         }
@@ -90,19 +90,19 @@ public class ActionConfigForm extends LitTemplate {
     }
 
     public static class SaveEvent extends ActionFormEvent {
-        SaveEvent(ActionConfigForm source, Action action) {
+        SaveEvent(ActionForm source, Action action) {
             super(source, action);
         }
     }
 
     public static class DeleteEvent extends ActionFormEvent {
-        DeleteEvent(ActionConfigForm source, Action action) {
+        DeleteEvent(ActionForm source, Action action) {
             super(source, action);
         }
     }
 
     public static class CloseEvent extends ActionFormEvent {
-        CloseEvent(ActionConfigForm source) {
+        CloseEvent(ActionForm source) {
             super(source, null);
         }
     }

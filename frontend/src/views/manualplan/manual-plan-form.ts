@@ -4,8 +4,8 @@ import '@vaadin/combo-box/src/vaadin-combo-box.js';
 import '@vaadin/checkbox/src/vaadin-checkbox.js';
 import '@vaadin/horizontal-layout/src/vaadin-horizontal-layout.js';
 
-@customElement('manual-form')
-export class ManualForm extends LitElement {
+@customElement('manual-plan-form')
+export class ManualPlanForm extends LitElement {
   static get styles() {
     return css`
       :host {
