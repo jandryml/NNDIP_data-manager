@@ -4,27 +4,24 @@ import cz.edu.upce.fei.datamanager.data.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @Entity
-//TODO rename to Action
-public class ThresholdAction extends AbstractEntity {
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"outputType", "address"}))
+public class AddressState extends AbstractEntity {
+    @Enumerated(EnumType.STRING)
     @NotBlank
-    private String name;
+    private OutputType outputType;
     @NotBlank
     @Min(0)
     private String address;
     @NotBlank
     @Min(0)
     private String value;
-    @NotNull
     @Enumerated(EnumType.STRING)
-    private OutputType outputType;
+    private PriorityType priority;
 }

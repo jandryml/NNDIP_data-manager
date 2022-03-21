@@ -17,7 +17,7 @@ public class UserServiceImpl {
 
     private final UserRepository repository;
 
-    public Optional<User> getUser(UUID id) {
+    public Optional<User> getUser(long id) {
         return repository.findById(id);
     }
 
@@ -25,7 +25,7 @@ public class UserServiceImpl {
         return repository.save(entity);
     }
 
-    public void deleteUser(UUID id) {
+    public void deleteUser(long id) {
         repository.deleteById(id);
     }
 

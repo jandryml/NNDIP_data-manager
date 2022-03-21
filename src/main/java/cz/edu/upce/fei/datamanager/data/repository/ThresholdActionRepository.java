@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface ThresholdActionRepository extends JpaRepository<ThresholdAction, UUID> {
+public interface ThresholdActionRepository extends JpaRepository<ThresholdAction, Long> {
 
     @Query("select ta from ThresholdAction ta " +
             "where lower(ta.name) like lower(concat('%', :searchTerm, '%'))")

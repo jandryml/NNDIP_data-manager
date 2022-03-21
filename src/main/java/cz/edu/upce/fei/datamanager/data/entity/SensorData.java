@@ -1,30 +1,24 @@
 package cz.edu.upce.fei.datamanager.data.entity;
 
-import lombok.EqualsAndHashCode;
+import cz.edu.upce.fei.datamanager.data.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @Entity
 @Table(name = "data")
-@IdClass(SensorDataId.class)
-public class SensorData {
-    @Id
+public class SensorData extends AbstractEntity {
     private long sensorId;
-    @Id
-    @Column(name = "data_time")
+    @Column(name = "data_timestamp")
     private Timestamp timestamp;
     private int hits;
-    @Column(name = "temperature_1")
-    private Double temperature1;
+    private Double temperature;
     private Double humidity;
-    private Integer co2_1;
-    private Integer co2_2;
-    @Column(name = "temperature_2")
-    private Integer temperature2;
+    private Integer co2;
 }
