@@ -23,12 +23,12 @@ export class ActionView extends LitElement {
  <vaadin-horizontal-layout theme="spacing">
   <vaadin-text-field placeholder="Filter by name…" type="text" tabindex="" clear-button-visible id="filterText"></vaadin-text-field>
   <vaadin-button id="addActionButton">
-   Add Action
+    Add Action 
   </vaadin-button>
  </vaadin-horizontal-layout>
  <vaadin-horizontal-layout theme="spacing" style="height: 100%; width: 100%;">
-  <vaadin-grid style="width: 100%; height: 100%;flex: 2;" tabindex="" is-attached id="grid"></vaadin-grid>
-  <action-form style="flex:1;" id="contactForm"></action-form>
+  <vaadin-grid style="height: 100%;" tabindex="" is-attached id="grid"></vaadin-grid>
+  <action-form style="width: 100%; height: 100%;" id="contactForm"></action-form>
  </vaadin-horizontal-layout>
 </vaadin-vertical-layout>
 `;
