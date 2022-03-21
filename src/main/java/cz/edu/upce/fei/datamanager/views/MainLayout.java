@@ -140,7 +140,7 @@ public class MainLayout extends AppLayout {
 
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{ //
-                new MenuItemInfo("Actual Data", "la la-vials", ActualDataViewLegacy.class), //
+                new MenuItemInfo("Actual Data - legacy", "la la-vials", ActualDataViewLegacy.class), //
                 new MenuItemInfo("Dashboard", "la la-chart-area", DashboardView.class), //
                 new MenuItemInfo("Limit config", "la la-cog", LimitConfigView.class), //
                 new MenuItemInfo("Action config", "la la-cogs", ActionConfigView.class), //
