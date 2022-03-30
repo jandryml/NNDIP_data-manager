@@ -1,8 +1,6 @@
 package cz.edu.upce.fei.datamanager.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import cz.edu.upce.fei.datamanager.data.AbstractEntity;
-import cz.edu.upce.fei.datamanager.data.Role;
 import lombok.Getter;
 import lombok.Setter;
 

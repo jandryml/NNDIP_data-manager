@@ -1,6 +1,5 @@
 package cz.edu.upce.fei.datamanager.data.entity;
 
-import cz.edu.upce.fei.datamanager.data.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
 
