@@ -61,6 +61,7 @@ public class SensorView extends LitTemplate {
     private void configureGrid() {
         grid.addColumn(Sensor::getId).setHeader("ID");
         grid.addColumn(Sensor::getName).setHeader("Name");
+        grid.addColumn(Sensor::getSensorType).setHeader("Sensor type");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         grid.asSingleSelect().addValueChangeListener(event ->

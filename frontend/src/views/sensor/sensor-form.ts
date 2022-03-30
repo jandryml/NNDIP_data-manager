@@ -3,6 +3,7 @@ import '@vaadin/form-layout/src/vaadin-form-layout.js';
 import '@vaadin/text-field/src/vaadin-text-field.js';
 import '@vaadin/horizontal-layout/src/vaadin-horizontal-layout.js';
 import '@vaadin/button/src/vaadin-button.js';
+import '@vaadin/combo-box/src/vaadin-combo-box.js';
 
 @customElement('sensor-form')
 export class SensorForm extends LitElement {
@@ -20,15 +21,16 @@ export class SensorForm extends LitElement {
 <vaadin-form-layout style="width: 100%; height: 100%;">
  <vaadin-text-field label="Sensor ID" id="id" type="text" readonly tabindex=""></vaadin-text-field>
  <vaadin-text-field label="Name" id="name" type="text" required tabindex=""></vaadin-text-field>
+ <vaadin-combo-box id="sensorType" autoselect tabindex="" label="Sensor type" autofocus></vaadin-combo-box>
  <vaadin-horizontal-layout theme="spacing">
   <vaadin-button theme="primary" id="save">
-   Save
+    Save 
   </vaadin-button>
   <vaadin-button theme="error" id="delete">
-   Delete
+    Delete 
   </vaadin-button>
   <vaadin-button theme="tertiary" id="close">
-   Close
+    Close 
   </vaadin-button>
  </vaadin-horizontal-layout>
 </vaadin-form-layout>

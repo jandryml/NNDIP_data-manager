@@ -5,6 +5,7 @@ import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.component.template.Id;
@@ -14,6 +15,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 import cz.edu.upce.fei.datamanager.data.entity.Sensor;
+import cz.edu.upce.fei.datamanager.data.entity.SensorType;
 
 /**
  * A Designer generated component for the sensor-form template.
@@ -29,6 +31,8 @@ public class SensorForm extends LitTemplate {
     private TextField id;
     @Id("name")
     private TextField name;
+    @Id("sensorType")
+    private ComboBox<SensorType> sensorType;
     @Id("save")
     private Button save;
     @Id("delete")
@@ -42,6 +46,9 @@ public class SensorForm extends LitTemplate {
      * Creates a new SensorForm.
      */
     public SensorForm() {
+        sensorType.setItems(SensorType.values());
+        sensorType.setItemLabelGenerator(SensorType::name);
+
         configureButtons();
         configureBinder();
     }
