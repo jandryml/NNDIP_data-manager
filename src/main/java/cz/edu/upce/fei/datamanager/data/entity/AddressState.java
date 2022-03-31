@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"outputType", "address"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"outputType", "address", "priority"}))
 public class AddressState extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     @NotBlank
