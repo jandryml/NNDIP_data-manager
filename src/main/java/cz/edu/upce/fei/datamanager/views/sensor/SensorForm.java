@@ -15,7 +15,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 import cz.edu.upce.fei.datamanager.data.entity.Sensor;
-import cz.edu.upce.fei.datamanager.data.entity.SensorType;
+import cz.edu.upce.fei.datamanager.data.entity.enums.SensorType;
 
 /**
  * A Designer generated component for the sensor-form template.

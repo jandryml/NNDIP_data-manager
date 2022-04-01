@@ -1,4 +1,4 @@
-package cz.edu.upce.fei.datamanager.data.entity;
+package cz.edu.upce.fei.datamanager.data.entity.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

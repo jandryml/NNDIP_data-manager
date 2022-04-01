@@ -15,7 +15,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 import cz.edu.upce.fei.datamanager.data.entity.Action;
-import cz.edu.upce.fei.datamanager.data.entity.OutputType;
+import cz.edu.upce.fei.datamanager.data.entity.enums.OutputType;
 
 /**
  * A Designer generated component for the action-form template.

@@ -1,6 +1,6 @@
 package cz.edu.upce.fei.datamanager.data.service;
 
-import cz.edu.upce.fei.datamanager.data.entity.User;
+import cz.edu.upce.fei.datamanager.data.entity.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

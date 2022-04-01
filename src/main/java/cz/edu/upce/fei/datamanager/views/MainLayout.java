@@ -19,7 +19,7 @@ import com.vaadin.flow.component.html.UnorderedList;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
-import cz.edu.upce.fei.datamanager.data.entity.User;
+import cz.edu.upce.fei.datamanager.data.entity.user.User;
 import cz.edu.upce.fei.datamanager.security.AuthenticatedUser;
 import cz.edu.upce.fei.datamanager.views.action.ActionView;
 import cz.edu.upce.fei.datamanager.views.actualdata.legacy.ActualDataViewLegacy;

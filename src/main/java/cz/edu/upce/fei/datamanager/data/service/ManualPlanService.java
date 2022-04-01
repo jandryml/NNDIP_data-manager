@@ -1,6 +1,6 @@
 package cz.edu.upce.fei.datamanager.data.service;
 
-import cz.edu.upce.fei.datamanager.data.entity.ManualPlan;
+import cz.edu.upce.fei.datamanager.data.entity.plan.ManualPlan;
 
 import java.util.List;
 

@@ -1,5 +1,7 @@
-package cz.edu.upce.fei.datamanager.data.entity;
+package cz.edu.upce.fei.datamanager.data.entity.plan;
 
+import cz.edu.upce.fei.datamanager.data.entity.Sensor;
+import cz.edu.upce.fei.datamanager.data.entity.enums.SensorType;
 import lombok.Getter;
 import lombok.Setter;
 

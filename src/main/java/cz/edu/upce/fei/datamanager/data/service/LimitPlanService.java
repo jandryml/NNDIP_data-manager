@@ -1,6 +1,6 @@
 package cz.edu.upce.fei.datamanager.data.service;
 
-import cz.edu.upce.fei.datamanager.data.entity.LimitPlan;
+import cz.edu.upce.fei.datamanager.data.entity.plan.LimitPlan;
 
 import java.util.List;
 

@@ -1,5 +1,7 @@
 package cz.edu.upce.fei.datamanager.data.entity;
 
+import cz.edu.upce.fei.datamanager.data.entity.enums.OutputType;
+import cz.edu.upce.fei.datamanager.data.entity.enums.PriorityType;
 import lombok.Getter;
 import lombok.Setter;
 

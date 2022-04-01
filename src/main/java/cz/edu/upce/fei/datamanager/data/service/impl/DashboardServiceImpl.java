@@ -3,7 +3,7 @@ package cz.edu.upce.fei.datamanager.data.service.impl;
 import cz.edu.upce.fei.datamanager.data.dto.DashboardSensorDataDto;
 import cz.edu.upce.fei.datamanager.data.entity.DashboardSensorConfig;
 import cz.edu.upce.fei.datamanager.data.entity.Sensor;
-import cz.edu.upce.fei.datamanager.data.entity.SensorType;
+import cz.edu.upce.fei.datamanager.data.entity.enums.SensorType;
 import cz.edu.upce.fei.datamanager.data.repository.DashboardSensorConfigRepository;
 import cz.edu.upce.fei.datamanager.data.repository.SensorDataRepository;
 import cz.edu.upce.fei.datamanager.data.service.DashboardService;

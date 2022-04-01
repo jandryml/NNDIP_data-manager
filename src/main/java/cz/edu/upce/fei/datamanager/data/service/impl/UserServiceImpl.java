@@ -1,11 +1,9 @@
 package cz.edu.upce.fei.datamanager.data.service.impl;
 
-import cz.edu.upce.fei.datamanager.data.entity.User;
+import cz.edu.upce.fei.datamanager.data.entity.user.User;
 import java.util.Optional;
-import java.util.UUID;
 
 import cz.edu.upce.fei.datamanager.data.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
