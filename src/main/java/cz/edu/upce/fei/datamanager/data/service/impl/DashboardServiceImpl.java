@@ -3,6 +3,7 @@ package cz.edu.upce.fei.datamanager.data.service.impl;
 import cz.edu.upce.fei.datamanager.data.dto.DashboardSensorDataDto;
 import cz.edu.upce.fei.datamanager.data.entity.DashboardSensorConfig;
 import cz.edu.upce.fei.datamanager.data.entity.Sensor;
+import cz.edu.upce.fei.datamanager.data.entity.enums.MeasuredValueType;
 import cz.edu.upce.fei.datamanager.data.entity.enums.SensorType;
 import cz.edu.upce.fei.datamanager.data.repository.DashboardSensorConfigRepository;
 import cz.edu.upce.fei.datamanager.data.repository.SensorDataRepository;
@@ -23,22 +24,21 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public List<DashboardSensorDataDto> getViewableTemperatureData() {
-        return getSensorDataForDashboard(List.of(SensorType.TEMPERATURE, SensorType.MIXED), SensorType.TEMPERATURE);
+        return getSensorDataForDashboard(MeasuredValueType.TEMPERATURE);
     }
 
     @Override
     public List<DashboardSensorDataDto> getViewableHumidityData() {
-        return getSensorDataForDashboard(List.of(SensorType.HUMIDITY, SensorType.MIXED), SensorType.HUMIDITY);
+        return getSensorDataForDashboard(MeasuredValueType.HUMIDITY);
     }
 
     @Override
     public List<DashboardSensorDataDto> getViewableCo2Data() {
-        return getSensorDataForDashboard(List.of(SensorType.CO2, SensorType.MIXED), SensorType.CO2);
+        return getSensorDataForDashboard(MeasuredValueType.CO2);
     }
 
-    //TODO refactor valueType to separate enum, there will be no MIXED
-    private List<DashboardSensorDataDto> getSensorDataForDashboard(List<SensorType> sensorTypes, SensorType valueType) {
-        List<Sensor> sensors = dashboardSensorConfigRepository.findBySensorTypeIn(sensorTypes).stream()
+    private List<DashboardSensorDataDto> getSensorDataForDashboard(MeasuredValueType valueType) {
+        List<Sensor> sensors = dashboardSensorConfigRepository.findByMeasuredValueType(valueType).stream()
                 .map(DashboardSensorConfig::getSensor)
                 .collect(Collectors.toList());
 
@@ -51,7 +51,6 @@ public class DashboardServiceImpl implements DashboardService {
                         case TEMPERATURE -> sensorData.getTemperature().toString();
                         case HUMIDITY -> sensorData.getHumidity().toString();
                         case CO2 -> sensorData.getCo2().toString();
-                        default -> "Unknown";
                     })
                     .orElse("Unknown");
 

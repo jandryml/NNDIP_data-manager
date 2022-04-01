@@ -1,6 +1,6 @@
 package cz.edu.upce.fei.datamanager.data.entity;
 
-import cz.edu.upce.fei.datamanager.data.entity.enums.SensorType;
+import cz.edu.upce.fei.datamanager.data.entity.enums.MeasuredValueType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,5 +18,5 @@ public class DashboardSensorConfig implements Serializable {
     private Sensor sensor;
     @Id
     @Enumerated(EnumType.STRING)
-    private SensorType sensorType;
+    private MeasuredValueType measuredValueType;
 }
