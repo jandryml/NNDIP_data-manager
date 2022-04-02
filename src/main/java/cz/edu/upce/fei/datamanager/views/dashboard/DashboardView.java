@@ -23,6 +23,8 @@ import java.util.List;
  */
 @PageTitle("Dashboard")
 @Route(value = "dashboard", layout = MainLayout.class)
+// TODO change security restriction
+// @PermitAll
 @AnonymousAllowed
 @Tag("dashboard-view")
 @JsModule("./src/views/dashboard/dashboard-view.ts")

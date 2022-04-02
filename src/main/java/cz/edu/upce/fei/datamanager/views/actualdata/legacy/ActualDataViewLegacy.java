@@ -13,6 +13,8 @@ import cz.edu.upce.fei.datamanager.views.MainLayout;
 @PageTitle("Actual Data")
 @Route(value = "actual-data", layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
+// TODO change security restriction
+// @PermitAll
 @AnonymousAllowed
 public class ActualDataViewLegacy extends VerticalLayout {
 

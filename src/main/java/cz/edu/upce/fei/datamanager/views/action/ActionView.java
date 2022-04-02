@@ -10,6 +10,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 import cz.edu.upce.fei.datamanager.data.entity.Action;
 import cz.edu.upce.fei.datamanager.data.service.ActionService;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
@@ -27,7 +28,9 @@ import static cz.edu.upce.fei.datamanager.views.action.ActionForm.*;
 
 @PageTitle("Action config")
 @Route(value = "actions", layout = MainLayout.class)
-@PermitAll
+// TODO change security restriction
+// @PermitAll
+@AnonymousAllowed
 @Tag("action-view")
 @JsModule("./src/views/action/action-view.ts")
 public class ActionView extends LitTemplate {

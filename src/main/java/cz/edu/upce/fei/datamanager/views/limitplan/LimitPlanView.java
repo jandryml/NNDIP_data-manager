@@ -5,6 +5,7 @@ import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
 
 import javax.annotation.security.PermitAll;
@@ -17,7 +18,9 @@ import javax.annotation.security.PermitAll;
  */
 @PageTitle("Limit config")
 @Route(value = "limits", layout = MainLayout.class)
-@PermitAll
+// TODO change security restriction
+// @PermitAll
+@AnonymousAllowed
 @Tag("limit-plan-view")
 @JsModule("./src/views/limitplan/limit-plan-view.ts")
 public class LimitPlanView extends LitTemplate {

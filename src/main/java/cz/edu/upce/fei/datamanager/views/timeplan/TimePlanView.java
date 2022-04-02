@@ -18,7 +18,9 @@ import javax.annotation.security.PermitAll;
  */
 @PageTitle("Time plan")
 @Route(value = "time-plan", layout = MainLayout.class)
-@PermitAll
+// TODO change security restriction
+// @PermitAll
+@AnonymousAllowed
 @Tag("time-plan-view")
 @JsModule("./src/views/timeplan/time-plan-view.ts")
 public class TimePlanView extends LitTemplate {

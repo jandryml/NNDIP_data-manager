@@ -10,6 +10,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 import cz.edu.upce.fei.datamanager.data.entity.Sensor;
 import cz.edu.upce.fei.datamanager.data.service.SensorService;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
@@ -26,7 +27,9 @@ import static cz.edu.upce.fei.datamanager.views.sensor.SensorForm.*;
  */
 @PageTitle("Sensors")
 @Route(value = "sensors", layout = MainLayout.class)
-@PermitAll
+// TODO change security restriction
+// @PermitAll
+@AnonymousAllowed
 @Tag("sensor-view")
 @JsModule("./src/views/sensor/sensor-view.ts")
 public class SensorView extends LitTemplate {
