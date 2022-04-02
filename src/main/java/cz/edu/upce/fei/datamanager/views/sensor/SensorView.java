@@ -110,6 +110,6 @@ public class SensorView extends LitTemplate {
     }
 
     private void updateList() {
-        grid.setItems(sensorService.findAllSensors(filterText.getValue()));
+        grid.setItems(sensorService.findByName(filterText.getValue()));
     }
 }

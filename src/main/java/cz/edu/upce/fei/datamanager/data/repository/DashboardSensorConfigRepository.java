@@ -11,4 +11,6 @@ import java.util.List;
 public interface DashboardSensorConfigRepository extends JpaRepository<DashboardSensorConfig, Long> {
 
     List<DashboardSensorConfig> findByMeasuredValueType(MeasuredValueType measuredValueType);
+
+    long deleteAllByMeasuredValueType(MeasuredValueType measuredValueType);
 }

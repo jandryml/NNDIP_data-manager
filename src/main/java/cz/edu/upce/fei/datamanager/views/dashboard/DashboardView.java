@@ -56,6 +56,7 @@ public class DashboardView extends LitTemplate {
             TextField textField = new TextField();
             textField.setLabel(it.name());
             textField.setValue(it.value());
+            textField.setReadOnly(true);
             layout.add(textField);
         });
     }

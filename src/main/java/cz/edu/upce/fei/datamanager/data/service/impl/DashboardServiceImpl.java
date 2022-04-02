@@ -4,18 +4,18 @@ import cz.edu.upce.fei.datamanager.data.dto.DashboardSensorDataDto;
 import cz.edu.upce.fei.datamanager.data.entity.DashboardSensorConfig;
 import cz.edu.upce.fei.datamanager.data.entity.Sensor;
 import cz.edu.upce.fei.datamanager.data.entity.enums.MeasuredValueType;
-import cz.edu.upce.fei.datamanager.data.entity.enums.SensorType;
 import cz.edu.upce.fei.datamanager.data.repository.DashboardSensorConfigRepository;
 import cz.edu.upce.fei.datamanager.data.repository.SensorDataRepository;
 import cz.edu.upce.fei.datamanager.data.service.DashboardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class DashboardServiceImpl implements DashboardService {
 
@@ -37,10 +37,26 @@ public class DashboardServiceImpl implements DashboardService {
         return getSensorDataForDashboard(MeasuredValueType.CO2);
     }
 
-    private List<DashboardSensorDataDto> getSensorDataForDashboard(MeasuredValueType valueType) {
-        List<Sensor> sensors = dashboardSensorConfigRepository.findByMeasuredValueType(valueType).stream()
+    @Override
+    public List<Sensor> getSensorsViewableInDashboard(MeasuredValueType valueType) {
+        return dashboardSensorConfigRepository.findByMeasuredValueType(valueType).stream()
                 .map(DashboardSensorConfig::getSensor)
-                .collect(Collectors.toList());
+                .toList();
+    }
+
+    @Override
+    public void setSensorsViewableInDashboard(MeasuredValueType valueType, List<Sensor> sensors) {
+        dashboardSensorConfigRepository.deleteAllByMeasuredValueType(valueType);
+
+        List<DashboardSensorConfig> dashboardSensorConfigs = sensors.stream()
+                .map(it -> new DashboardSensorConfig(it, valueType))
+                .toList();
+
+        dashboardSensorConfigRepository.saveAll(dashboardSensorConfigs);
+    }
+
+    private List<DashboardSensorDataDto> getSensorDataForDashboard(MeasuredValueType valueType) {
+        List<Sensor> sensors = getSensorsViewableInDashboard(valueType);
 
         List<DashboardSensorDataDto> dashboardSensorDataDtos = new ArrayList<>();
 
