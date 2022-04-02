@@ -21,14 +21,14 @@ export class ManualPlanView extends LitElement {
     return html`
 <vaadin-vertical-layout style="padding: var(--lumo-space-m); width: 100%; height: 100%;" theme="spacing">
  <vaadin-horizontal-layout theme="spacing">
-  <vaadin-text-field placeholder="Filter by name ..." type="text" tabindex=""></vaadin-text-field>
-  <vaadin-button>
+  <vaadin-text-field placeholder="Filter by name ..." type="text" tabindex="" id="filterText"></vaadin-text-field>
+  <vaadin-button id="addPlanButton">
     Add 
   </vaadin-button>
  </vaadin-horizontal-layout>
  <vaadin-horizontal-layout theme="spacing" style="width: 100%; height: 100%;">
-  <vaadin-grid style="width: 100%; height: 100%; flex: 1;" tabindex="" is-attached></vaadin-grid>
-  <manual-plan-form style="flex:1 ;"></manual-plan-form>
+  <vaadin-grid style=" height: 100%;" tabindex="" is-attached id="grid"></vaadin-grid>
+  <manual-plan-form style="width: 100%; height: 100%;" id="manualPlanForm"></manual-plan-form>
  </vaadin-horizontal-layout>
 </vaadin-vertical-layout>
 `;
