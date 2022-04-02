@@ -63,9 +63,9 @@ public class ActionView extends LitTemplate {
     }
 
     private void configureGrid() {
-        grid.addColumn(Action::getName).setHeader("First name");
+        grid.addColumn(Action::getName).setHeader("Name");
         grid.addColumn(Action::getAddress).setHeader("Address");
-        grid.addColumn(Action::getValue).setHeader("Email");
+        grid.addColumn(Action::getValue).setHeader("Value");
         grid.addColumn(Action::getOutputType).setHeader("Output type");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
