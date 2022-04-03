@@ -19,8 +19,8 @@ export class ManualPlanForm extends LitElement {
 
   render() {
     return html`
-<vaadin-vertical-layout theme="spacing" style="width: 100%; height: 100%; margin: var(--lumo-space-m);">
- <vaadin-form-layout style="padding: var(--lumo-space-m);">
+<vaadin-vertical-layout theme="spacing" style="width: 100%; height: 100%;">
+ <vaadin-form-layout>
   <vaadin-text-field id="name" type="text" required tabindex="" label="Name"></vaadin-text-field>
   <vaadin-checkbox tabindex="" checked label="Enabled" type="checkbox" value="on" id="enabled"></vaadin-checkbox>
  </vaadin-form-layout>
