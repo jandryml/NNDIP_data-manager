@@ -19,12 +19,14 @@ export class TimePlanForm extends LitElement {
 
   render() {
     return html`
-<vaadin-form-layout>
- <vaadin-time-picker tabindex="" label="From time"></vaadin-time-picker>
- <vaadin-time-picker tabindex="" label="To time"></vaadin-time-picker>
- <vaadin-combo-box tabindex="" label="Action 1"></vaadin-combo-box>
- <vaadin-combo-box tabindex="" label="Action 2"></vaadin-combo-box>
- <vaadin-checkbox tabindex="" type="checkbox" value="on" label="Enabled"></vaadin-checkbox>
+<vaadin-vertical-layout theme="spacing" style="width: 100%; height: 100%; margin: var(--lumo-space-m);">
+ <vaadin-form-layout style="padding: var(--lumo-space-m);">
+  <vaadin-text-field id="name" type="text" required tabindex="" label="Name"></vaadin-text-field>
+  <vaadin-checkbox tabindex="" checked label="Enabled" type="checkbox" value="on" id="enabled"></vaadin-checkbox>
+  <vaadin-time-picker id="fromTime" tabindex="" label="From time"></vaadin-time-picker>
+  <vaadin-time-picker id="toTime" tabindex="" label="To time"></vaadin-time-picker>
+ </vaadin-form-layout>
+ <dynamic-action-component id="dynamicActionComponent" style="width: 80%;"></dynamic-action-component>
  <vaadin-horizontal-layout theme="spacing">
   <vaadin-button theme="primary" id="save">
     Save 
@@ -36,7 +38,7 @@ export class TimePlanForm extends LitElement {
     Close 
   </vaadin-button>
  </vaadin-horizontal-layout>
-</vaadin-form-layout>
+</vaadin-vertical-layout>
 `;
   }
 }

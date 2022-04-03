@@ -20,16 +20,16 @@ export class TimePlanView extends LitElement {
 
   render() {
     return html`
-<vaadin-vertical-layout style="width: 100%; height: 100%; padding: var(--lumo-space-m);" theme="spacing">
+<vaadin-vertical-layout style="padding: var(--lumo-space-m); width: 100%; height: 100%;" theme="spacing">
  <vaadin-horizontal-layout theme="spacing">
-  <vaadin-text-field placeholder="Filter by name…" id="filterText" type="text" tabindex="" clear-button-visible></vaadin-text-field>
-  <vaadin-button>
-    Button 
+  <vaadin-text-field placeholder="Filter by name ..." type="text" tabindex="" id="filterText"></vaadin-text-field>
+  <vaadin-button id="addPlanButton">
+    Add 
   </vaadin-button>
  </vaadin-horizontal-layout>
  <vaadin-horizontal-layout theme="spacing" style="width: 100%; height: 100%;">
-  <vaadin-grid style="width: 100%; height: 100%; flex: 2;" tabindex="" is-attached></vaadin-grid>
-  <time-plan-form style="flex: 1;"></time-plan-form>
+  <vaadin-grid style=" height: 100%;" tabindex="" is-attached id="grid"></vaadin-grid>
+  <time-plan-form style="width: 100%; height: 100%;" id="timePlanForm"></time-plan-form>
  </vaadin-horizontal-layout>
 </vaadin-vertical-layout>
 `;

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -16,5 +17,5 @@ public abstract class Plan extends AbstractEntity {
     protected String name;
     protected boolean enabled;
     @ManyToMany(fetch = FetchType.EAGER)
-    protected List<Action> actionList;
+    protected List<Action> actionList = new ArrayList<>();
 }

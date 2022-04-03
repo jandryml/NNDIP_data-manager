@@ -32,14 +32,14 @@ public class ManualPlanForm extends LitTemplate {
     private TextField name;
     @Id("enabled")
     private Checkbox enabled;
+    @Id("dynamicActionComponent")
+    private DynamicActionComponent dynamicActionComponent;
     @Id("save")
     private Button save;
     @Id("delete")
     private Button delete;
     @Id("close")
     private Button close;
-    @Id("dynamicActionComponent")
-    private DynamicActionComponent dynamicActionComponent;
 
     Binder<ManualPlan> binder = new BeanValidationBinder<>(ManualPlan.class);
 

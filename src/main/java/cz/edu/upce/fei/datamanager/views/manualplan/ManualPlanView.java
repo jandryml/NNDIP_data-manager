@@ -49,7 +49,6 @@ public class ManualPlanView extends LitTemplate {
      * Creates a new ManualPlanView.
      */
     public ManualPlanView(ManualPlanService manualPlanService) {
-        // You can initialise any data required for the connected UI components here.
         this.manualPlanService = manualPlanService;
 
         configureGrid();
