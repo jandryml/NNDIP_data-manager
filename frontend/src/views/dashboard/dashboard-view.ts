@@ -49,8 +49,8 @@ export class DashboardView extends LitElement {
    <vaadin-chart-series title="Temperature" unit="[°C]" values="[21, 22, 23, 24, 24,26, 26, 25, 21, 22, 23, 24, 25, 26, 23, 24, 23, 22, 23, 24, 25, 26, 22, 25]"></vaadin-chart-series>
   </vaadin-chart>
   <vaadin-form-layout style="margin: var(--lumo-space-s); align-self: center;">
-   <vaadin-combo-box style="flex: 1; padding: var(--lumo-space-s);" tabindex="" label="Select sensor:"></vaadin-combo-box>
-   <vaadin-combo-box style="flex: 1; padding: var(--lumo-space-s);" tabindex="" label="Select meassured value:"></vaadin-combo-box>
+   <vaadin-combo-box style="flex: 1; padding: var(--lumo-space-s);" tabindex="" label="Select sensor:" id="sensorComboBox"></vaadin-combo-box>
+   <vaadin-combo-box style="flex: 1; padding: var(--lumo-space-s);" tabindex="" label="Select meassured value:" id="measuredValueComboBox"></vaadin-combo-box>
    <vaadin-date-picker style="flex: 1; padding: var(--lumo-space-s);" tabindex="" label="Select day:"></vaadin-date-picker>
   </vaadin-form-layout>
  </vaadin-vertical-layout>

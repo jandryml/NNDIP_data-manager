@@ -141,7 +141,7 @@ public class MainLayout extends AppLayout {
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{
                 // TODO change icons
-                new MenuItemInfo("Actual Data - legacy", "la la-vials", ActualDataViewLegacy.class), //
+//                new MenuItemInfo("Actual Data - legacy", "la la-vials", ActualDataViewLegacy.class), //
                 new MenuItemInfo("Dashboard", "la la-chart-area", DashboardView.class), //
                 new MenuItemInfo("Limit plan", "la la-cog", LimitPlanView.class), //
                 new MenuItemInfo("Time plan", "la la-cogs", TimePlanView.class), //
