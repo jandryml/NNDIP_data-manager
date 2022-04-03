@@ -21,16 +21,16 @@ public class ManualPlanServiceImpl implements ManualPlanService {
 
     @Override
     public List<ManualPlan> findAllManualPlans(String nameFilter) {
-        return null;
+        return manualPlanRepository.findByName(nameFilter);
     }
 
     @Override
     public void saveManualPlan(ManualPlan manualPlan) {
-
+        manualPlanRepository.save(manualPlan);
     }
 
     @Override
     public void deleteManualPlan(ManualPlan manualPlan) {
-
+        manualPlanRepository.delete(manualPlan);
     }
 }

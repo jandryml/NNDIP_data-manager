@@ -15,6 +15,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 import cz.edu.upce.fei.datamanager.data.entity.plan.ManualPlan;
+import cz.edu.upce.fei.datamanager.views.generic.DynamicActionComponent;
 
 /**
  * A Designer generated component for the manual-plan-form template.
@@ -37,6 +38,8 @@ public class ManualPlanForm extends LitTemplate {
     private Button delete;
     @Id("close")
     private Button close;
+    @Id("dynamicActionComponent")
+    private DynamicActionComponent dynamicActionComponent;
 
     Binder<ManualPlan> binder = new BeanValidationBinder<>(ManualPlan.class);
 
@@ -44,10 +47,6 @@ public class ManualPlanForm extends LitTemplate {
      * Creates a new ManualPlanForm.
      */
     public ManualPlanForm() {
-        // TODO solve dynamic adding of Actions
-//        actionCombo.setItems(ManualPlanType.values());
-//        actionCombo.setItemLabelGenerator(ManualPlanType::name);
-
         configureButtons();
         configureBinder();
     }
@@ -70,10 +69,14 @@ public class ManualPlanForm extends LitTemplate {
     public void setManualPlan(ManualPlan manualPlan) {
         this.manualPlan = manualPlan;
         binder.readBean(manualPlan);
+        if(manualPlan != null) {
+            dynamicActionComponent.setSelectedActions(manualPlan.getActionList());
+        }
     }
 
     private void validateAndSave() {
         try {
+            manualPlan.setActionList(dynamicActionComponent.getSelectedActions());
             if (binder.isValid()) {
                 binder.writeBean(manualPlan);
                 fireEvent(new SaveEvent(this, manualPlan));
