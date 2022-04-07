@@ -2,6 +2,7 @@ package cz.edu.upce.fei.datamanager.data.entity.plan;
 
 import cz.edu.upce.fei.datamanager.data.entity.AbstractEntity;
 import cz.edu.upce.fei.datamanager.data.entity.Action;
+import cz.edu.upce.fei.datamanager.data.entity.Event;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,6 @@ import java.util.List;
 public abstract class Plan extends AbstractEntity {
     protected String name;
     protected boolean enabled;
-    @ManyToMany(fetch = FetchType.EAGER)
-    protected List<Action> actionList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.EAGER)
+    protected Event event;
 }

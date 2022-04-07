@@ -5,7 +5,7 @@ import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.checkbox.Checkbox;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.component.template.Id;
@@ -15,12 +15,14 @@ import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
+import cz.edu.upce.fei.datamanager.data.entity.Event;
 import cz.edu.upce.fei.datamanager.data.entity.plan.TimePlan;
+import cz.edu.upce.fei.datamanager.data.service.EventService;
 import cz.edu.upce.fei.datamanager.views.generic.DynamicActionComponent;
 
 /**
  * A Designer generated component for the time-plan-form template.
- *
+ * <p>
  * Designer will add and remove fields with @Id mappings but
  * does not overwrite or otherwise change this file.
  */
@@ -31,14 +33,12 @@ public class TimePlanForm extends LitTemplate {
 
     @Id("name")
     private TextField name;
-    @Id("enabled")
-    private Checkbox enabled;
+    @Id("event")
+    private ComboBox<Event> event;
     @Id("fromTime")
     private TimePicker fromTime;
     @Id("toTime")
     private TimePicker toTime;
-    @Id("dynamicActionComponent")
-    private DynamicActionComponent dynamicActionComponent;
     @Id("save")
     private Button save;
     @Id("delete")
@@ -48,11 +48,14 @@ public class TimePlanForm extends LitTemplate {
 
     Binder<TimePlan> binder = new BeanValidationBinder<>(TimePlan.class);
 
+    private final EventService eventService;
+
     /**
      * Creates a new TimePlanForm.
      */
-    public TimePlanForm() {
-        configureButtons();
+    public TimePlanForm(EventService eventService) {
+        this.eventService = eventService;
+        configureComponents();
         configureBinder();
     }
 
@@ -62,7 +65,10 @@ public class TimePlanForm extends LitTemplate {
         binder.bindInstanceFields(this);
     }
 
-    private void configureButtons() {
+    private void configureComponents() {
+        event.setItems(eventService.findAllEvents());
+        event.setItemLabelGenerator(Event::getName);
+
         save.addClickListener(event -> validateAndSave());
         delete.addClickListener(event -> fireEvent(new DeleteEvent(this, timePlan)));
         close.addClickListener(event -> fireEvent(new CloseEvent(this)));
@@ -74,14 +80,10 @@ public class TimePlanForm extends LitTemplate {
     public void setTimePlan(TimePlan timePlan) {
         this.timePlan = timePlan;
         binder.readBean(timePlan);
-        if(timePlan != null) {
-            dynamicActionComponent.setSelectedActions(timePlan.getActionList());
-        }
     }
 
     private void validateAndSave() {
         try {
-            timePlan.setActionList(dynamicActionComponent.getSelectedActions());
             if (binder.isValid()) {
                 binder.writeBean(timePlan);
                 fireEvent(new SaveEvent(this, timePlan));

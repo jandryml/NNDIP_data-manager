@@ -2,10 +2,9 @@ package cz.edu.upce.fei.datamanager.views.manualplan;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.component.template.Id;
 import com.vaadin.flow.component.textfield.TextField;
@@ -17,11 +16,13 @@ import cz.edu.upce.fei.datamanager.data.entity.plan.ManualPlan;
 import cz.edu.upce.fei.datamanager.data.service.ManualPlanService;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
 
+import java.util.List;
+
 import static cz.edu.upce.fei.datamanager.views.manualplan.ManualPlanForm.*;
 
 /**
  * A Designer generated component for the manual-plan-view template.
- *
+ * <p>
  * Designer will add and remove fields with @Id mappings but
  * does not overwrite or otherwise change this file.
  */
@@ -63,18 +64,14 @@ public class ManualPlanView extends LitTemplate {
 
     private void configureGrid() {
         grid.addComponentColumn(item -> {
-                    Icon icon;
-                    if (item.isEnabled()) {
-                        icon = VaadinIcon.CHECK_CIRCLE.create();
-                        icon.setColor("green");
-                    } else {
-                        icon = VaadinIcon.CLOSE_CIRCLE.create();
-                        icon.setColor("red");
-                    }
-                    return icon;
-                })
-                .setKey("enabled")
-                .setHeader("Enabled");
+            Checkbox enabled = new Checkbox();
+            enabled.setValue(item.isEnabled());
+            enabled.addValueChangeListener(it -> {
+                item.setEnabled(enabled.getValue());
+                manualPlanService.saveManualPlan(item);
+            });
+            return enabled;
+        });
 
         grid.addColumn(ManualPlan::getName).setHeader("Name");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
@@ -121,10 +118,13 @@ public class ManualPlanView extends LitTemplate {
     private void closeEditor() {
         manualPlanForm.setManualPlan(null);
         manualPlanForm.setVisible(false);
+        grid.deselectAll();
         removeClassName("editing");
     }
 
     private void updateList() {
-        grid.setItems(manualPlanService.findAllManualPlans());
+        List<ManualPlan> manualPlanList = manualPlanService.findAllManualPlans();
+        grid.setItems(manualPlanList);
+
     }
 }

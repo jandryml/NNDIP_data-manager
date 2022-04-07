@@ -4,7 +4,6 @@ import '@vaadin/horizontal-layout/src/vaadin-horizontal-layout.js';
 import '@vaadin/form-layout/src/vaadin-form-item.js';
 import '@vaadin/time-picker/src/vaadin-time-picker.js';
 import '@vaadin/combo-box/src/vaadin-combo-box.js';
-import '@vaadin/checkbox/src/vaadin-checkbox.js';
 
 @customElement('time-plan-form')
 export class TimePlanForm extends LitElement {
@@ -22,11 +21,10 @@ export class TimePlanForm extends LitElement {
 <vaadin-vertical-layout theme="spacing" style="width: 100%; height: 100%;">
  <vaadin-form-layout>
   <vaadin-text-field id="name" type="text" required tabindex="" label="Name"></vaadin-text-field>
-  <vaadin-checkbox tabindex="" checked label="Enabled" type="checkbox" value="on" id="enabled"></vaadin-checkbox>
+  <vaadin-combo-box id="event" required tabindex="" prevent-invalid-input label="Event"></vaadin-combo-box>
   <vaadin-time-picker id="fromTime" tabindex="" label="From time"></vaadin-time-picker>
   <vaadin-time-picker id="toTime" tabindex="" label="To time"></vaadin-time-picker>
  </vaadin-form-layout>
- <dynamic-action-component id="dynamicActionComponent" style="width: 80%;"></dynamic-action-component>
  <vaadin-horizontal-layout theme="spacing">
   <vaadin-button theme="primary" id="save">
     Save 

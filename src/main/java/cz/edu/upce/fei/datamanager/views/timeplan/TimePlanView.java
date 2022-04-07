@@ -2,10 +2,9 @@ package cz.edu.upce.fei.datamanager.views.timeplan;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.component.template.Id;
 import com.vaadin.flow.component.textfield.TextField;
@@ -19,7 +18,7 @@ import cz.edu.upce.fei.datamanager.views.MainLayout;
 
 /**
  * A Designer generated component for the time-plan-view template.
- *
+ * <p>
  * Designer will add and remove fields with @Id mappings but
  * does not overwrite or otherwise change this file.
  */
@@ -40,7 +39,7 @@ public class TimePlanView extends LitTemplate {
     private Grid<TimePlan> grid;
     @Id("timePlanForm")
     private TimePlanForm timePlanForm;
-    
+
     private final TimePlanService timePlanService;
 
     /**
@@ -61,18 +60,14 @@ public class TimePlanView extends LitTemplate {
 
     private void configureGrid() {
         grid.addComponentColumn(item -> {
-                    Icon icon;
-                    if (item.isEnabled()) {
-                        icon = VaadinIcon.CHECK_CIRCLE.create();
-                        icon.setColor("green");
-                    } else {
-                        icon = VaadinIcon.CLOSE_CIRCLE.create();
-                        icon.setColor("red");
-                    }
-                    return icon;
-                })
-                .setKey("enabled")
-                .setHeader("Enabled");
+            Checkbox enabled = new Checkbox();
+            enabled.setValue(item.isEnabled());
+            enabled.addValueChangeListener(it -> {
+                item.setEnabled(enabled.getValue());
+                timePlanService.saveTimePlan(item);
+            });
+            return enabled;
+        });
 
         grid.addColumn(TimePlan::getName).setHeader("Name");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
@@ -119,6 +114,7 @@ public class TimePlanView extends LitTemplate {
     private void closeEditor() {
         timePlanForm.setTimePlan(null);
         timePlanForm.setVisible(false);
+        grid.deselectAll();
         removeClassName("editing");
     }
 
