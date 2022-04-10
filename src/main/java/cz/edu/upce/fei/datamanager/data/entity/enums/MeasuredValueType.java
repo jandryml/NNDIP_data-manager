@@ -6,10 +6,12 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum MeasuredValueType {
-    TEMPERATURE(SensorType.TEMPERATURE),
-    HUMIDITY(SensorType.HUMIDITY),
-    CO2(SensorType.CO2);
+    TEMPERATURE(SensorType.TEMPERATURE, "Temperature", "°C"),
+    HUMIDITY(SensorType.HUMIDITY, "Humidity", "%"),
+    CO2(SensorType.CO2, "Co2", "ppm");
 
     private final SensorType sensorType;
+    private final String name;
+    private final String units;
 }
 

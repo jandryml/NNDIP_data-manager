@@ -1,5 +1,6 @@
 package cz.edu.upce.fei.datamanager.data.repository;
 
+import cz.edu.upce.fei.datamanager.data.entity.Sensor;
 import cz.edu.upce.fei.datamanager.data.entity.SensorData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +16,5 @@ public interface SensorDataRepository extends JpaRepository<SensorData, Long> {
     @Query(value = "SELECT * FROM data WHERE sensor_id = ?1 GROUP BY data_timestamp ORDER BY data_timestamp DESC LIMIT 1 ", nativeQuery = true)
     Optional<SensorData> findLastValueBySensorId(long sensorId);
 
-    @Query(value = "SELECT * FROM data WHERE data_timestamp >= ?1 AND data_timestamp <= ?2", nativeQuery = true)
-    List<SensorData> findValuesBetween(Timestamp from, Timestamp to);
+    List<SensorData> findBySensorIdAndTimestampBetween(Long sensorId, Timestamp from, Timestamp to);
 }

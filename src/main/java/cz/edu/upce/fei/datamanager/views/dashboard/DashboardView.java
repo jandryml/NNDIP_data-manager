@@ -1,7 +1,6 @@
 package cz.edu.upce.fei.datamanager.views.dashboard;
 
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -12,10 +11,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import cz.edu.upce.fei.datamanager.data.dto.DashboardSensorDataDto;
-import cz.edu.upce.fei.datamanager.data.entity.Sensor;
-import cz.edu.upce.fei.datamanager.data.entity.enums.MeasuredValueType;
 import cz.edu.upce.fei.datamanager.data.service.DashboardService;
-import cz.edu.upce.fei.datamanager.data.service.SensorService;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
 
 import java.util.List;
@@ -42,30 +38,17 @@ public class DashboardView extends LitTemplate {
     private VerticalLayout humidityContainer;
     @Id("co2Container")
     private VerticalLayout co2Container;
-    @Id("sensorComboBox")
-    private ComboBox<Sensor> sensorComboBox;
-    @Id("measuredValueComboBox")
-    private ComboBox<MeasuredValueType> measuredValueComboBox;
+    @Id("graphComponent")
+    private DashboardGraph graphComponent;
 
     private final DashboardService dashboardService;
-    private final SensorService sensorService;
 
     /**
      * Creates a new DashboardView.
      */
-    public DashboardView(DashboardService dashboardService, SensorService sensorService) {
+    public DashboardView(DashboardService dashboardService) {
         this.dashboardService = dashboardService;
-        this.sensorService = sensorService;
         initSensorStatus();
-        initComboBox();
-    }
-
-    private void initComboBox() {
-        sensorComboBox.setItems(sensorService.findAllSensors());
-        sensorComboBox.setItemLabelGenerator(Sensor::getName);
-
-        measuredValueComboBox.setItems(MeasuredValueType.values());
-        measuredValueComboBox.setItemLabelGenerator(MeasuredValueType::name);
     }
 
     private void initSensorStatus() {
