@@ -4,6 +4,7 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.charts.Chart;
 import com.vaadin.flow.component.charts.model.*;
+import com.vaadin.flow.component.charts.model.style.SolidColor;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.JsModule;
@@ -98,6 +99,8 @@ public class DashboardGraph extends LitTemplate {
 
     private void configGraph() {
         Configuration configuration = graphComponent.getConfiguration();
+
+        configuration.getChart().setBackgroundColor(new SolidColor(255,255,255,0));
 
         configuration.getChart().setType(ChartType.SPLINE);
         configuration.getxAxis().setType(AxisType.DATETIME);
