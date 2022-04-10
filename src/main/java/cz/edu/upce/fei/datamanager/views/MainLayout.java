@@ -19,15 +19,16 @@ import com.vaadin.flow.component.html.UnorderedList;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
-import cz.edu.upce.fei.datamanager.data.entity.User;
+import cz.edu.upce.fei.datamanager.data.entity.user.User;
 import cz.edu.upce.fei.datamanager.security.AuthenticatedUser;
-import cz.edu.upce.fei.datamanager.views.actionconfig.ActionConfigView;
+import cz.edu.upce.fei.datamanager.views.action.ActionView;
 import cz.edu.upce.fei.datamanager.views.actualdata.legacy.ActualDataViewLegacy;
 import cz.edu.upce.fei.datamanager.views.dashboard.DashboardView;
-import cz.edu.upce.fei.datamanager.views.limitconfig.LimitConfigView;
-import cz.edu.upce.fei.datamanager.views.limitconfig.legacy.LimitConfigViewLegacy;
-import cz.edu.upce.fei.datamanager.views.manual.ManualView;
+import cz.edu.upce.fei.datamanager.views.event.EventView;
+import cz.edu.upce.fei.datamanager.views.limitplan.LimitPlanView;
+import cz.edu.upce.fei.datamanager.views.manualplan.ManualPlanView;
 import cz.edu.upce.fei.datamanager.views.sensor.SensorView;
+import cz.edu.upce.fei.datamanager.views.settings.SettingsView;
 import cz.edu.upce.fei.datamanager.views.timeplan.TimePlanView;
 
 import java.util.Optional;
@@ -139,15 +140,17 @@ public class MainLayout extends AppLayout {
     }
 
     private MenuItemInfo[] createMenuItems() {
-        return new MenuItemInfo[]{ //
-                new MenuItemInfo("Actual Data - legacy", "la la-vials", ActualDataViewLegacy.class), //
+        return new MenuItemInfo[]{
+                // TODO change icons
+//                new MenuItemInfo("Actual Data - legacy", "la la-vials", ActualDataViewLegacy.class), //
                 new MenuItemInfo("Dashboard", "la la-chart-area", DashboardView.class), //
-                new MenuItemInfo("Limit config", "la la-cog", LimitConfigView.class), //
-                new MenuItemInfo("Action config", "la la-cogs", ActionConfigView.class), //
-                // TODO change icon
-                new MenuItemInfo("Sensors", "la la-cogs", SensorView.class), //
+                new MenuItemInfo("Limit plan", "la la-cog", LimitPlanView.class), //
                 new MenuItemInfo("Time plan", "la la-cogs", TimePlanView.class), //
-                new MenuItemInfo("Manual", "la la-cogs", ManualView.class), //
+                new MenuItemInfo("Manual plan", "la la-cogs", ManualPlanView.class), //
+                new MenuItemInfo("Events", "la la-cogs", EventView.class), //
+                new MenuItemInfo("Actions", "la la-cogs", ActionView.class), //
+                new MenuItemInfo("Sensors", "la la-cogs", SensorView.class), //
+                new MenuItemInfo("Settings", "la la-cogs", SettingsView.class), //
         };
     }
 

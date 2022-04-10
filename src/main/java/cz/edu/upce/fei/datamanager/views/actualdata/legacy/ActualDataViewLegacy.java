@@ -12,7 +12,8 @@ import cz.edu.upce.fei.datamanager.views.MainLayout;
 
 @PageTitle("Actual Data")
 @Route(value = "actual-data", layout = MainLayout.class)
-@RouteAlias(value = "", layout = MainLayout.class)
+// TODO change security restriction
+// @PermitAll
 @AnonymousAllowed
 public class ActualDataViewLegacy extends VerticalLayout {
 
@@ -52,10 +53,8 @@ public class ActualDataViewLegacy extends VerticalLayout {
         SensorData sensorData = sensorDataService.getLatestData(1);
         hitsTextField.setValue(String.valueOf(sensorData.getHits()));
         timestampTextField.setValue(sensorData.getTimestamp().toLocalDateTime().toString());
-        temperature1TextField.setValue(String.valueOf(sensorData.getTemperature1()));
+        temperature1TextField.setValue(String.valueOf(sensorData.getTemperature()));
         humidityTextField.setValue(String.valueOf(sensorData.getHumidity()));
-        co2_1TextField.setValue(String.valueOf(sensorData.getCo2_1()));
-        co2_2TextField.setValue(String.valueOf(sensorData.getCo2_2()));
-        temperature2TextField.setValue(String.valueOf(sensorData.getTemperature2()));
+        co2_1TextField.setValue(String.valueOf(sensorData.getCo2()));
     }
 }

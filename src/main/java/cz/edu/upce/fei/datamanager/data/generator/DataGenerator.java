@@ -1,8 +1,8 @@
 package cz.edu.upce.fei.datamanager.data.generator;
 
 import com.vaadin.flow.spring.annotation.SpringComponent;
-import cz.edu.upce.fei.datamanager.data.Role;
-import cz.edu.upce.fei.datamanager.data.entity.User;
+import cz.edu.upce.fei.datamanager.data.entity.user.Role;
+import cz.edu.upce.fei.datamanager.data.entity.user.User;
 import cz.edu.upce.fei.datamanager.data.repository.UserRepository;
 import java.util.Collections;
 import java.util.stream.Collectors;

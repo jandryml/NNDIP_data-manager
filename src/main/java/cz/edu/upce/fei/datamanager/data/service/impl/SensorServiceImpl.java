@@ -1,6 +1,7 @@
 package cz.edu.upce.fei.datamanager.data.service.impl;
 
 import cz.edu.upce.fei.datamanager.data.entity.Sensor;
+import cz.edu.upce.fei.datamanager.data.entity.enums.SensorType;
 import cz.edu.upce.fei.datamanager.data.repository.SensorRepository;
 import cz.edu.upce.fei.datamanager.data.service.SensorService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,12 @@ public class SensorServiceImpl implements SensorService {
     }
 
     @Override
-    public List<Sensor> findAllSensors(String stringFilter) {
-        return sensorRepository.searchByName(stringFilter);
+    public List<Sensor> findByName(String stringFilter) {
+        return sensorRepository.findByName(stringFilter);
+    }
+
+    public List<Sensor> findBySensorTypes(List<SensorType> sensorTypes) {
+        return sensorRepository.findBySensorTypeIn(sensorTypes);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package cz.edu.upce.fei.datamanager.data.service.impl;
 
 import com.vaadin.flow.router.NotFoundException;
+import cz.edu.upce.fei.datamanager.data.entity.Sensor;
 import cz.edu.upce.fei.datamanager.data.entity.SensorData;
 import cz.edu.upce.fei.datamanager.data.repository.SensorDataRepository;
 import cz.edu.upce.fei.datamanager.data.service.SensorDataService;
@@ -24,7 +25,7 @@ public class SensorDataServiceImpl implements SensorDataService {
     }
 
     @Override
-    public List<SensorData> getDataBetween(LocalDateTime from, LocalDateTime to) {
-        return sensorDataRepository.findValuesBetween(Timestamp.valueOf(from), Timestamp.valueOf(to));
+    public List<SensorData> getDataBy(Sensor sensor, LocalDateTime from, LocalDateTime to) {
+        return sensorDataRepository.findBySensorIdAndTimestampBetween(sensor.getId(), Timestamp.valueOf(from), Timestamp.valueOf(to));
     }
 }

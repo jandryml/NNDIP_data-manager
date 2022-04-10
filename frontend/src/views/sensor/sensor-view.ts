@@ -23,12 +23,12 @@ export class SensorView extends LitElement {
  <vaadin-horizontal-layout theme="spacing">
   <vaadin-text-field placeholder="Filter by name…" id="filterText" type="text" tabindex="" clear-button-visible></vaadin-text-field>
   <vaadin-button id="addSensorButton">
-   Add Sensor
+    Add Sensor 
   </vaadin-button>
  </vaadin-horizontal-layout>
  <vaadin-horizontal-layout theme="spacing" style="width: 100%; height: 100%;">
-  <vaadin-grid id="grid" style="width: 100%; height: 100%;flex:2;" tabindex="" is-attached></vaadin-grid>
-  <sensor-form id="sensorForm" style="flex: 1;"></sensor-form>
+  <vaadin-grid id="grid" style="height: 100%;" tabindex="" is-attached></vaadin-grid>
+  <sensor-form id="sensorForm" style="width: 100%; height: 100%;"></sensor-form>
  </vaadin-horizontal-layout>
 </vaadin-vertical-layout>
 `;
