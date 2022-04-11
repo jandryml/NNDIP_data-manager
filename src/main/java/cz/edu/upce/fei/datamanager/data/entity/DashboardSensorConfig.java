@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter
@@ -15,9 +16,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DashboardSensorConfig extends AbstractEntity implements Serializable {
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "sensor_id")
     private Sensor sensor;
+    @NotNull
     @Enumerated(EnumType.STRING)
     private MeasuredValueType measuredValueType;
 }

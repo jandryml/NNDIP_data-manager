@@ -7,17 +7,17 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @Entity
 public class Sensor extends AbstractEntity {
-    @NotEmpty
+    @NotBlank
     private String name;
-    // TODO for possible extension with multiple devices (raspberries)
-    private Long deviceId = 1L;
     // Used only for listing
+    @NotNull
     @Enumerated(EnumType.STRING)
     private SensorType sensorType;
 }

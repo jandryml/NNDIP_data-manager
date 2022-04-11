@@ -12,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -21,9 +22,10 @@ public class ControlledDeviceAddressConfig {
     @Id
     @Enumerated(EnumType.STRING)
     private ControlledDeviceType controlledDeviceType;
+    @NotNull
     @Enumerated(EnumType.STRING)
     private OutputType outputType;
-    @NotBlank
     @Min(0)
+    @NotBlank
     private String address;
 }

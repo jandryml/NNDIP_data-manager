@@ -8,21 +8,23 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"outputType", "address", "priority"}))
 public class AddressState extends AbstractEntity {
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @NotBlank
     private OutputType outputType;
-    @NotBlank
     @Min(0)
+    @NotBlank
     private String address;
-    @NotBlank
     @Min(0)
+    @NotBlank
     private String value;
+    @NotNull
     @Enumerated(EnumType.STRING)
     private PriorityType priority;
 }
