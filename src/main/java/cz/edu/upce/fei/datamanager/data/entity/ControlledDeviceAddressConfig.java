@@ -2,9 +2,7 @@ package cz.edu.upce.fei.datamanager.data.entity;
 
 import cz.edu.upce.fei.datamanager.data.entity.enums.ControlledDeviceType;
 import cz.edu.upce.fei.datamanager.data.entity.enums.OutputType;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,6 +16,8 @@ import javax.validation.constraints.NotNull;
 @Setter
 @EqualsAndHashCode
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class ControlledDeviceAddressConfig {
     @Id
     @Enumerated(EnumType.STRING)

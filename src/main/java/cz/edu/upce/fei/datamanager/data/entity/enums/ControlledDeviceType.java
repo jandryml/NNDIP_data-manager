@@ -6,9 +6,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum ControlledDeviceType {
-    RECUPERATION("Recuperation"),
-    AC("Air conditioning"),
-    FAN("Fan");
-
-    private final String name;
+    RECUPERATION,
+    AC_STATUS,
+    AC_FAN,
+    AC_MODE
 }
