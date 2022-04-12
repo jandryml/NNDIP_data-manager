@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface SensorDataRepository extends JpaRepository<SensorData, Long> {
 
-    @Query(value = "SELECT * FROM data WHERE sensor_id = ?1 GROUP BY data_timestamp ORDER BY data_timestamp DESC LIMIT 1 ", nativeQuery = true)
+    @Query(value = "SELECT * FROM data WHERE sensor_id = ?1 ORDER BY data_timestamp DESC LIMIT 1", nativeQuery = true)
     Optional<SensorData> findLastValueBySensorId(long sensorId);
 
     List<SensorData> findBySensorIdAndTimestampBetween(Long sensorId, Timestamp from, Timestamp to);

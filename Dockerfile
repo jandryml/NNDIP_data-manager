@@ -23,7 +23,7 @@ COPY --chown=myuser:myuser package-lock.json* pnpm-lock.yaml* webpack.config.js*
 
 
 # Build the production package, assuming that we validated the version before so no need for running tests again
-RUN mvn clean package -DskipTests -Pproduction
+RUN mvn clean package -Pproduction
 
 # Running stage: the part that is used for running the application
 FROM openjdk:17-jdk-slim
