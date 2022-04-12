@@ -1,0 +1,113 @@
+{"version":"3","listProblem":[{
+  "tool": "Code Inspection",
+  "category": "General",
+  "type": "Unresolved JavaScript function",
+  "severity": "Moderate",
+  "comment": "Unresolved function or method require()",
+  "detailsInfo": "Reports an unresolved function in a call.\n\nTypeScript code is ignored.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "webpack.config.js",
+      "language": "JavaScript",
+      "line": 5,
+      "offset": 15,
+      "length": 7,
+      "code": {
+        "startLine": 3,
+        "length": 7,
+        "offset": 126,
+        "surroundingCode": " * This file can be used for manual configuration will not be modified if the flowDefaults constant exists.\n */\nconst merge = require('webpack-merge');\nconst flowDefaults = require('./webpack.generated.js');\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "project",
+    "inspectionName": "JSUnresolvedFunction"
+  },
+  "hash": "76d850f252f59cd84b51e16e632f0dfc90272dc48864f0aa9fe67514d2c0575d"
+},{
+  "tool": "Code Inspection",
+  "category": "General",
+  "type": "Unresolved JavaScript function",
+  "severity": "Moderate",
+  "comment": "Unresolved function or method require()",
+  "detailsInfo": "Reports an unresolved function in a call.\n\nTypeScript code is ignored.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "webpack.config.js",
+      "language": "JavaScript",
+      "line": 6,
+      "offset": 22,
+      "length": 7,
+      "code": {
+        "startLine": 4,
+        "length": 7,
+        "offset": 65,
+        "surroundingCode": " */\nconst merge = require('webpack-merge');\nconst flowDefaults = require('./webpack.generated.js');\n\nmodule.exports = merge(flowDefaults, {"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "project",
+    "inspectionName": "JSUnresolvedFunction"
+  },
+  "hash": "dad1b65854212130d0682a9f1c7509d3f3c55a3c1f45a30a6f58d8abab4d5e9d"
+},{
+  "tool": "Code Inspection",
+  "category": "General",
+  "type": "Unresolved JavaScript variable",
+  "severity": "Moderate",
+  "comment": "Unresolved variable or type module",
+  "detailsInfo": "Reports an unresolved referenced variable or field.\n\nTypeScript code is ignored.",
+  "sources": [
+    {
+      "type": "file",
+      "path": ".prettierrc.js",
+      "language": "JavaScript",
+      "line": 1,
+      "offset": 1,
+      "length": 6,
+      "code": {
+        "startLine": 1,
+        "length": 6,
+        "offset": 0,
+        "surroundingCode": "module.exports = {\n  singleQuote: true,\n  printWidth: 120,"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "project",
+    "inspectionName": "JSUnresolvedVariable"
+  },
+  "hash": "f529a751d8ad56358065a44d1a6a683e9b406132f87a0043f31ef070d51beee5"
+},{
+  "tool": "Code Inspection",
+  "category": "General",
+  "type": "Unresolved JavaScript variable",
+  "severity": "Moderate",
+  "comment": "Unresolved variable or type module",
+  "detailsInfo": "Reports an unresolved referenced variable or field.\n\nTypeScript code is ignored.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "webpack.config.js",
+      "language": "JavaScript",
+      "line": 8,
+      "offset": 1,
+      "length": 6,
+      "code": {
+        "startLine": 6,
+        "length": 6,
+        "offset": 57,
+        "surroundingCode": "const flowDefaults = require('./webpack.generated.js');\n\nmodule.exports = merge(flowDefaults, {\n\n});"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "project",
+    "inspectionName": "JSUnresolvedVariable"
+  },
+  "hash": "227366984dbf17f4c2b7c2883cf26a23125abe75df2c99d51bb40b11ba53f216"
+}]}
