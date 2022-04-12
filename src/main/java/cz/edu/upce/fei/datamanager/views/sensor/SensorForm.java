@@ -13,9 +13,12 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.router.NotFoundException;
 import com.vaadin.flow.shared.Registration;
 import cz.edu.upce.fei.datamanager.data.entity.Sensor;
+import cz.edu.upce.fei.datamanager.data.entity.SensorData;
 import cz.edu.upce.fei.datamanager.data.entity.enums.SensorType;
+import cz.edu.upce.fei.datamanager.data.service.SensorDataService;
 
 /**
  * A Designer generated component for the sensor-form template.
@@ -33,6 +36,18 @@ public class SensorForm extends LitTemplate {
     private TextField name;
     @Id("sensorType")
     private ComboBox<SensorType> sensorType;
+
+    @Id("timestampTextField")
+    private TextField timestampTextField;
+    @Id("hitsTextField")
+    private TextField hitsTextField;
+    @Id("temperatureTextField")
+    private TextField temperatureTextField;
+    @Id("humidityTextField")
+    private TextField humidityTextField;
+    @Id("co2TextField")
+    private TextField co2TextField;
+
     @Id("save")
     private Button save;
     @Id("delete")
@@ -42,15 +57,51 @@ public class SensorForm extends LitTemplate {
 
     Binder<Sensor> binder = new BeanValidationBinder<>(Sensor.class);
 
+    private final SensorDataService sensorDataService;
+
     /**
      * Creates a new SensorForm.
      */
-    public SensorForm() {
+    public SensorForm(SensorDataService sensorDataService) {
+        this.sensorDataService = sensorDataService;
+
         sensorType.setItems(SensorType.values());
         sensorType.setItemLabelGenerator(SensorType::name);
 
         configureButtons();
         configureBinder();
+    }
+
+    private void loadSensorData() {
+        if (sensor.getId() != null) {
+            String timestamp;
+            String hits;
+            String temperature;
+            String humidity;
+            String co2;
+
+            try {
+                SensorData sensorData = sensorDataService.getLatestData(sensor.getId());
+                timestamp = sensorData.getTimestamp().toString();
+                hits = sensorData.getHits().toString();
+                temperature = sensorData.getTemperature() != null ? sensorData.getTemperature().toString() : "Unknown";
+                humidity = sensorData.getHumidity() != null ? sensorData.getHumidity().toString() : "Unknown";
+                co2 = sensorData.getCo2() != null ? sensorData.getCo2().toString() : "Unknown";
+
+            } catch (NotFoundException e) {
+                timestamp = "No data found";
+                hits = "No data found";
+                temperature = "No data found";
+                humidity = "No data found";
+                co2 = "No data found";
+            }
+
+            timestampTextField.setValue(timestamp);
+            hitsTextField.setValue(hits);
+            temperatureTextField.setValue(temperature);
+            humidityTextField.setValue(humidity);
+            co2TextField.setValue(co2);
+        }
     }
 
     private void configureBinder() {
@@ -73,6 +124,9 @@ public class SensorForm extends LitTemplate {
     public void setSensor(Sensor sensor) {
         this.sensor = sensor;
         binder.readBean(sensor);
+        if (sensor != null) {
+            loadSensorData();
+        }
     }
 
     private void validateAndSave() {

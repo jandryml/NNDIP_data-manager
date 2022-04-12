@@ -96,11 +96,11 @@ public class SensorView extends LitTemplate {
         closeEditor();
     }
 
-    public void editSensor(Sensor action) {
-        if (action == null) {
+    public void editSensor(Sensor sensor) {
+        if (sensor == null) {
             closeEditor();
         } else {
-            sensorForm.setSensor(action);
+            sensorForm.setSensor(sensor);
             sensorForm.setVisible(true);
             addClassName("editing");
         }
