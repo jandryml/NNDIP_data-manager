@@ -15,8 +15,6 @@ import cz.edu.upce.fei.datamanager.data.entity.Action;
 import cz.edu.upce.fei.datamanager.data.service.ActionService;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
 
-import javax.annotation.security.PermitAll;
-
 import static cz.edu.upce.fei.datamanager.views.action.ActionForm.*;
 
 /**

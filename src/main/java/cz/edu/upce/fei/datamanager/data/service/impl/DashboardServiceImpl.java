@@ -9,7 +9,6 @@ import cz.edu.upce.fei.datamanager.data.entity.enums.MeasuredValueType;
 import cz.edu.upce.fei.datamanager.data.repository.DashboardSensorConfigRepository;
 import cz.edu.upce.fei.datamanager.data.service.DashboardService;
 import cz.edu.upce.fei.datamanager.data.service.SensorDataService;
-import liquibase.pro.packaged.P;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

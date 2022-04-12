@@ -18,7 +18,6 @@ import com.vaadin.flow.shared.Registration;
 import cz.edu.upce.fei.datamanager.data.entity.Event;
 import cz.edu.upce.fei.datamanager.data.entity.plan.TimePlan;
 import cz.edu.upce.fei.datamanager.data.service.EventService;
-import cz.edu.upce.fei.datamanager.views.generic.DynamicActionComponent;
 
 /**
  * A Designer generated component for the time-plan-form template.

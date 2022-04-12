@@ -15,8 +15,6 @@ import cz.edu.upce.fei.datamanager.data.entity.Sensor;
 import cz.edu.upce.fei.datamanager.data.service.SensorService;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
 
-import javax.annotation.security.PermitAll;
-
 import static cz.edu.upce.fei.datamanager.views.sensor.SensorForm.*;
 
 /**
