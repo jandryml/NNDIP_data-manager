@@ -31,9 +31,6 @@ export class SettingsSensorsConfig extends LitElement {
    </vaadin-vertical-layout>
   </vaadin-board-row>
  </vaadin-board>
- <vaadin-button id="saveSensors" style="margin: var(--lumo-space-m);">
-   Save 
- </vaadin-button>
 </vaadin-vertical-layout>
 `;
   }
