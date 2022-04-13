@@ -15,8 +15,6 @@ import cz.edu.upce.fei.datamanager.data.entity.Sensor;
 import cz.edu.upce.fei.datamanager.data.service.SensorService;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
 
-import javax.annotation.security.PermitAll;
-
 import static cz.edu.upce.fei.datamanager.views.sensor.SensorForm.*;
 
 /**
@@ -96,11 +94,11 @@ public class SensorView extends LitTemplate {
         closeEditor();
     }
 
-    public void editSensor(Sensor action) {
-        if (action == null) {
+    public void editSensor(Sensor sensor) {
+        if (sensor == null) {
             closeEditor();
         } else {
-            sensorForm.setSensor(action);
+            sensorForm.setSensor(sensor);
             sensorForm.setVisible(true);
             addClassName("editing");
         }

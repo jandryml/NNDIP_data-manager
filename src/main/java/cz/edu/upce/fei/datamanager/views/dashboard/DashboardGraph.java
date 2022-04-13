@@ -3,16 +3,22 @@ package cz.edu.upce.fei.datamanager.views.dashboard;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.charts.Chart;
-import com.vaadin.flow.component.charts.model.*;
+import com.vaadin.flow.component.charts.model.Configuration;
+import com.vaadin.flow.component.charts.model.ChartType;
+import com.vaadin.flow.component.charts.model.AxisType;
+import com.vaadin.flow.component.charts.model.YAxis;
+import com.vaadin.flow.component.charts.model.AxisTitle;
+import com.vaadin.flow.component.charts.model.DataSeries;
+import com.vaadin.flow.component.charts.model.DataSeriesItem;
+import com.vaadin.flow.component.charts.model.PlotOptionsLine;
 import com.vaadin.flow.component.charts.model.style.SolidColor;
+import com.vaadin.flow.component.charts.model.style.Style;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.component.template.Id;
 import com.vaadin.flow.data.provider.Query;
-import com.vaadin.flow.theme.Theme;
-import com.vaadin.flow.theme.lumo.Lumo;
 import cz.edu.upce.fei.datamanager.data.entity.Sensor;
 import cz.edu.upce.fei.datamanager.data.entity.SensorData;
 import cz.edu.upce.fei.datamanager.data.entity.enums.MeasuredValueType;
@@ -49,6 +55,7 @@ public class DashboardGraph extends LitTemplate {
 
     private final SensorService sensorService;
     private final DashboardService dashboardService;
+    private final Style style;
 
     /**
      * Creates a new DashboardGraph.
@@ -56,6 +63,9 @@ public class DashboardGraph extends LitTemplate {
     public DashboardGraph(SensorService sensorService, DashboardService dashboardService) {
         this.sensorService = sensorService;
         this.dashboardService = dashboardService;
+
+        style = new Style();
+        style.setColor(SolidColor.WHITE);
 
         configComboBox();
         configDateComponents();
@@ -100,10 +110,13 @@ public class DashboardGraph extends LitTemplate {
     private void configGraph() {
         Configuration configuration = graphComponent.getConfiguration();
 
-        configuration.getChart().setBackgroundColor(new SolidColor(255,255,255,0));
+        configuration.getChart().setBackgroundColor(new SolidColor(255, 255, 255, 0));
 
         configuration.getChart().setType(ChartType.SPLINE);
         configuration.getxAxis().setType(AxisType.DATETIME);
+
+        configuration.getxAxis().getTitle().setStyle(style);
+        configuration.getxAxis().getLabels().setStyle(style);
 
         configuration.getLegend().setEnabled(false);
         configuration.getTooltip().setXDateFormat("%H:%M");
@@ -120,10 +133,15 @@ public class DashboardGraph extends LitTemplate {
 
     private void setGraphData(List<SensorData> dataList, MeasuredValueType valueType) {
         Configuration configuration = graphComponent.getConfiguration();
-        configuration.setTitle("Measured " + valueType.getName());
-        YAxis yAxis = configuration.getyAxis();
 
+        configuration.setTitle(dataList.isEmpty() ? "No data present" : "Measured " + valueType.getName());
+        configuration.getTitle().setStyle(style);
+
+        YAxis yAxis = configuration.getyAxis();
         yAxis.setTitle(new AxisTitle(valueType.getName() + " [ " + valueType.getUnits() + "]"));
+        yAxis.getTitle().setStyle(style);
+        yAxis.getLabels().setStyle(style);
+        yAxis.setGridLineColor(SolidColor.GRAY);
 
         DataSeries dataSeries = new DataSeries();
 
@@ -132,7 +150,13 @@ public class DashboardGraph extends LitTemplate {
             dataSeries.add(item);
         });
 
+
+        PlotOptionsLine options = new PlotOptionsLine();
+        options.setColor(SolidColor.YELLOW);
+        dataSeries.setPlotOptions(options);
+
         configuration.setSeries(dataSeries);
+
         graphComponent.setConfiguration(configuration);
         graphComponent.drawChart();
     }

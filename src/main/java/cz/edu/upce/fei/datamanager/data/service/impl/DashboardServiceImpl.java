@@ -1,5 +1,6 @@
 package cz.edu.upce.fei.datamanager.data.service.impl;
 
+import com.vaadin.flow.router.NotFoundException;
 import cz.edu.upce.fei.datamanager.data.dto.DashboardSensorDataDto;
 import cz.edu.upce.fei.datamanager.data.entity.DashboardSensorConfig;
 import cz.edu.upce.fei.datamanager.data.entity.Sensor;
@@ -69,14 +70,18 @@ public class DashboardServiceImpl implements DashboardService {
 
         sensors.forEach(it -> {
             //TODO refactor, get latest value, but if it is older than 15 minutes, make it unknown - to view disconnection
-            SensorData sensorData = sensorDataService.getLatestData(it.getId());
+            String value;
+            try {
+                SensorData sensorData = sensorDataService.getLatestData(it.getId());
 
-            String value = switch (valueType) {
-                case TEMPERATURE -> sensorData.getTemperature().toString();
-                case HUMIDITY -> sensorData.getHumidity().toString();
-                case CO2 -> sensorData.getCo2().toString();
-            };
-
+                value = switch (valueType) {
+                    case TEMPERATURE -> sensorData.getTemperature().toString();
+                    case HUMIDITY -> sensorData.getHumidity().toString();
+                    case CO2 -> sensorData.getCo2().toString();
+                };
+            } catch (NotFoundException ex) {
+                value = "Unknown";
+            }
             dashboardSensorDataDtos.add(new DashboardSensorDataDto(it.getName(), value));
         });
         return dashboardSensorDataDtos;

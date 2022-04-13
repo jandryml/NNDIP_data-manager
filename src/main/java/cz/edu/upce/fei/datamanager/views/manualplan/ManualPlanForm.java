@@ -5,7 +5,6 @@ import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.littemplate.LitTemplate;
@@ -18,7 +17,6 @@ import com.vaadin.flow.shared.Registration;
 import cz.edu.upce.fei.datamanager.data.entity.Event;
 import cz.edu.upce.fei.datamanager.data.entity.plan.ManualPlan;
 import cz.edu.upce.fei.datamanager.data.service.EventService;
-import cz.edu.upce.fei.datamanager.views.generic.DynamicActionComponent;
 
 /**
  * A Designer generated component for the manual-plan-form template.
