@@ -2,16 +2,18 @@ package cz.edu.upce.fei.datamanager.views.dashboard;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.littemplate.LitTemplate;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.template.Id;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import cz.edu.upce.fei.datamanager.data.dto.DashboardSensorDataDto;
 import cz.edu.upce.fei.datamanager.data.service.DashboardService;
+import cz.edu.upce.fei.datamanager.data.service.SensorService;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
 
 import java.util.List;
@@ -46,24 +48,24 @@ public class DashboardView extends LitTemplate {
     /**
      * Creates a new DashboardView.
      */
-    public DashboardView(DashboardService dashboardService) {
+    public DashboardView(DashboardService dashboardService, SensorService sensorService) {
         this.dashboardService = dashboardService;
         initSensorStatus();
     }
 
     private void initSensorStatus() {
-        initTextFields(dashboardService.getViewableTemperatureData(), temperatureContainer);
-        initTextFields(dashboardService.getViewableHumidityData(), humidityContainer);
-        initTextFields(dashboardService.getViewableCo2Data(), co2Container);
+        initTextFields(dashboardService.getViewableTemperatureData(), temperatureContainer, "°C");
+        initTextFields(dashboardService.getViewableHumidityData(), humidityContainer, "%");
+        initTextFields(dashboardService.getViewableCo2Data(), co2Container, "ppm");
     }
 
-    private void initTextFields(List<DashboardSensorDataDto> data, VerticalLayout layout) {
+    private void initTextFields(List<DashboardSensorDataDto> data, VerticalLayout layout, String units) {
         data.forEach(it -> {
-            TextField textField = new TextField();
-            textField.setLabel(it.name());
-            textField.setValue(it.value());
-            textField.setReadOnly(true);
-            layout.add(textField);
+            HorizontalLayout horizontalLayout = new HorizontalLayout();
+            horizontalLayout.add(new Label(it.name() + ":  "));
+            horizontalLayout.add(new Label(it.value()  + "  " + units));
+            horizontalLayout.setSpacing(true);
+            layout.add(horizontalLayout);
         });
     }
 
