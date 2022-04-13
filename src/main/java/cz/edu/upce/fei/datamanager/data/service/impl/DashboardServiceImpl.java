@@ -77,12 +77,12 @@ public class DashboardServiceImpl implements DashboardService {
                 SensorData sensorData = sensorDataService.getLatestData(it.getId());
 
                 value = switch (valueType) {
-                    case TEMPERATURE -> sensorData.getTemperature().toString() + " " + TEMPERATURE.getUnits();
-                    case HUMIDITY -> sensorData.getHumidity().toString() + " " + HUMIDITY.getUnits();
-                    case CO2 -> sensorData.getCo2().toString() + " " + CO2.getUnits();
+                    case TEMPERATURE -> sensorData.getTemperature().toString() + " " + TEMPERATURE.getUnits();
+                    case HUMIDITY -> sensorData.getHumidity().toString() + " " + HUMIDITY.getUnits();
+                    case CO2 -> sensorData.getCo2().toString() + " " + CO2.getUnits();
                 };
             } catch (NotFoundException ex) {
-                value = "Not available";
+                value = "Not available";
             }
             dashboardSensorDataDtos.add(new DashboardSensorDataDto(it.getName(), value));
         });

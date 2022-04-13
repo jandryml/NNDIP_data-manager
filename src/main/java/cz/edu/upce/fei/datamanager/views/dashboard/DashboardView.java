@@ -54,16 +54,16 @@ public class DashboardView extends LitTemplate {
     }
 
     private void initSensorStatus() {
-        initTextFields(dashboardService.getViewableTemperatureData(), temperatureContainer, "°C");
-        initTextFields(dashboardService.getViewableHumidityData(), humidityContainer, "%");
-        initTextFields(dashboardService.getViewableCo2Data(), co2Container, "ppm");
+        initTextFields(dashboardService.getViewableTemperatureData(), temperatureContainer);
+        initTextFields(dashboardService.getViewableHumidityData(), humidityContainer);
+        initTextFields(dashboardService.getViewableCo2Data(), co2Container);
     }
 
-    private void initTextFields(List<DashboardSensorDataDto> data, VerticalLayout layout, String units) {
+    private void initTextFields(List<DashboardSensorDataDto> data, VerticalLayout layout) {
         data.forEach(it -> {
             HorizontalLayout horizontalLayout = new HorizontalLayout();
-            horizontalLayout.add(new Label(it.name() + ":  "));
-            horizontalLayout.add(new Label(it.value()  + "  " + units));
+            horizontalLayout.add(new Label(it.name() + ":"));
+            horizontalLayout.add(new Label(it.value()));
             horizontalLayout.setSpacing(true);
             layout.add(horizontalLayout);
         });
