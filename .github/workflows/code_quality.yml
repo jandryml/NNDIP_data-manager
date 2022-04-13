@@ -10,15 +10,9 @@ on:
 jobs:
   qodana:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./src
 
     steps:
       - uses: actions/checkout@v3
-      
-      - name: Remove old report
-        run: rm -f ${{ runner.temp }}/qodana/results/qodana.sarif.json 
       
       - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v5.0.2
