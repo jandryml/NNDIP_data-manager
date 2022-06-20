@@ -8,4 +8,6 @@
 
     <include file="db/changelog/001-init_schema_structure.xml"/>
     <include file="db/changelog/002-init_data.sql"/>
+    <include file="db/changelog/003-plan_priority.xml"/>
+    <include file="db/changelog/004-update_priority_on_existing_plans.sql"/>
 </databaseChangeLog>
