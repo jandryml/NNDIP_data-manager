@@ -24,6 +24,7 @@ import cz.edu.upce.fei.datamanager.security.AuthenticatedUser;
 import cz.edu.upce.fei.datamanager.views.action.ActionView;
 import cz.edu.upce.fei.datamanager.views.dashboard.DashboardView;
 import cz.edu.upce.fei.datamanager.views.event.EventView;
+import cz.edu.upce.fei.datamanager.views.gpioplan.GpioPlanView;
 import cz.edu.upce.fei.datamanager.views.limitplan.LimitPlanView;
 import cz.edu.upce.fei.datamanager.views.manualplan.ManualPlanView;
 import cz.edu.upce.fei.datamanager.views.sensor.SensorView;
@@ -145,6 +146,7 @@ public class MainLayout extends AppLayout {
                 new MenuItemInfo("Limit plan", "la la-cog", LimitPlanView.class), //
                 new MenuItemInfo("Time plan", "la la-cogs", TimePlanView.class), //
                 new MenuItemInfo("Manual plan", "la la-cogs", ManualPlanView.class), //
+                new MenuItemInfo("GPIO plan", "la la-cogs", GpioPlanView.class), //
                 new MenuItemInfo("Events", "la la-cogs", EventView.class), //
                 new MenuItemInfo("Actions", "la la-cogs", ActionView.class), //
                 new MenuItemInfo("Sensors", "la la-cogs", SensorView.class), //
