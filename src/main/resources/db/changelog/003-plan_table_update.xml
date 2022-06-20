@@ -4,5 +4,10 @@
         <addColumn tableName="plan">
             <column name="priority" type="INT" defaultValue="0"/>
         </addColumn>
+        <addColumn tableName="plan">
+            <column name="plan_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
     </changeSet>
 </databaseChangeLog>

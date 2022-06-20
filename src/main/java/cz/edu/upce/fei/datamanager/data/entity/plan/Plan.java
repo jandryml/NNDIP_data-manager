@@ -2,6 +2,7 @@ package cz.edu.upce.fei.datamanager.data.entity.plan;
 
 import cz.edu.upce.fei.datamanager.data.entity.AbstractEntity;
 import cz.edu.upce.fei.datamanager.data.entity.Event;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,4 +21,8 @@ public abstract class Plan extends AbstractEntity {
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     protected Event event;
+    protected int priority;
+    @Setter(AccessLevel.NONE)
+    @Enumerated(EnumType.STRING)
+    protected PlanType planType;
 }

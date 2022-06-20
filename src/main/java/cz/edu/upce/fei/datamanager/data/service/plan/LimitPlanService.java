@@ -1,4 +1,4 @@
-package cz.edu.upce.fei.datamanager.data.service;
+package cz.edu.upce.fei.datamanager.data.service.plan;
 
 import cz.edu.upce.fei.datamanager.data.entity.plan.LimitPlan;
 

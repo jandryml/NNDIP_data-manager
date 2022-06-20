@@ -15,4 +15,8 @@ public class TimePlan extends Plan {
     private LocalTime fromTime;
     @NotNull
     private LocalTime toTime;
+
+    public TimePlan() {
+        this.planType = PlanType.TIME_PLAN;
+    }
 }

@@ -1,4 +1,4 @@
-package cz.edu.upce.fei.datamanager.data.repository;
+package cz.edu.upce.fei.datamanager.data.repository.plan;
 
 import cz.edu.upce.fei.datamanager.data.entity.plan.LimitPlan;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -15,7 +15,7 @@ import cz.edu.upce.fei.datamanager.data.entity.Event;
 import cz.edu.upce.fei.datamanager.data.entity.enums.LimitPlanType;
 import cz.edu.upce.fei.datamanager.data.entity.plan.LimitPlan;
 import cz.edu.upce.fei.datamanager.data.service.EventService;
-import cz.edu.upce.fei.datamanager.data.service.LimitPlanService;
+import cz.edu.upce.fei.datamanager.data.service.plan.LimitPlanService;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
 
 import java.math.BigDecimal;

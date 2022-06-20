@@ -13,7 +13,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import cz.edu.upce.fei.datamanager.data.entity.plan.ManualPlan;
-import cz.edu.upce.fei.datamanager.data.service.ManualPlanService;
+import cz.edu.upce.fei.datamanager.data.service.plan.ManualPlanService;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
 
 import java.util.List;

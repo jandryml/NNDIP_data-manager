@@ -1,8 +1,8 @@
-package cz.edu.upce.fei.datamanager.data.service.impl;
+package cz.edu.upce.fei.datamanager.data.service.plan.impl;
 
 import cz.edu.upce.fei.datamanager.data.entity.plan.LimitPlan;
-import cz.edu.upce.fei.datamanager.data.repository.LimitPlanRepository;
-import cz.edu.upce.fei.datamanager.data.service.LimitPlanService;
+import cz.edu.upce.fei.datamanager.data.repository.plan.LimitPlanRepository;
+import cz.edu.upce.fei.datamanager.data.service.plan.LimitPlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
