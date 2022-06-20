@@ -7,6 +7,7 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.component.template.Id;
+import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -58,6 +59,12 @@ public class LimitPlanView extends LitTemplate {
 
     private final EventService eventService;
     private final LimitPlanService limitPlanService;
+    @Id("minEventPriority")
+    private IntegerField minEventPriority;
+    @Id("maxEventPriority")
+    private IntegerField maxEventPriority;
+    @Id("co2Priority")
+    private IntegerField co2Priority;
 
     /**
      * Creates a new LimitPlanView.
@@ -99,21 +106,22 @@ public class LimitPlanView extends LitTemplate {
     private void saveLimitPlans() {
         saveLimitPlan(LimitPlanType.TEMPERATURE_LOW, optimalTemperature.getValue(),
                 BigDecimal.valueOf(optimalTemperature.getValue()).subtract(BigDecimal.valueOf(toleranceTemperature.getValue())).doubleValue(),
-                enabledTemperature.getValue(), minEventTemperature.getValue());
+                enabledTemperature.getValue(), minEventTemperature.getValue(), minEventPriority.getValue());
 
         saveLimitPlan(LimitPlanType.TEMPERATURE_HIGH, optimalTemperature.getValue(),
                 optimalTemperature.getValue() + toleranceTemperature.getValue(),
-                enabledTemperature.getValue(), maxEventTemperature.getValue());
+                enabledTemperature.getValue(), maxEventTemperature.getValue(), maxEventPriority.getValue());
 
         saveLimitPlan(LimitPlanType.CO2, optimalCo2.getValue(),
-                thresholdCo2.getValue(), enabledCo2.getValue(), eventCo2.getValue());
+                thresholdCo2.getValue(), enabledCo2.getValue(), eventCo2.getValue(), co2Priority.getValue());
     }
 
-    private void saveLimitPlan(LimitPlanType type, Double optimalValue, Double thresholdValue, boolean enabled, Event event) {
+    private void saveLimitPlan(LimitPlanType type, Double optimalValue, Double thresholdValue, boolean enabled, Event event, int priority) {
         LimitPlan limitPlan = new LimitPlan(type, optimalValue, thresholdValue);
         limitPlan.setName(type.name());
         limitPlan.setEnabled(enabled);
         limitPlan.setEvent(event);
+        limitPlan.setPriority(priority);
 
         limitPlanService.saveLimitPlan(limitPlan);
     }
@@ -128,10 +136,13 @@ public class LimitPlanView extends LitTemplate {
         optimalCo2.setValue(co2Plan.getOptimalValue());
         thresholdCo2.setValue(co2Plan.getThresholdValue());
         maxEventTemperature.setValue(highTempPlan.getEvent());
+        maxEventPriority.setValue(highTempPlan.getPriority());
         minEventTemperature.setValue(lowTempPlan.getEvent());
+        minEventPriority.setValue(lowTempPlan.getPriority());
         eventCo2.setValue(co2Plan.getEvent());
         enabledTemperature.setValue(lowTempPlan.isEnabled());
         enabledCo2.setValue(co2Plan.isEnabled());
+        co2Priority.setValue(co2Plan.getPriority());
     }
 
     private LimitPlan getLimitPlan(LimitPlanType planType) {

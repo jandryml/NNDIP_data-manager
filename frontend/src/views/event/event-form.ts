@@ -32,9 +32,4 @@ export class EventForm extends LitElement {
       </vaadin-vertical-layout>
     `;
   }
-
-  // Remove this method to render the contents of this view inside Shadow DOM
-  createRenderRoot() {
-    return this;
-  }
 }
