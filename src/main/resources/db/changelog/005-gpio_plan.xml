@@ -33,9 +33,7 @@
             <column name="duration" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column name="last_launched" type="datetime">
-                <constraints nullable="false"/>
-            </column>
+            <column name="last_triggered" type="datetime" />
         </createTable>
 
         <addForeignKeyConstraint baseTableName="time_gpio_plan" baseColumnNames="id" constraintName="fk_tgp_gp" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedTableName="gpio_plan" referencedColumnNames="id" validate="true"/>

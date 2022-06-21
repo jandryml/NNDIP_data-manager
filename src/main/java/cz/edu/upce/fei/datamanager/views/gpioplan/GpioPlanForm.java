@@ -7,6 +7,7 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.datetimepicker.DateTimePicker;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -19,9 +20,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 import cz.edu.upce.fei.datamanager.data.entity.Event;
-import cz.edu.upce.fei.datamanager.data.entity.plan.gpio.GpioPlan;
-import cz.edu.upce.fei.datamanager.data.entity.plan.gpio.PinState;
-import cz.edu.upce.fei.datamanager.data.entity.plan.gpio.RaspiPin;
+import cz.edu.upce.fei.datamanager.data.entity.plan.gpio.*;
 import cz.edu.upce.fei.datamanager.data.service.EventService;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -50,16 +49,15 @@ public class GpioPlanForm extends LitTemplate {
     private ComboBox<RaspiPin> address;
     @Id("defaultState")
     private ComboBox<PinState> defaultState;
-    @Id("timeDuration")
-    private TextField timeDuration;
-    @Id("lastTriggered")
-    private TextField lastTriggered;
+    @Id("duration")
+    private IntegerField duration;
     @Id("turnedOn")
     private Checkbox turnedOn;
+    @Id("lastTriggered")
+    private DateTimePicker lastTriggered;
     @Id("typeLayout")
     private HorizontalLayout typeLayout;
     private final RadioButtonGroup<String> typeRadioGroup = new RadioButtonGroup<>();
-
 
     @Id("save")
     private Button save;
@@ -68,7 +66,7 @@ public class GpioPlanForm extends LitTemplate {
     @Id("close")
     private Button close;
 
-    Binder<GpioPlan> binder = new BeanValidationBinder<>(GpioPlan.class);
+    private Binder binder = new BeanValidationBinder<>(ManualGpioPlan.class);
 
     private final EventService eventService;
 
@@ -107,24 +105,28 @@ public class GpioPlanForm extends LitTemplate {
 
         defaultState.setItems(PinState.values());
         defaultState.setItemLabelGenerator(PinState::name);
+
+        turnedOn.setReadOnly(true);
     }
 
     private void configureRadioGroup() {
-        typeRadioGroup.setLabel("Travel class");
-        typeRadioGroup.setItems("Manual", "Time");
+        typeRadioGroup.setLabel("Type");
+        typeRadioGroup.setItems(GpioType.MANUAL.name, GpioType.TIME.name);
         typeLayout.add(typeRadioGroup);
 
         typeRadioGroup.addValueChangeListener(it -> {
             String currentValue = it.getValue();
 
             if (currentValue.equals("Manual")) {
-                timeDuration.setVisible(false);
+                duration.setVisible(false);
                 lastTriggered.setVisible(false);
                 turnedOn.setVisible(true);
+                setGpioPlan(new ManualGpioPlan(), true);
             } else if (currentValue.equals("Time")) {
-                timeDuration.setVisible(true);
+                duration.setVisible(true);
                 lastTriggered.setVisible(true);
                 turnedOn.setVisible(false);
+                setGpioPlan(new TimeGpioPlan(), true);
             } else {
                 log.error("Unknown value when selection type radio in Gpio form");
             }
@@ -132,9 +134,31 @@ public class GpioPlanForm extends LitTemplate {
     }
 
 
-    public void setGpioPlan(GpioPlan gpioPlan) {
+    public void setGpioPlan(GpioPlan gpioPlan, boolean isNew) {
         this.gpioPlan = gpioPlan;
+
+        if (gpioPlan != null) {
+            setPlanType(gpioPlan);
+            typeRadioGroup.setReadOnly(!isNew);
+        }
         binder.readBean(gpioPlan);
+    }
+
+
+    private void setPlanType(GpioPlan gpioPlan) {
+        if (gpioPlan instanceof ManualGpioPlan) {
+            this.gpioPlanType = GpioType.MANUAL;
+            binder = new BeanValidationBinder<>(ManualGpioPlan.class);
+            typeRadioGroup.setValue(GpioType.MANUAL.name);
+            configureBinder();
+        } else if (gpioPlan instanceof TimeGpioPlan) {
+            this.gpioPlanType = GpioType.TIME;
+            binder = new BeanValidationBinder<>(TimeGpioPlan.class);
+            typeRadioGroup.setValue(GpioType.TIME.name);
+            configureBinder();
+        } else {
+            log.error("Unexpected type during creating GPIO plan form!");
+        }
     }
 
     private void validateAndSave() {
@@ -146,10 +170,6 @@ public class GpioPlanForm extends LitTemplate {
         } catch (ValidationException e) {
             e.printStackTrace();
         }
-    }
-
-    public void setGpioPlanType(GpioType gpioPlanType) {
-        this.gpioPlanType = gpioPlanType;
     }
 
     // Events

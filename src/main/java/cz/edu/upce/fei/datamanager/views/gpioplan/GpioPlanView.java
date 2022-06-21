@@ -79,7 +79,7 @@ public class GpioPlanView extends LitTemplate {
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         grid.asSingleSelect().addValueChangeListener(event ->
-                editGpioPlan(event.getValue()));
+                editGpioPlan(event.getValue(), false));
     }
 
     private void configureBinding() {
@@ -92,7 +92,7 @@ public class GpioPlanView extends LitTemplate {
 
     private void addGpioPlan() {
         grid.asSingleSelect().clear();
-        editGpioPlan(new ManualGpioPlan());
+        editGpioPlan(new ManualGpioPlan(), true);
     }
 
     private void saveGpioPlan(GpioPlanForm.SaveEvent event) {
@@ -107,29 +107,19 @@ public class GpioPlanView extends LitTemplate {
         closeEditor();
     }
 
-    public void editGpioPlan(GpioPlan gpioPlan) {
+    public void editGpioPlan(GpioPlan gpioPlan, boolean isNew) {
         if (gpioPlan == null) {
             closeEditor();
         } else {
-            setPlanType(gpioPlan);
-            gpioPlanForm.setGpioPlan(gpioPlan);
+            gpioPlanForm.setGpioPlan(gpioPlan, isNew);
             gpioPlanForm.setVisible(true);
             addClassName("editing");
         }
     }
 
-    private void setPlanType(GpioPlan gpioPlan) {
-        if(gpioPlan instanceof ManualGpioPlan) {
-            gpioPlanForm.setGpioPlanType(GpioPlanForm.GpioType.MANUAL);
-        } else if (gpioPlan instanceof TimeGpioPlan) {
-            gpioPlanForm.setGpioPlanType(GpioPlanForm.GpioType.MANUAL);
-        } else {
-            log.error("Unexpected type during creating GPIO plan form!");
-        }
-    }
 
     private void closeEditor() {
-        gpioPlanForm.setGpioPlan(null);
+        gpioPlanForm.setGpioPlan(null, false);
         gpioPlanForm.setVisible(false);
         grid.deselectAll();
         removeClassName("editing");

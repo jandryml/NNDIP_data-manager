@@ -7,6 +7,7 @@ import '@vaadin/integer-field/src/vaadin-integer-field.js';
 import '@vaadin/form-layout/src/vaadin-form-layout.js';
 import '@vaadin/text-field/src/vaadin-text-field.js';
 import '@vaadin/checkbox/src/vaadin-checkbox.js';
+import '@vaadin/date-time-picker/src/vaadin-date-time-picker.js';
 
 @customElement('gpio-plan-form')
 export class GpioPlanForm extends LitElement {
@@ -31,8 +32,8 @@ export class GpioPlanForm extends LitElement {
   <vaadin-integer-field id="priority" has-controls type="number" required min="0" placeholder="0-100" value="50" max="100" tabindex="" label="Priority" name="priority" step="5"></vaadin-integer-field>
  </vaadin-form-layout>
  <vaadin-form-layout>
-  <vaadin-text-field label="Time duration" id="timeDuration" type="text" tabindex=""></vaadin-text-field>
-  <vaadin-text-field label="Last triggered" id="lastTriggered" type="text" tabindex=""></vaadin-text-field>
+  <vaadin-integer-field id="duration" has-controls type="number" required min="0" tabindex="" label="Time duration (min)" name="duration" step="1"></vaadin-integer-field>
+  <vaadin-date-time-picker id="lastTriggered" tabindex="" label="Last triggered"></vaadin-date-time-picker>
   <vaadin-checkbox id="turnedOn" tabindex="" type="checkbox" value="on">
     Is on 
   </vaadin-checkbox>

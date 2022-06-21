@@ -6,8 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -15,8 +14,7 @@ import java.time.LocalTime;
 public class TimeGpioPlan extends GpioPlan {
     @Min(1)
     private int duration;
-    @NotNull
-    private LocalTime lastLaunched;
+    private LocalDateTime lastTriggered;
 
     public TimeGpioPlan() {
         this.planType = PlanType.TIME_GPIO_PLAN;
