@@ -64,34 +64,6 @@
   "sources": [
     {
       "type": "file",
-      "path": "webpack.config.js",
-      "language": "JavaScript",
-      "line": 8,
-      "offset": 1,
-      "length": 6,
-      "code": {
-        "startLine": 6,
-        "length": 6,
-        "offset": 57,
-        "surroundingCode": "const flowDefaults = require('./webpack.generated.js');\n\nmodule.exports = merge(flowDefaults, {\n\n});"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "project",
-    "inspectionName": "JSUnresolvedVariable"
-  },
-  "hash": "227366984dbf17f4c2b7c2883cf26a23125abe75df2c99d51bb40b11ba53f216"
-},{
-  "tool": "Code Inspection",
-  "category": "General",
-  "type": "Unresolved JavaScript variable",
-  "severity": "Moderate",
-  "comment": "Unresolved variable or type module",
-  "detailsInfo": "Reports an unresolved referenced variable or field.\n\nTypeScript code is ignored.",
-  "sources": [
-    {
-      "type": "file",
       "path": ".prettierrc.js",
       "language": "JavaScript",
       "line": 1,
@@ -110,4 +82,32 @@
     "inspectionName": "JSUnresolvedVariable"
   },
   "hash": "f529a751d8ad56358065a44d1a6a683e9b406132f87a0043f31ef070d51beee5"
+},{
+  "tool": "Code Inspection",
+  "category": "General",
+  "type": "Unresolved JavaScript variable",
+  "severity": "Moderate",
+  "comment": "Unresolved variable or type module",
+  "detailsInfo": "Reports an unresolved referenced variable or field.\n\nTypeScript code is ignored.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "webpack.config.js",
+      "language": "JavaScript",
+      "line": 8,
+      "offset": 1,
+      "length": 6,
+      "code": {
+        "startLine": 6,
+        "length": 6,
+        "offset": 57,
+        "surroundingCode": "const flowDefaults = require('./webpack.generated.js');\n\nmodule.exports = merge(flowDefaults, {\n\n});"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "project",
+    "inspectionName": "JSUnresolvedVariable"
+  },
+  "hash": "227366984dbf17f4c2b7c2883cf26a23125abe75df2c99d51bb40b11ba53f216"
 }]}

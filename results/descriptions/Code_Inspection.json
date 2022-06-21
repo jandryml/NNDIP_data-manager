@@ -548,16 +548,16 @@
           "description": "Reports multiple destructuring properties with identical keys. Suggests merging the properties."
         },
         {
-          "shortName": "JSAnnotator",
-          "displayName": "ECMAScript specification is not followed",
-          "enabled": false,
-          "description": "Reports basic syntax issues and inconsistencies with language specification, such as invalid usages of keywords, usages of incompatible numeric format, or multiple parameters to getters/setters.   \nGenerally, such errors must always be reported and shouldn't be disabled. But in some cases, such as issues due to the dynamic nature of JavaScript, the use of not yet supported language features, or bugs in IDE's checker, it may be handy to disable reporting these very basic errors."
-        },
-        {
           "shortName": "JSUnfilteredForInLoop",
           "displayName": "Unfiltered for..in loop",
           "enabled": false,
           "description": "Reports unfiltered `for-in` loops.   \n\nThe use of this construct results in processing not only own properties of an object but properties from its prototype as well. It may be unexpected in some specific cases, for example, in utility methods that copy or modify all properties or when `Object`'s prototype may be incorrectly modified. For example, the following code will print **42** and **myMethod** :   \n\n\n    Object.prototype.myMethod = function myMethod() {};\n    let a = { foo: 42 };\n    for (let i in a) {\n      console.log(a[i]);\n    }\n\nSuggests replacing the whole loop with a `Object.keys()` method or adding a `hasOwnProperty()` check. After applying the quick-fix the code looks as follows:\n\n\n    for (let i in a) {\n      if (a.hasOwnProperty(i)) {\n        console.log(a[i]);\n      }\n    }\n"
+        },
+        {
+          "shortName": "JSAnnotator",
+          "displayName": "ECMAScript specification is not followed",
+          "enabled": false,
+          "description": "Reports basic syntax issues and inconsistencies with language specification, such as invalid usages of keywords, usages of incompatible numeric format, or multiple parameters to getters/setters.   \nGenerally, such errors must always be reported and shouldn't be disabled. But in some cases, such as issues due to the dynamic nature of JavaScript, the use of not yet supported language features, or bugs in IDE's checker, it may be handy to disable reporting these very basic errors."
         },
         {
           "shortName": "JSLastCommaInObjectLiteral",
@@ -690,6 +690,41 @@
           "displayName": "Qodana service message",
           "enabled": false,
           "description": "Reports the Qodana service messages such as suspending a particular inspection due to a large number of reported problems."
+        }
+      ]
+    },
+    {
+      "name": "PostCSS",
+      "inspections": [
+        {
+          "shortName": "PostCssCustomSelector",
+          "displayName": "Invalid custom selector",
+          "enabled": false,
+          "description": "Reports a syntax error in [PostCSS Custom Selector](https://github.com/postcss/postcss-custom-selectors).\n\nExample:\n\n```\n@custom-selector :--heading h1, h2, h3;\n```"
+        },
+        {
+          "shortName": "PostCssUnresolvedModuleValueReference",
+          "displayName": "Unresolved CSS module value",
+          "enabled": false,
+          "description": "Reports an unresolved reference to a [CSS Module Value](https://github.com/css-modules/postcss-modules-values) (`@value` declaration).\n\nExample:\n\n```\n@value foo from unknown;\n```"
+        },
+        {
+          "shortName": "PostCssNesting",
+          "displayName": "Invalid nested rule",
+          "enabled": false,
+          "description": "Reports a nested style rule whose syntax doesn't comply with the [PostCSS Nested](https://github.com/postcss/postcss-nested) or the [PostCSS Nesting](https://github.com/csstools/postcss-nesting) specification.\n\nExample:\n\n```\n.phone {\n  &_title {}\n}\n```"
+        },
+        {
+          "shortName": "PostCssCustomMedia",
+          "displayName": "Invalid custom media",
+          "enabled": false,
+          "description": "Reports a syntax error in a [PostCSS Custom Media](https://github.com/postcss/postcss-custom-media) query.\n\nExample:\n\n```\n@custom-media --small-viewport (max-width: 30em);\n```"
+        },
+        {
+          "shortName": "PostCssMediaRange",
+          "displayName": "Invalid media query range",
+          "enabled": false,
+          "description": "Checks [range context](https://github.com/postcss/postcss-media-minmax) syntax, which may alternatively be used for media features with a 'range' type.\n\nExample:\n\n```\n@media screen and (500px <= width <= 1200px) {}\n```"
         }
       ]
     },
@@ -882,6 +917,77 @@
       ]
     },
     {
+      "name": "Potentially undesirable code constructs",
+      "inspections": [
+        {
+          "shortName": "BreakStatementJS",
+          "displayName": "'break' statement",
+          "enabled": false,
+          "description": "Reports a `break` statements. Ignores `break` statements that end case blocks."
+        },
+        {
+          "shortName": "DebuggerStatementJS",
+          "displayName": "'debugger' statement",
+          "enabled": false,
+          "description": "Reports a `debugger` statement used for interaction with the Javascript debuggers. Such statements should not appear in production code."
+        },
+        {
+          "shortName": "BreakStatementWithLabelJS",
+          "displayName": "'break' statement with label",
+          "enabled": false,
+          "description": "Reports a labeled `break` statement."
+        },
+        {
+          "shortName": "ContinueStatementWithLabelJS",
+          "displayName": "'continue' statement with label",
+          "enabled": false,
+          "description": "Reports a labeled `continue` statement."
+        },
+        {
+          "shortName": "ContinueStatementJS",
+          "displayName": "'continue' statement",
+          "enabled": false,
+          "description": "Reports a `continue` statement."
+        },
+        {
+          "shortName": "ConditionalExpressionJS",
+          "displayName": "Conditional expression",
+          "enabled": false,
+          "description": "Reports a ternary conditional expression. Some coding standards prohibit such expressions in favor of explicit `if` statements."
+        },
+        {
+          "shortName": "LabeledStatementJS",
+          "displayName": "Labeled statement",
+          "enabled": false,
+          "description": "Reports a labeled statement."
+        },
+        {
+          "shortName": "WithStatementJS",
+          "displayName": "'with' statement",
+          "enabled": false,
+          "description": "Reports a `with` statements. Such statements result in potentially confusing implicit bindings, and may behave strangely in setting new variables."
+        },
+        {
+          "shortName": "AnonymousFunctionJS",
+          "displayName": "Anonymous function",
+          "enabled": false,
+          "description": "Reports an anonymous function. An explicit name of a function expression may be helpful for debugging. Ignores function expressions without names if they have a `name` property specified in the ECMAScript 6 standard. For example, `var bar = function() {};` is not reported."
+        },
+        {
+          "shortName": "CommaExpressionJS",
+          "displayName": "Comma expression",
+          "enabled": false,
+          "description": "Reports a comma expression. Such expressions are often a sign of overly clever code, and may lead to subtle bugs. Comma expressions in the initializer or in the update section of `for` loops are ignored."
+        },
+        {
+          "shortName": "VoidExpressionJS",
+          "displayName": "'void' expression",
+          "enabled": false,
+          "description": "Reports a `void` expression."
+        }
+      ]
+    },
+    {
       "name": "Probable bugs",
       "inspections": [
         {
@@ -1049,77 +1155,6 @@
       ]
     },
     {
-      "name": "Potentially undesirable code constructs",
-      "inspections": [
-        {
-          "shortName": "BreakStatementJS",
-          "displayName": "'break' statement",
-          "enabled": false,
-          "description": "Reports a `break` statements. Ignores `break` statements that end case blocks."
-        },
-        {
-          "shortName": "DebuggerStatementJS",
-          "displayName": "'debugger' statement",
-          "enabled": false,
-          "description": "Reports a `debugger` statement used for interaction with the Javascript debuggers. Such statements should not appear in production code."
-        },
-        {
-          "shortName": "BreakStatementWithLabelJS",
-          "displayName": "'break' statement with label",
-          "enabled": false,
-          "description": "Reports a labeled `break` statement."
-        },
-        {
-          "shortName": "ContinueStatementWithLabelJS",
-          "displayName": "'continue' statement with label",
-          "enabled": false,
-          "description": "Reports a labeled `continue` statement."
-        },
-        {
-          "shortName": "ContinueStatementJS",
-          "displayName": "'continue' statement",
-          "enabled": false,
-          "description": "Reports a `continue` statement."
-        },
-        {
-          "shortName": "ConditionalExpressionJS",
-          "displayName": "Conditional expression",
-          "enabled": false,
-          "description": "Reports a ternary conditional expression. Some coding standards prohibit such expressions in favor of explicit `if` statements."
-        },
-        {
-          "shortName": "LabeledStatementJS",
-          "displayName": "Labeled statement",
-          "enabled": false,
-          "description": "Reports a labeled statement."
-        },
-        {
-          "shortName": "WithStatementJS",
-          "displayName": "'with' statement",
-          "enabled": false,
-          "description": "Reports a `with` statements. Such statements result in potentially confusing implicit bindings, and may behave strangely in setting new variables."
-        },
-        {
-          "shortName": "AnonymousFunctionJS",
-          "displayName": "Anonymous function",
-          "enabled": false,
-          "description": "Reports an anonymous function. An explicit name of a function expression may be helpful for debugging. Ignores function expressions without names if they have a `name` property specified in the ECMAScript 6 standard. For example, `var bar = function() {};` is not reported."
-        },
-        {
-          "shortName": "CommaExpressionJS",
-          "displayName": "Comma expression",
-          "enabled": false,
-          "description": "Reports a comma expression. Such expressions are often a sign of overly clever code, and may lead to subtle bugs. Comma expressions in the initializer or in the update section of `for` loops are ignored."
-        },
-        {
-          "shortName": "VoidExpressionJS",
-          "displayName": "'void' expression",
-          "enabled": false,
-          "description": "Reports a `void` expression."
-        }
-      ]
-    },
-    {
       "name": "Flow type checker",
       "inspections": [
         {
@@ -1244,29 +1279,6 @@
       ]
     },
     {
-      "name": "Unused symbols",
-      "inspections": [
-        {
-          "shortName": "JSUnusedAssignment",
-          "displayName": "Unused assignment",
-          "enabled": true,
-          "description": "Reports a variable whose value is never used after assignment.  \nSuggests removing the unused variable to shorten the code and to avoid redundant allocations.\n\nThe following cases are reported:\n\n* A variable is never read after assignment.\n* The value of a variable is always overwritten with another assignment before the variable is read next time.\n* The initializer of a variable is redundant (for one of the above mentioned reasons)."
-        },
-        {
-          "shortName": "JSUnusedGlobalSymbols",
-          "displayName": "Unused global symbol",
-          "enabled": false,
-          "description": "Reports an unused globally accessible public function, variable, class, or property."
-        },
-        {
-          "shortName": "JSUnusedLocalSymbols",
-          "displayName": "Unused local symbol",
-          "enabled": true,
-          "description": "Reports an unused locally accessible parameter, local variable, function, class, or private member declaration."
-        }
-      ]
-    },
-    {
       "name": "Cucumber",
       "inspections": [
         {
@@ -1310,6 +1322,29 @@
           "displayName": "Missing ':' after examples keyword",
           "enabled": false,
           "description": "Reports `Examples` sections in Cucumber .feature files if they do not have ':' after the `Examples` keyword."
+        }
+      ]
+    },
+    {
+      "name": "Unused symbols",
+      "inspections": [
+        {
+          "shortName": "JSUnusedAssignment",
+          "displayName": "Unused assignment",
+          "enabled": true,
+          "description": "Reports a variable whose value is never used after assignment.  \nSuggests removing the unused variable to shorten the code and to avoid redundant allocations.\n\nThe following cases are reported:\n\n* A variable is never read after assignment.\n* The value of a variable is always overwritten with another assignment before the variable is read next time.\n* The initializer of a variable is redundant (for one of the above mentioned reasons)."
+        },
+        {
+          "shortName": "JSUnusedGlobalSymbols",
+          "displayName": "Unused global symbol",
+          "enabled": false,
+          "description": "Reports an unused globally accessible public function, variable, class, or property."
+        },
+        {
+          "shortName": "JSUnusedLocalSymbols",
+          "displayName": "Unused local symbol",
+          "enabled": true,
+          "description": "Reports an unused locally accessible parameter, local variable, function, class, or private member declaration."
         }
       ]
     },
@@ -1844,6 +1879,29 @@
           "displayName": "Structural search inspection",
           "enabled": true,
           "description": "Allows configuring **Structural Search/Structural Replace** templates that you can apply to the file you are editing.\n\nAll matches will be highlighted and marked with the template name that you have configured.\nIf you configure the **Structural Replace** pattern as well, the corresponding replace option will be available as a quick-fix."
+        }
+      ]
+    },
+    {
+      "name": "Dependency analysis",
+      "inspections": [
+        {
+          "shortName": "CheckThirdPartySoftwareList",
+          "displayName": "Check third party software list",
+          "enabled": false,
+          "description": "Check project for possible problems: user's third party software list does not match the collected project metadata"
+        },
+        {
+          "shortName": "CheckDependencyLicenses",
+          "displayName": "Check dependency licenses",
+          "enabled": false,
+          "description": "Check dependencies licenses for possible problems: missing or prohibited licenses, or other compliance issues"
+        },
+        {
+          "shortName": "CheckModuleLicenses",
+          "displayName": "Check module licenses",
+          "enabled": false,
+          "description": "Check module licenses for possible problems: missing licenses or other compliance issues"
         }
       ]
     },
