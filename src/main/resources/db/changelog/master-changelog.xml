@@ -8,8 +8,4 @@
 
     <include file="db/changelog/001-init_schema_structure.xml"/>
     <include file="db/changelog/002-init_data.sql"/>
-    <include file="db/changelog/003-plan_table_update.xml"/>
-    <include file="db/changelog/004-update_priority_on_existing_plans.sql"/>
-    <include file="db/changelog/005-gpio_plan.xml"/>
-    <include file="db/changelog/006-year_period.xml"/>
 </databaseChangeLog>

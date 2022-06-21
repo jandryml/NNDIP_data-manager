@@ -133,6 +133,18 @@
 
         <addForeignKeyConstraint baseTableName="event_actions" baseColumnNames="action_id" constraintName="fk_ea_al" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedTableName="action" referencedColumnNames="id" validate="true"/>
 
+        <createTable tableName="year_period">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="active" type="BIT">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
         <createTable tableName="plan">
             <column name="id" autoIncrement="true" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -144,6 +156,10 @@
                 <constraints nullable="false"/>
             </column>
             <column name="event_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="priority" type="INT" defaultValue="0"/>
+            <column name="plan_type" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -167,9 +183,15 @@
             <column name="value_type" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
+            <!-- TODO add nullable-->
+            <column name="year_period_id" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+
         </createTable>
 
         <addForeignKeyConstraint baseTableName="limit_plan" baseColumnNames="id" constraintName="fk_lp_plan" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedTableName="plan" referencedColumnNames="id" validate="true"/>
+        <addForeignKeyConstraint baseTableName="limit_plan" baseColumnNames="year_period_id" constraintName="fk_lp_yp" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedTableName="year_period" referencedColumnNames="id" validate="true"/>
 
         <createTable tableName="manual_plan">
             <column name="id" type="BIGINT">
@@ -193,7 +215,42 @@
 
         <addForeignKeyConstraint baseTableName="time_plan" baseColumnNames="id" constraintName="fk_tp_plan" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedTableName="plan" referencedColumnNames="id" validate="true"/>
 
+        <createTable tableName="gpio_plan">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="address" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="default_state" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
 
+        <addForeignKeyConstraint baseTableName="gpio_plan" baseColumnNames="id" constraintName="fk_gp_plan" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedTableName="plan" referencedColumnNames="id" validate="true"/>
+
+        <createTable tableName="manual_gpio_plan">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="turned_on" type="BIT" defaultValue="false">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="manual_gpio_plan" baseColumnNames="id" constraintName="fk_mgp_gp" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedTableName="gpio_plan" referencedColumnNames="id" validate="true"/>
+
+        <createTable tableName="time_gpio_plan">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="duration" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_triggered" type="datetime" />
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="time_gpio_plan" baseColumnNames="id" constraintName="fk_tgp_gp" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedTableName="gpio_plan" referencedColumnNames="id" validate="true"/>
 
         <createTable tableName="user">
             <column name="id" autoIncrement="true" type="BIGINT">
