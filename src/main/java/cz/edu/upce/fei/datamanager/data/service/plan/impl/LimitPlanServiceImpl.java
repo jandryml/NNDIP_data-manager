@@ -1,7 +1,10 @@
 package cz.edu.upce.fei.datamanager.data.service.plan.impl;
 
-import cz.edu.upce.fei.datamanager.data.entity.plan.LimitPlan;
+import cz.edu.upce.fei.datamanager.data.entity.plan.limit.LimitPlan;
+import cz.edu.upce.fei.datamanager.data.entity.plan.limit.YearPeriod;
+import cz.edu.upce.fei.datamanager.data.entity.plan.limit.YearPeriodType;
 import cz.edu.upce.fei.datamanager.data.repository.plan.LimitPlanRepository;
+import cz.edu.upce.fei.datamanager.data.repository.plan.YearPeriodRepository;
 import cz.edu.upce.fei.datamanager.data.service.plan.LimitPlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,8 @@ import java.util.Optional;
 public class LimitPlanServiceImpl implements LimitPlanService {
 
     private final LimitPlanRepository limitPlanRepository;
+    private final YearPeriodRepository yearPeriodRepository;
+
 
     @Override
     public List<LimitPlan> findAllLimitPlans() {
@@ -23,19 +28,33 @@ public class LimitPlanServiceImpl implements LimitPlanService {
     }
 
     @Override
-    public Optional<LimitPlan> findLimitPlanByName(String name) {
-        return limitPlanRepository.findByName(name);
+    public Optional<LimitPlan> findLimitPlanByName(String name, YearPeriodType periodType) {
+        YearPeriod yearPeriod = yearPeriodRepository.findByName(periodType);
+        return limitPlanRepository.findByNameAndYearPeriod(name, yearPeriod);
     }
 
     @Override
-    public void saveLimitPlan(LimitPlan limitPlan) {
+    public YearPeriodType getActiveYearPeriod() {
+        return yearPeriodRepository.getActive().getName();
+    }
+
+    @Override
+    public void setActiveYearPeriod(YearPeriodType yearPeriod) {
+        yearPeriodRepository.setAllToNotActive();
+        yearPeriodRepository.setOneToActive(yearPeriod);
+    }
+
+    @Override
+    public void saveLimitPlan(LimitPlan limitPlan, YearPeriodType periodType) {
+        YearPeriod yearPeriod = yearPeriodRepository.findByName(periodType);
+        limitPlan.setYearPeriod(yearPeriod);
         // remove if same plan already exists
-        deleteLimitPlan(limitPlan);
+        deleteLimitPlan(limitPlan, yearPeriod);
         limitPlanRepository.save(limitPlan);
     }
 
     @Override
-    public void deleteLimitPlan(LimitPlan limitPlan) {
-        limitPlanRepository.deleteByName(limitPlan.getName());
+    public void deleteLimitPlan(LimitPlan limitPlan, YearPeriod yearPeriod) {
+        limitPlanRepository.deleteByNameAndYearPeriod(limitPlan.getName(), yearPeriod);
     }
 }

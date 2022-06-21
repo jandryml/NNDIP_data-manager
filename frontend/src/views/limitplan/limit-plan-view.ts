@@ -23,6 +23,7 @@ export class LimitPlanView extends LitElement {
  <vaadin-button id="saveButton">
    Save 
  </vaadin-button>
+ <vaadin-horizontal-layout id="seasonLayout" style="flex-grow: 0; flex-shrink: 1; width: 100%; align-self: center; justify-content: center;"></vaadin-horizontal-layout>
  <h2 style="align-self: center;">Temperature config </h2>
  <vaadin-horizontal-layout style="align-self: center; flex-wrap: wrap; align-items: flex-end;" theme="spacing-xl">
   <vaadin-number-field id="optimalTemperature" has-controls type="number" min="0" tabindex="" label="Optimal value"></vaadin-number-field>

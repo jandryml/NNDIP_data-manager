@@ -1,13 +1,15 @@
-package cz.edu.upce.fei.datamanager.data.entity.plan;
+package cz.edu.upce.fei.datamanager.data.entity.plan.limit;
 
 import cz.edu.upce.fei.datamanager.data.entity.enums.LimitPlanType;
-import lombok.AllArgsConstructor;
+import cz.edu.upce.fei.datamanager.data.entity.plan.Plan;
+import cz.edu.upce.fei.datamanager.data.entity.plan.PlanType;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -21,6 +23,8 @@ public class LimitPlan extends Plan {
     private Double optimalValue;
     @NotNull
     private Double thresholdValue;
+    @OneToOne
+    private YearPeriod yearPeriod;
 
     public LimitPlan() {
         this.planType = PlanType.TIME_PLAN;

@@ -6,6 +6,8 @@ import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.littemplate.LitTemplate;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.component.template.Id;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.NumberField;
@@ -14,7 +16,8 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import cz.edu.upce.fei.datamanager.data.entity.Event;
 import cz.edu.upce.fei.datamanager.data.entity.enums.LimitPlanType;
-import cz.edu.upce.fei.datamanager.data.entity.plan.LimitPlan;
+import cz.edu.upce.fei.datamanager.data.entity.plan.limit.LimitPlan;
+import cz.edu.upce.fei.datamanager.data.entity.plan.limit.YearPeriodType;
 import cz.edu.upce.fei.datamanager.data.service.EventService;
 import cz.edu.upce.fei.datamanager.data.service.plan.LimitPlanService;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
@@ -65,6 +68,9 @@ public class LimitPlanView extends LitTemplate {
     private IntegerField maxEventPriority;
     @Id("co2Priority")
     private IntegerField co2Priority;
+    @Id("seasonLayout")
+    private HorizontalLayout seasonLayout;
+    private final RadioButtonGroup<YearPeriodType> typeRadioGroup = new RadioButtonGroup<>();
 
     /**
      * Creates a new LimitPlanView.
@@ -73,12 +79,14 @@ public class LimitPlanView extends LitTemplate {
         this.eventService = eventService;
         this.limitPlanService = limitPlanService;
 
-        configNumberFields();
+        configureNumberFields();
         configureComboBoxes();
 
         button.addClickListener(event -> saveLimitPlans());
 
-        loadLimitPlans();
+        configureRadioGroup();
+        YearPeriodType periodType = limitPlanService.getActiveYearPeriod();
+        typeRadioGroup.setValue(periodType);
     }
 
     private void configureComboBoxes() {
@@ -92,11 +100,24 @@ public class LimitPlanView extends LitTemplate {
         comboBox.setItemLabelGenerator(cz.edu.upce.fei.datamanager.data.entity.Event::getName);
     }
 
-    private void configNumberFields() {
+    private void configureNumberFields() {
         configNumberField(optimalTemperature, 0.1);
         configNumberField(toleranceTemperature, 0.1);
         configNumberField(optimalCo2, 25);
         configNumberField(thresholdCo2, 25);
+    }
+
+    private void configureRadioGroup() {
+        typeRadioGroup.setLabel("Type");
+        typeRadioGroup.setItems(YearPeriodType.SUMMER, YearPeriodType.WINTER);
+        typeRadioGroup.setItemLabelGenerator(YearPeriodType::getName);
+        seasonLayout.add(typeRadioGroup);
+
+        typeRadioGroup.addValueChangeListener(it -> {
+            YearPeriodType periodType = it.getValue();
+            limitPlanService.setActiveYearPeriod(periodType);
+            loadLimitPlans(periodType);
+        });
     }
 
     private void configNumberField(NumberField numberField, double step) {
@@ -123,13 +144,13 @@ public class LimitPlanView extends LitTemplate {
         limitPlan.setEvent(event);
         limitPlan.setPriority(priority);
 
-        limitPlanService.saveLimitPlan(limitPlan);
+        limitPlanService.saveLimitPlan(limitPlan, typeRadioGroup.getValue());
     }
 
-    private void loadLimitPlans() {
-        LimitPlan lowTempPlan = getLimitPlan(LimitPlanType.TEMPERATURE_LOW);
-        LimitPlan highTempPlan = getLimitPlan(LimitPlanType.TEMPERATURE_HIGH);
-        LimitPlan co2Plan = getLimitPlan(LimitPlanType.CO2);
+    private void loadLimitPlans(YearPeriodType periodType) {
+        LimitPlan lowTempPlan = getLimitPlan(LimitPlanType.TEMPERATURE_LOW, periodType);
+        LimitPlan highTempPlan = getLimitPlan(LimitPlanType.TEMPERATURE_HIGH, periodType);
+        LimitPlan co2Plan = getLimitPlan(LimitPlanType.CO2, periodType);
 
         optimalTemperature.setValue(lowTempPlan.getOptimalValue());
         toleranceTemperature.setValue(BigDecimal.valueOf(lowTempPlan.getOptimalValue()).subtract(BigDecimal.valueOf(lowTempPlan.getThresholdValue())).doubleValue());
@@ -145,7 +166,7 @@ public class LimitPlanView extends LitTemplate {
         co2Priority.setValue(co2Plan.getPriority());
     }
 
-    private LimitPlan getLimitPlan(LimitPlanType planType) {
-        return limitPlanService.findLimitPlanByName(planType.name()).orElse(new LimitPlan());
+    private LimitPlan getLimitPlan(LimitPlanType planType, YearPeriodType periodType) {
+        return limitPlanService.findLimitPlanByName(planType.name(), periodType).orElse(new LimitPlan());
     }
 }
