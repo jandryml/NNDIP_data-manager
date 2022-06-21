@@ -24,6 +24,7 @@ export class TimePlanForm extends LitElement {
   <vaadin-combo-box id="event" required tabindex="" prevent-invalid-input label="Event"></vaadin-combo-box>
   <vaadin-time-picker id="fromTime" tabindex="" label="From time"></vaadin-time-picker>
   <vaadin-time-picker id="toTime" tabindex="" label="To time"></vaadin-time-picker>
+  <vaadin-integer-field id="priority" has-controls type="number" required min="0" placeholder="0-100" value="50" max="100" tabindex="" label="Priority" name="priority" step="5"></vaadin-integer-field>
  </vaadin-form-layout>
  <vaadin-horizontal-layout theme="spacing">
   <vaadin-button theme="primary" id="save">

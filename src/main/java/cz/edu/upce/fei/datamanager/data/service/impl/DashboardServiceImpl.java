@@ -17,6 +17,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static cz.edu.upce.fei.datamanager.data.entity.enums.MeasuredValueType.*;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -27,17 +29,17 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public List<DashboardSensorDataDto> getViewableTemperatureData() {
-        return getSensorDataForDashboard(MeasuredValueType.TEMPERATURE);
+        return getSensorDataForDashboard(TEMPERATURE);
     }
 
     @Override
     public List<DashboardSensorDataDto> getViewableHumidityData() {
-        return getSensorDataForDashboard(MeasuredValueType.HUMIDITY);
+        return getSensorDataForDashboard(HUMIDITY);
     }
 
     @Override
     public List<DashboardSensorDataDto> getViewableCo2Data() {
-        return getSensorDataForDashboard(MeasuredValueType.CO2);
+        return getSensorDataForDashboard(CO2);
     }
 
     @Override
@@ -75,12 +77,12 @@ public class DashboardServiceImpl implements DashboardService {
                 SensorData sensorData = sensorDataService.getLatestData(it.getId());
 
                 value = switch (valueType) {
-                    case TEMPERATURE -> sensorData.getTemperature().toString();
-                    case HUMIDITY -> sensorData.getHumidity().toString();
-                    case CO2 -> sensorData.getCo2().toString();
+                    case TEMPERATURE -> sensorData.getTemperature().toString() + " " + TEMPERATURE.getUnits();
+                    case HUMIDITY -> sensorData.getHumidity().toString() + " " + HUMIDITY.getUnits();
+                    case CO2 -> sensorData.getCo2().toString() + " " + CO2.getUnits();
                 };
             } catch (NotFoundException ex) {
-                value = "Unknown";
+                value = "Not available";
             }
             dashboardSensorDataDtos.add(new DashboardSensorDataDto(it.getName(), value));
         });

@@ -9,6 +9,8 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.component.template.Id;
+import com.vaadin.flow.component.textfield.IntegerField;
+import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
@@ -31,6 +33,8 @@ public class ManualPlanForm extends LitTemplate {
 
     @Id("name")
     private TextField name;
+    @Id("priority")
+    private IntegerField priority;
     @Id("event")
     private ComboBox<Event> event;
     @Id("save")

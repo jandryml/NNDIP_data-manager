@@ -1,8 +1,8 @@
-package cz.edu.upce.fei.datamanager.data.service.impl;
+package cz.edu.upce.fei.datamanager.data.service.plan.impl;
 
 import cz.edu.upce.fei.datamanager.data.entity.plan.TimePlan;
-import cz.edu.upce.fei.datamanager.data.repository.TimePlanRepository;
-import cz.edu.upce.fei.datamanager.data.service.TimePlanService;
+import cz.edu.upce.fei.datamanager.data.repository.plan.TimePlanRepository;
+import cz.edu.upce.fei.datamanager.data.service.plan.TimePlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

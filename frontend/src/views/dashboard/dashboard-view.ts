@@ -29,13 +29,13 @@ export class DashboardView extends LitElement {
  </vaadin-vertical-layout>
  <vaadin-form-layout style="align-self: center; margin: var(--lumo-space-m); flex-shrink: 0; flex-grow: 0;">
   <vaadin-vertical-layout style="flex: 1; padding-right: var(--lumo-space-l); padding-bottom: var(--lumo-space-l); padding-left: var(--lumo-space-l); flex-direction: column;" id="temperatureContainer">
-   <h5 style="width: 100%; align-self: center; flex-shrink: 0;">Temperature [°C]</h5>
+   <h5 style="width: 100%; align-self: center; flex-shrink: 0;">Temperature </h5>
   </vaadin-vertical-layout>
   <vaadin-vertical-layout style="flex: 1; padding-right: var(--lumo-space-l); padding-bottom: var(--lumo-space-l); padding-left: var(--lumo-space-l); flex-direction: column;" id="humidityContainer">
-   <h5 style="align-self: center; width: 100%; flex-grow: 0; flex-shrink: 0;">Humidity [%]</h5>
+   <h5 style="align-self: center; width: 100%; flex-grow: 0; flex-shrink: 0;">Humidity </h5>
   </vaadin-vertical-layout>
   <vaadin-vertical-layout style="flex: 1; padding-right: var(--lumo-space-l); padding-bottom: var(--lumo-space-l); padding-left: var(--lumo-space-l); flex-direction: column;" id="co2Container">
-   <h5 style="align-self: center; width: 100%; flex-shrink: 0;">Co2 [ppm]</h5>
+   <h5 style="align-self: center; width: 100%; flex-shrink: 0;">Co2</h5>
   </vaadin-vertical-layout>
  </vaadin-form-layout>
  <h3 style="align-self: center; margin-top: var(--lumo-space-m);">Device status</h3>

@@ -1,8 +1,8 @@
-package cz.edu.upce.fei.datamanager.data.service.impl;
+package cz.edu.upce.fei.datamanager.data.service.plan.impl;
 
 import cz.edu.upce.fei.datamanager.data.entity.plan.ManualPlan;
-import cz.edu.upce.fei.datamanager.data.repository.ManualPlanRepository;
-import cz.edu.upce.fei.datamanager.data.service.ManualPlanService;
+import cz.edu.upce.fei.datamanager.data.repository.plan.ManualPlanRepository;
+import cz.edu.upce.fei.datamanager.data.service.plan.ManualPlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
