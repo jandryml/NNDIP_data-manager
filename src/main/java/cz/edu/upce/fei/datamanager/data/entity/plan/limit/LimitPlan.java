@@ -27,7 +27,7 @@ public class LimitPlan extends Plan {
     private YearPeriod yearPeriod;
 
     public LimitPlan() {
-        this.planType = PlanType.TIME_PLAN;
+        this.planType = PlanType.LIMIT_PLAN;
     }
 
     public LimitPlan(LimitPlanType valueType, Double optimalValue, Double thresholdValue) {
