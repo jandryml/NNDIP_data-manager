@@ -4,13 +4,6 @@
     "Code Inspection": 4
   },
   "attributes": {
-    "vcs": {
-      "sarifIdea": {
-        "repositoryUri": "https://github.com/jandryml/NNDIP_data-manager",
-        "revisionId": "87cb52e73b83911e3753226374017cbe7f64cea1",
-        "branch": "main"
-      }
-    },
     "deviceId": "200820300000000-1571-1d9b-134d-6ff40520e281"
   }
 }
