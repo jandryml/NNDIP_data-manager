@@ -3,11 +3,15 @@ package cz.edu.upce.fei.datamanager.data.service.impl;
 import cz.edu.upce.fei.datamanager.data.entity.Action;
 import cz.edu.upce.fei.datamanager.data.repository.ActionRepository;
 import cz.edu.upce.fei.datamanager.data.service.ActionService;
+import cz.edu.upce.fei.datamanager.exception.DefaultActionAlreadySetException;
+import cz.edu.upce.fei.datamanager.exception.EntityRemovalException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ActionServiceImpl implements ActionService {
@@ -25,12 +29,24 @@ public class ActionServiceImpl implements ActionService {
     }
 
     @Override
-    public void saveAction(Action action) {
+    public void saveAction(Action action) throws DefaultActionAlreadySetException {
+        if (action.getIsDefault() && isDefaultAlreadySet(action.getAddress()))
+            throw new DefaultActionAlreadySetException("Default action already exists!");
         actionRepository.save(action);
     }
 
+    private boolean isDefaultAlreadySet(String address) {
+        return actionRepository.countOfDefaultValuesByAddress(address) > 0;
+    }
+
     @Override
-    public void deleteAction(Action action) {
-        actionRepository.delete(action);
+    public void deleteAction(Action action) throws EntityRemovalException {
+        try {
+            actionRepository.delete(action);
+
+        } catch (Exception e) {
+            throw new EntityRemovalException("Action '" + action.getName() + "' cannot be removed. " +
+                    "Another entities are probably using this");
+        }
     }
 }

@@ -19,6 +19,9 @@
             <column name="value" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="is_default" type="BIT" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
 
         <createTable tableName="sensor">

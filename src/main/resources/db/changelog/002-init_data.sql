@@ -1,20 +1,20 @@
 --liquibase formatted sql
 --changeset drymlj:2
 
-INSERT INTO action (id, address, name, output_type, value)
-VALUES  (1, '0', 'AC unit - ON', 'MODBUS_VALUE', '1'),
-        (2, '0', 'AC unit - OFF', 'MODBUS_VALUE', '0'),
-        (3, '1', 'AC unit Mode - Auto', 'MODBUS_VALUE', '0'),
-        (4, '1', 'AC unit Mode - Heat', 'MODBUS_VALUE', '1'),
-        (5, '1', 'AC unit Mode - Dry', 'MODBUS_VALUE', '2'),
-        (6, '1', 'AC unit Mode - Fan', 'MODBUS_VALUE', '3'),
-        (7, '1', 'AC unit Mode - Cool', 'MODBUS_VALUE', '4'),
-        (8, '2', 'AC unit Fan Speed - Low', 'MODBUS_VALUE', '1'),
-        (9, '2', 'AC unit Fan Speed - Mid', 'MODBUS_VALUE', '2'),
-        (10, '2', 'AC unit Fan Speed - High', 'MODBUS_VALUE', '3'),
-        (11, '2', 'AC unit Fan Speed - Powerful', 'MODBUS_VALUE', '4'),
-        (12, '11', 'Recuperation - OFF', 'RASPBERRY_PIN', '0'),
-        (13, '11', 'Recuperation - ON', 'RASPBERRY_PIN', '1');
+INSERT INTO action (id, address, name, output_type, value, is_default)
+VALUES  (1, '0', 'AC unit - ON', 'MODBUS_VALUE', '1', 0),
+        (2, '0', 'AC unit - OFF', 'MODBUS_VALUE', '0', 1),
+        (3, '1', 'AC unit Mode - Auto', 'MODBUS_VALUE', '0', 1),
+        (4, '1', 'AC unit Mode - Heat', 'MODBUS_VALUE', '1', 0),
+        (5, '1', 'AC unit Mode - Dry', 'MODBUS_VALUE', '2', 0),
+        (6, '1', 'AC unit Mode - Fan', 'MODBUS_VALUE', '3', 0),
+        (7, '1', 'AC unit Mode - Cool', 'MODBUS_VALUE', '4', 0),
+        (8, '2', 'AC unit Fan Speed - Low', 'MODBUS_VALUE', '1', 0),
+        (9, '2', 'AC unit Fan Speed - Mid', 'MODBUS_VALUE', '2', 0),
+        (10, '2', 'AC unit Fan Speed - High', 'MODBUS_VALUE', '3', 0),
+        (11, '2', 'AC unit Fan Speed - Powerful', 'MODBUS_VALUE', '4', 1),
+        (12, '11', 'Recuperation - OFF', 'RASPBERRY_PIN', '0', 1),
+        (13, '11', 'Recuperation - ON', 'RASPBERRY_PIN', '1', 0);
 
 INSERT INTO controlled_device_address_config (controlled_device_type, address, output_type)
 VALUES  ('AC_FAN', '2', 'MODBUS_VALUE'),

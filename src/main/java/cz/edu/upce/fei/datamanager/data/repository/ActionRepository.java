@@ -15,4 +15,6 @@ public interface ActionRepository extends JpaRepository<Action, Long> {
             "where lower(a.name) like lower(concat('%', :searchTerm, '%'))")
     List<Action> searchByName(@Param("searchTerm") String searchTerm);
 
+    @Query("select count(a) from Action a where a.isDefault = true and a.address like :address")
+    int countOfDefaultValuesByAddress(String address);
 }

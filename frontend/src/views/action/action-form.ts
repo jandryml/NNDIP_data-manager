@@ -4,6 +4,7 @@ import '@vaadin/text-field/src/vaadin-text-field.js';
 import '@vaadin/horizontal-layout/src/vaadin-horizontal-layout.js';
 import '@vaadin/button/src/vaadin-button.js';
 import '@vaadin/combo-box/src/vaadin-combo-box.js';
+import '@vaadin/checkbox/src/vaadin-checkbox.js';
 
 @customElement('action-form')
 export class ActionForm extends LitElement {
@@ -23,6 +24,9 @@ export class ActionForm extends LitElement {
  <vaadin-text-field label="Address" type="text" tabindex="" id="address" pattern="&quot;^\\d+$&quot;" required autocomplete="OFF"></vaadin-text-field>
  <vaadin-text-field label="Value" id="value" type="text" required autocomplete="OFF" tabindex=""></vaadin-text-field>
  <vaadin-combo-box tabindex="" label="Output type" id="outputType" required></vaadin-combo-box>
+ <vaadin-checkbox id="isDefault" tabindex="" type="checkbox" value="on">
+  Is default
+ </vaadin-checkbox>
  <vaadin-horizontal-layout theme="spacing">
   <vaadin-button theme="primary" id="save">
     Save 

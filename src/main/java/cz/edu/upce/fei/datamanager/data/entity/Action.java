@@ -26,4 +26,5 @@ public class Action extends AbstractEntity {
     @NotNull
     @Enumerated(EnumType.STRING)
     private OutputType outputType;
+    private Boolean isDefault;
 }

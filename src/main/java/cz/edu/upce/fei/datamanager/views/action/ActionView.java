@@ -1,10 +1,12 @@
 package cz.edu.upce.fei.datamanager.views.action;
 
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.littemplate.LitTemplate;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.template.Id;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
@@ -13,7 +15,10 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import cz.edu.upce.fei.datamanager.data.entity.Action;
 import cz.edu.upce.fei.datamanager.data.service.ActionService;
+import cz.edu.upce.fei.datamanager.exception.DefaultActionAlreadySetException;
+import cz.edu.upce.fei.datamanager.exception.EntityRemovalException;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
+import lombok.extern.slf4j.Slf4j;
 
 import static cz.edu.upce.fei.datamanager.views.action.ActionForm.*;
 
@@ -23,7 +28,7 @@ import static cz.edu.upce.fei.datamanager.views.action.ActionForm.*;
  * Designer will add and remove fields with @Id mappings but
  * does not overwrite or otherwise change this file.
  */
-
+@Slf4j
 @PageTitle("Action config")
 @Route(value = "actions", layout = MainLayout.class)
 // TODO change security restriction
@@ -85,15 +90,27 @@ public class ActionView extends LitTemplate {
     }
 
     private void saveAction(SaveEvent event) {
-        actionService.saveAction(event.getAction());
-        updateList();
-        closeEditor();
+        try {
+            actionService.saveAction(event.getAction());
+            updateList();
+            closeEditor();
+        } catch (DefaultActionAlreadySetException e) {
+            log.error(e.getMessage());
+            UI.getCurrent().access(() -> Notification.show(e.getMessage()));
+        }
+
     }
 
     private void deleteAction(DeleteEvent event) {
-        actionService.deleteAction(event.getAction());
-        updateList();
-        closeEditor();
+        try {
+            actionService.deleteAction(event.getAction());
+            updateList();
+            closeEditor();
+        } catch (EntityRemovalException e) {
+            log.error(e.getMessage());
+            UI.getCurrent().access(() -> Notification.show(e.getMessage()));
+        }
+
     }
 
     public void editAction(Action action) {
