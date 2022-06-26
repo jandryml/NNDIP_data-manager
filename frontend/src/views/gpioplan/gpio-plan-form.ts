@@ -27,7 +27,7 @@ export class GpioPlanForm extends LitElement {
  <vaadin-form-layout>
   <vaadin-text-field id="name" type="text" required tabindex="" label="Name" invalid></vaadin-text-field>
   <vaadin-combo-box id="event" required tabindex="" prevent-invalid-input label="Event"></vaadin-combo-box>
-  <vaadin-combo-box id="address" tabindex="" label="Gpio address"></vaadin-combo-box>
+  <vaadin-combo-box id="pin" tabindex="" label="Gpio address"></vaadin-combo-box>
   <vaadin-combo-box tabindex="" label="Deafault voltage" id="defaultState"></vaadin-combo-box>
   <vaadin-integer-field id="priority" has-controls type="number" required min="0" placeholder="0-100" value="50" max="100" tabindex="" label="Priority" name="priority" step="5"></vaadin-integer-field>
  </vaadin-form-layout>

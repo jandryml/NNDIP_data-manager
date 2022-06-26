@@ -76,9 +76,9 @@ VALUES  (1, '11:00:00', '15:00:00');
 INSERT INTO manual_plan (id)
 VALUES  (2);
 
-INSERT INTO gpio_plan (id, address, default_state)
-VALUES  (9, 'GPIO_04', 'HIGH'),
-        (10, 'GPIO_08', 'LOW');
+INSERT INTO gpio_plan (id, pin_name, pin_address, default_state)
+VALUES  (9, 'GPIO_04', 4, 'HIGH'),
+        (10, 'GPIO_08', 8, 'LOW');
 
 INSERT INTO manual_gpio_plan (id, turned_on)
 VALUES  (9, false);

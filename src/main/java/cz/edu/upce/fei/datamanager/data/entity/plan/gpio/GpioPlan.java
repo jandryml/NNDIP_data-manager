@@ -12,7 +12,10 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class GpioPlan extends Plan {
     @Enumerated(EnumType.STRING)
-    private RaspiPin address;
+    @Column(name = "pin_name")
+    private RaspiPin pin;
+    @Column(name = "pin_address")
+    private int pinAddress;
     @Enumerated(EnumType.STRING)
     private PinState defaultState;
 }

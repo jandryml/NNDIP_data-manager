@@ -45,8 +45,8 @@ public class GpioPlanForm extends LitTemplate {
     private IntegerField priority;
     @Id("event")
     private ComboBox<Event> event;
-    @Id("address")
-    private ComboBox<RaspiPin> address;
+    @Id("pin")
+    private ComboBox<RaspiPin> pin;
     @Id("defaultState")
     private ComboBox<PinState> defaultState;
     @Id("duration")
@@ -100,8 +100,8 @@ public class GpioPlanForm extends LitTemplate {
 
         lastTriggered.setEnabled(false);
 
-        address.setItems(RaspiPin.values());
-        address.setItemLabelGenerator(RaspiPin::name);
+        pin.setItems(RaspiPin.values());
+        pin.setItemLabelGenerator(RaspiPin::getName);
 
         defaultState.setItems(PinState.values());
         defaultState.setItemLabelGenerator(PinState::name);
@@ -165,6 +165,7 @@ public class GpioPlanForm extends LitTemplate {
         try {
             if (binder.isValid()) {
                 binder.writeBean(gpioPlan);
+                gpioPlan.setPinAddress(gpioPlan.getPin().getAddress());
                 fireEvent(new GpioPlanForm.SaveEvent(this, gpioPlan));
             }
         } catch (ValidationException e) {

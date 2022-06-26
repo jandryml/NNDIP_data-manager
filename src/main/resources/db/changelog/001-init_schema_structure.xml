@@ -222,7 +222,10 @@
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="address" type="VARCHAR(255)">
+            <column name="pin_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pin_address" type="INT">
                 <constraints nullable="false"/>
             </column>
             <column name="default_state" type="VARCHAR(255)">
