@@ -62,13 +62,13 @@ VALUES  (1, true, 'Polední větrání', 1, 50, 'TIME_PLAN'),
         (9, true, 'Manual GPIO trigger', 1, 100, 'MANUAL_GPIO_PLAN'),
         (10, true, 'Time GPIO trigger', 1, 100, 'TIME_GPIO_PLAN');
 
-INSERT INTO limit_plan (id, optimal_value, threshold_value, value_type, year_period_id)
-VALUES  (3, 21.5, 20, 'TEMPERATURE_LOW',1),
-        (4, 21.5, 23, 'TEMPERATURE_HIGH',1),
-        (5, 450, 850, 'CO2',1),
-        (6, 20, 19, 'TEMPERATURE_LOW',2),
-        (7, 20, 21, 'TEMPERATURE_HIGH',2),
-        (8, 500, 900, 'CO2',2);
+INSERT INTO limit_plan (id, optimal_value, threshold_value, value_type, year_period_id, active, last_triggered)
+VALUES  (3, 21.5, 20, 'TEMPERATURE_LOW',1, false, '2022-01-01 00:00:00'),
+        (4, 21.5, 23, 'TEMPERATURE_HIGH',1, false, '2022-01-01 00:00:00'),
+        (5, 450, 850, 'CO2',1, false, '2022-01-01 00:00:00'),
+        (6, 20, 19, 'TEMPERATURE_LOW',2, false, '2022-01-01 00:00:00'),
+        (7, 20, 21, 'TEMPERATURE_HIGH',2, false, '2022-01-01 00:00:00'),
+        (8, 500, 900, 'CO2',2, false, '2022-01-01 00:00:00');
 
 INSERT INTO time_plan (id, from_time, to_time)
 VALUES  (1, '11:00:00', '15:00:00');
@@ -80,11 +80,11 @@ INSERT INTO gpio_plan (id, pin_name, pin_address, default_state)
 VALUES  (9, 'GPIO_04', 4, 'HIGH'),
         (10, 'GPIO_08', 8, 'LOW');
 
-INSERT INTO manual_gpio_plan (id, turned_on)
+INSERT INTO manual_gpio_plan (id, active)
 VALUES  (9, false);
 
 INSERT INTO time_gpio_plan (id, duration, last_triggered)
-VALUES  (10, 30 , '2022-06-20 20:53:06');
+VALUES  (10, 30 , '2022-01-01 00:00:00');
 
 INSERT INTO dashboard_sensor_config (id, measured_value_type, sensor_id)
 VALUES  (1, 'TEMPERATURE', 1),

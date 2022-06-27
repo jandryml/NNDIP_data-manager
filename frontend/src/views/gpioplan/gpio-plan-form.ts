@@ -34,7 +34,7 @@ export class GpioPlanForm extends LitElement {
  <vaadin-form-layout>
   <vaadin-integer-field id="duration" has-controls type="number" required min="0" tabindex="" label="Time duration (min)" name="duration" step="1"></vaadin-integer-field>
   <vaadin-date-time-picker id="lastTriggered" tabindex="" label="Last triggered"></vaadin-date-time-picker>
-  <vaadin-checkbox id="turnedOn" tabindex="" type="checkbox" value="on">
+  <vaadin-checkbox id="active" tabindex="" type="checkbox" value="on">
     Is on 
   </vaadin-checkbox>
  </vaadin-form-layout>

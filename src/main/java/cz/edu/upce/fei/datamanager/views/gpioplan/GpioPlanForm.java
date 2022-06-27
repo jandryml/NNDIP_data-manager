@@ -51,8 +51,8 @@ public class GpioPlanForm extends LitTemplate {
     private ComboBox<PinState> defaultState;
     @Id("duration")
     private IntegerField duration;
-    @Id("turnedOn")
-    private Checkbox turnedOn;
+    @Id("active")
+    private Checkbox active;
     @Id("lastTriggered")
     private DateTimePicker lastTriggered;
     @Id("typeLayout")
@@ -106,7 +106,7 @@ public class GpioPlanForm extends LitTemplate {
         defaultState.setItems(PinState.values());
         defaultState.setItemLabelGenerator(PinState::name);
 
-        turnedOn.setReadOnly(true);
+        active.setReadOnly(true);
     }
 
     private void configureRadioGroup() {
@@ -120,12 +120,12 @@ public class GpioPlanForm extends LitTemplate {
             if (currentValue.equals("Manual")) {
                 duration.setVisible(false);
                 lastTriggered.setVisible(false);
-                turnedOn.setVisible(true);
+                active.setVisible(true);
                 setGpioPlan(new ManualGpioPlan(), true);
             } else if (currentValue.equals("Time")) {
                 duration.setVisible(true);
                 lastTriggered.setVisible(true);
-                turnedOn.setVisible(false);
+                active.setVisible(false);
                 setGpioPlan(new TimeGpioPlan(), true);
             } else {
                 log.error("Unknown value when selection type radio in Gpio form");

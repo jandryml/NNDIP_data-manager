@@ -190,6 +190,8 @@
             <column name="year_period_id" type="BIGINT" >
                 <constraints nullable="false" />
             </column>
+            <column name="active" type="BIT" />
+            <column name="last_triggered" type="datetime" />
 
         </createTable>
 
@@ -239,7 +241,7 @@
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="turned_on" type="BIT" defaultValue="false">
+            <column name="active" type="BIT" defaultValue="false">
                 <constraints nullable="false" />
             </column>
         </createTable>

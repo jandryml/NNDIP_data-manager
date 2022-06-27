@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 @Setter
 @Entity(name = "manual_gpio_plan")
 public class ManualGpioPlan extends GpioPlan{
-    private boolean turnedOn;
+    private boolean active;
 
     public ManualGpioPlan() {
         this.planType = PlanType.MANUAL_GPIO_PLAN;
