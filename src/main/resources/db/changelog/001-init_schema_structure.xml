@@ -46,9 +46,6 @@
             <column name="output_type" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="priority" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
             <column name="value" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
