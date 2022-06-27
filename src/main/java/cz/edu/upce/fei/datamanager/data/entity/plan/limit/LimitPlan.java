@@ -28,12 +28,14 @@ public class LimitPlan extends Plan {
 
     public LimitPlan() {
         this.planType = PlanType.LIMIT_PLAN;
+        this.priority = PlanType.LIMIT_PLAN.getDefaultPriority();
     }
 
     public LimitPlan(LimitPlanType valueType, Double optimalValue, Double thresholdValue) {
         this.valueType = valueType;
         this.optimalValue = optimalValue;
         this.thresholdValue = thresholdValue;
-        this.planType = PlanType.TIME_PLAN;
+        this.planType = PlanType.LIMIT_PLAN;
+        this.priority = PlanType.LIMIT_PLAN.getDefaultPriority();
     }
 }

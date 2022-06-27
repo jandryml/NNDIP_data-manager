@@ -60,7 +60,7 @@ VALUES  (1, true, 'Polední větrání', 1, 50, 'TIME_PLAN'),
         (7, true, 'TEMPERATURE_HIGH', 3, 0, 'LIMIT_PLAN'),
         (8, true, 'CO2', 1, 10, 'LIMIT_PLAN'),
         (9, true, 'Manual GPIO trigger', 1, 100, 'MANUAL_GPIO_PLAN'),
-        (10, true, 'Time GPIO trigger', 1, 100, 'TIME_GPIO_PLAN');
+        (10, true, 'Time GPIO trigger', 1, 90, 'TIME_GPIO_PLAN');
 
 INSERT INTO limit_plan (id, optimal_value, threshold_value, value_type, year_period_id, active, last_triggered)
 VALUES  (3, 21.5, 20, 'TEMPERATURE_LOW',1, false, '2022-01-01 00:00:00'),

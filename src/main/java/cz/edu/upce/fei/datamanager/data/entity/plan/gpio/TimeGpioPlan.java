@@ -18,5 +18,6 @@ public class TimeGpioPlan extends GpioPlan {
 
     public TimeGpioPlan() {
         this.planType = PlanType.TIME_GPIO_PLAN;
+        this.priority = PlanType.TIME_GPIO_PLAN.getDefaultPriority();
     }
 }

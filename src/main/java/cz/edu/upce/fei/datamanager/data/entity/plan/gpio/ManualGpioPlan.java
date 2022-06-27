@@ -14,5 +14,6 @@ public class ManualGpioPlan extends GpioPlan{
 
     public ManualGpioPlan() {
         this.planType = PlanType.MANUAL_GPIO_PLAN;
+        this.priority = PlanType.MANUAL_GPIO_PLAN.getDefaultPriority();
     }
 }

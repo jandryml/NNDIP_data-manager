@@ -18,5 +18,6 @@ public class TimePlan extends Plan {
 
     public TimePlan() {
         this.planType = PlanType.TIME_PLAN;
+        this.priority = PlanType.TIME_PLAN.getDefaultPriority();
     }
 }

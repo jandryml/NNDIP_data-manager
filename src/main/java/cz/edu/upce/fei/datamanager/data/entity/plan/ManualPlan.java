@@ -11,5 +11,6 @@ import javax.persistence.Entity;
 public class ManualPlan extends Plan{
     public ManualPlan() {
         this.planType = PlanType.MANUAL_PLAN;
+        this.priority = PlanType.MANUAL_PLAN.getDefaultPriority();
     }
 }
