@@ -4,25 +4,19 @@ import cz.edu.upce.fei.datamanager.data.entity.enums.OutputType;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.persistence.Enumerated;
-import javax.persistence.EnumType;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"outputType", "address"}))
-public class AddressState extends AbstractEntity {
-    @NotNull
+@IdClass(AddressStateId.class)
+public class AddressState {
+    @Id
     @Enumerated(EnumType.STRING)
     private OutputType outputType;
-    @Min(0)
-    @NotBlank
+    @Id
     private String address;
     @Min(0)
     @NotBlank
