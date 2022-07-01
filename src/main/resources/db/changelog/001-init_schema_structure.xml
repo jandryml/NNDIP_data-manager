@@ -46,6 +46,12 @@
             <column name="value" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="action_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="plan_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
 
         <createTable tableName="controlled_device_address_config">
