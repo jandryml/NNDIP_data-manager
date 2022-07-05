@@ -22,6 +22,7 @@ import com.vaadin.flow.server.auth.AccessAnnotationChecker;
 import cz.edu.upce.fei.datamanager.data.entity.user.User;
 import cz.edu.upce.fei.datamanager.security.AuthenticatedUser;
 import cz.edu.upce.fei.datamanager.views.action.ActionView;
+import cz.edu.upce.fei.datamanager.views.addressState.AddressStateView;
 import cz.edu.upce.fei.datamanager.views.dashboard.DashboardView;
 import cz.edu.upce.fei.datamanager.views.event.EventView;
 import cz.edu.upce.fei.datamanager.views.gpioplan.GpioPlanView;
@@ -149,6 +150,7 @@ public class MainLayout extends AppLayout {
                 new MenuItemInfo("GPIO plan", "la la-cogs", GpioPlanView.class), //
                 new MenuItemInfo("Events", "la la-cogs", EventView.class), //
                 new MenuItemInfo("Actions", "la la-cogs", ActionView.class), //
+                new MenuItemInfo("Address state", "la la-cogs", AddressStateView.class), //
                 new MenuItemInfo("Sensors", "la la-cogs", SensorView.class), //
                 new MenuItemInfo("Settings", "la la-cogs", SettingsView.class), //
         };

@@ -21,4 +21,6 @@ public class AddressState {
     @Min(0)
     @NotBlank
     private String value;
+    private String actionName;
+    private String planName;
 }
