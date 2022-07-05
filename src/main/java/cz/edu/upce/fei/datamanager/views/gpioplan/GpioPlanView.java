@@ -75,7 +75,7 @@ public class GpioPlanView extends LitTemplate {
         });
 
         grid.addColumn(GpioPlan::getName).setHeader("Name");
-        grid.addColumn(GpioPlan::getPlanType).setHeader("Type");
+        grid.addColumn(gpioPlan -> gpioPlan.getPlanType().getPrettyName()).setHeader("Type");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         grid.asSingleSelect().addValueChangeListener(event ->

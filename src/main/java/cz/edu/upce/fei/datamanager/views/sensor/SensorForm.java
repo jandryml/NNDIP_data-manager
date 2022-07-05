@@ -66,7 +66,7 @@ public class SensorForm extends LitTemplate {
         this.sensorDataService = sensorDataService;
 
         sensorType.setItems(SensorType.values());
-        sensorType.setItemLabelGenerator(SensorType::name);
+        sensorType.setItemLabelGenerator(SensorType::getPrettyName);
 
         configureButtons();
         configureBinder();

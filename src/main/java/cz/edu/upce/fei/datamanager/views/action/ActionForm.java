@@ -57,7 +57,7 @@ public class ActionForm extends LitTemplate {
 
     private void configureFields() {
         outputType.setItems(OutputType.values());
-        outputType.setItemLabelGenerator(OutputType::name);
+        outputType.setItemLabelGenerator(OutputType::getPrettyName);
     }
 
     private void configureBinder() {

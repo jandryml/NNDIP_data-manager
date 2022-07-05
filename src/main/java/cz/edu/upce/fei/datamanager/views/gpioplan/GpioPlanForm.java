@@ -105,7 +105,7 @@ public class GpioPlanForm extends LitTemplate {
         pin.setItemLabelGenerator(RaspiPin::getName);
 
         defaultState.setItems(PinState.values());
-        defaultState.setItemLabelGenerator(PinState::name);
+        defaultState.setItemLabelGenerator(PinState::getPrettyName);
 
         active.setReadOnly(true);
     }
