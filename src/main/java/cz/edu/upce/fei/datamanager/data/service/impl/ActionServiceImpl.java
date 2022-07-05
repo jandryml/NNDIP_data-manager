@@ -30,13 +30,13 @@ public class ActionServiceImpl implements ActionService {
 
     @Override
     public void saveAction(Action action) throws DefaultActionAlreadySetException {
-        if (action.getIsDefault() && isDefaultAlreadySet(action.getAddress()))
+        if (action.getIsDefault() && isDefaultActionAlreadySet(action))
             throw new DefaultActionAlreadySetException("Default action already exists!");
         actionRepository.save(action);
     }
 
-    private boolean isDefaultAlreadySet(String address) {
-        return actionRepository.countOfDefaultValuesByAddress(address) > 0;
+    private boolean isDefaultActionAlreadySet(Action action) {
+        return actionRepository.countOfDefaultValuesByAddressAndOutputType(action.getAddress(), action.getOutputType().name()) > 0;
     }
 
     @Override
