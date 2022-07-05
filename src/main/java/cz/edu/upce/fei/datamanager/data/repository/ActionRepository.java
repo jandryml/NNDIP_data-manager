@@ -1,6 +1,7 @@
 package cz.edu.upce.fei.datamanager.data.repository;
 
 import cz.edu.upce.fei.datamanager.data.entity.Action;
+import cz.edu.upce.fei.datamanager.data.entity.enums.OutputType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,5 +17,5 @@ public interface ActionRepository extends JpaRepository<Action, Long> {
     List<Action> searchByName(@Param("searchTerm") String searchTerm);
 
     @Query("select count(a) from Action a where a.isDefault = true and a.address like :address and a.outputType like :outputType")
-    int countOfDefaultValuesByAddressAndOutputType(String address, String outputType);
+    int countOfDefaultValuesByAddressAndOutputType(String address, OutputType outputType);
 }

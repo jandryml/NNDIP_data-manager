@@ -36,7 +36,7 @@ public class ActionServiceImpl implements ActionService {
     }
 
     private boolean isDefaultActionAlreadySet(Action action) {
-        return actionRepository.countOfDefaultValuesByAddressAndOutputType(action.getAddress(), action.getOutputType().name()) > 0;
+        return actionRepository.countOfDefaultValuesByAddressAndOutputType(action.getAddress(), action.getOutputType()) > 0;
     }
 
     @Override
