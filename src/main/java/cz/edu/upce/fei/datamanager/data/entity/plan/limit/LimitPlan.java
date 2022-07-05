@@ -11,6 +11,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -25,8 +26,12 @@ public class LimitPlan extends Plan {
     private Double thresholdValue;
     @OneToOne
     private YearPeriod yearPeriod;
+    private boolean active;
+    private LocalDateTime lastTriggered;
 
     public LimitPlan() {
+        this.active = false;
+        this.lastTriggered = LocalDateTime.now();
         this.planType = PlanType.LIMIT_PLAN;
         this.priority = PlanType.LIMIT_PLAN.getDefaultPriority();
     }
@@ -35,6 +40,8 @@ public class LimitPlan extends Plan {
         this.valueType = valueType;
         this.optimalValue = optimalValue;
         this.thresholdValue = thresholdValue;
+        this.active = false;
+        this.lastTriggered = LocalDateTime.now();
         this.planType = PlanType.LIMIT_PLAN;
         this.priority = PlanType.LIMIT_PLAN.getDefaultPriority();
     }
