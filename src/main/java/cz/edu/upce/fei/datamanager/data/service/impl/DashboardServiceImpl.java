@@ -10,15 +10,20 @@ import cz.edu.upce.fei.datamanager.data.repository.DashboardSensorConfigReposito
 import cz.edu.upce.fei.datamanager.data.service.DashboardService;
 import cz.edu.upce.fei.datamanager.data.service.SensorDataService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static cz.edu.upce.fei.datamanager.data.entity.enums.MeasuredValueType.*;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -26,6 +31,9 @@ public class DashboardServiceImpl implements DashboardService {
 
     private final DashboardSensorConfigRepository dashboardSensorConfigRepository;
     private final SensorDataService sensorDataService;
+
+    @Value("${dashboard.sensorData.maxAgeInMinutes:15}")
+    private int maxMinutesAgeOfDataAllowed;
 
     @Override
     public List<DashboardSensorDataDto> getViewableTemperatureData() {
@@ -51,8 +59,10 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public List<SensorData> getSensorData(Sensor sensor, MeasuredValueType valueType, LocalDate date) {
-        return sensorDataService.getDataBy(sensor, date.atStartOfDay(), date.atStartOfDay().plusDays(1).minusNanos(1));
+        List<SensorData> allSensorData = sensorDataService.getDataBy(sensor, date.atStartOfDay(), date.atStartOfDay().plusDays(1).minusNanos(1));
+        return allSensorData.stream().filter(sensorData -> filterNullValues(sensorData, valueType)).collect(Collectors.toList());
     }
+
 
     @Override
     public void setSensorsViewableInDashboard(MeasuredValueType valueType, List<Sensor> sensors) {
@@ -65,27 +75,58 @@ public class DashboardServiceImpl implements DashboardService {
         dashboardSensorConfigRepository.saveAll(dashboardSensorConfigs);
     }
 
+    private boolean filterNullValues(SensorData sensorData, MeasuredValueType valueType) {
+        return switch (valueType) {
+            case TEMPERATURE -> sensorData.getTemperature() != null;
+            case HUMIDITY -> sensorData.getHumidity() != null;
+            case CO2 -> sensorData.getCo2() != null;
+        };
+    }
+
     private List<DashboardSensorDataDto> getSensorDataForDashboard(MeasuredValueType valueType) {
         List<Sensor> sensors = getSensorsViewableInDashboard(valueType);
 
         List<DashboardSensorDataDto> dashboardSensorDataDtos = new ArrayList<>();
 
-        sensors.forEach(it -> {
+        sensors.forEach(sensor -> {
             //TODO refactor, get latest value, but if it is older than 15 minutes, make it unknown - to view disconnection
-            String value;
-            try {
-                SensorData sensorData = sensorDataService.getLatestData(it.getId());
-
-                value = switch (valueType) {
-                    case TEMPERATURE -> sensorData.getTemperature().toString() + " " + TEMPERATURE.getUnits();
-                    case HUMIDITY -> sensorData.getHumidity().toString() + " " + HUMIDITY.getUnits();
-                    case CO2 -> sensorData.getCo2().toString() + " " + CO2.getUnits();
-                };
-            } catch (NotFoundException ex) {
-                value = "Not available";
-            }
-            dashboardSensorDataDtos.add(new DashboardSensorDataDto(it.getName(), value));
+            String value = evaluateSensorDataForDashboard(valueType, sensor);
+            dashboardSensorDataDtos.add(new DashboardSensorDataDto(sensor.getName(), value));
         });
         return dashboardSensorDataDtos;
+    }
+
+    private String evaluateSensorDataForDashboard(MeasuredValueType valueType, Sensor sensor) {
+        String value;
+        try {
+            SensorData sensorData = sensorDataService.getLatestData(sensor.getId());
+            if (isDataValid(sensorData)) {
+                value = switch (valueType) {
+                    case TEMPERATURE -> formatSensorData(sensorData.getTemperature(), TEMPERATURE.getUnits());
+                    case HUMIDITY -> formatSensorData(sensorData.getHumidity(), HUMIDITY.getUnits());
+                    case CO2 -> formatSensorData(sensorData.getCo2(), CO2.getUnits());
+                };
+            } else {
+                value = "Not available";
+                log.warn("Sensor {} data found but is older than {} ", sensor, maxMinutesAgeOfDataAllowed);
+            }
+        } catch (NotFoundException ex) {
+            value = "Not available";
+            log.warn("Data for sensor {} not found!", sensor);
+        }
+        return value;
+    }
+
+    private String formatSensorData(Number data, String unit) {
+        if (data != null) {
+            return data + " " + unit;
+        } else {
+            return "Not available";
+        }
+    }
+
+    private boolean isDataValid(SensorData sensorData) {
+        return sensorData.getTimestamp().toLocalDateTime()
+                .isAfter(LocalDateTime.now().minusMinutes(maxMinutesAgeOfDataAllowed + 1));
     }
 }
