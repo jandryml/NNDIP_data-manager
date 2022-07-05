@@ -38,6 +38,7 @@ public class GpioPlanForm extends LitTemplate {
 
     private GpioPlan gpioPlan;
     private GpioType gpioPlanType;
+    private boolean isNew;
 
     @Id("name")
     private TextField name;
@@ -121,12 +122,16 @@ public class GpioPlanForm extends LitTemplate {
                 duration.setVisible(false);
                 lastTriggered.setVisible(false);
                 active.setVisible(true);
-                setGpioPlan(new ManualGpioPlan(), true);
+                if (isNew) {
+                    setGpioPlan(new ManualGpioPlan(), true);
+                }
             } else if (currentValue.equals("Time")) {
                 duration.setVisible(true);
                 lastTriggered.setVisible(true);
                 active.setVisible(false);
-                setGpioPlan(new TimeGpioPlan(), true);
+                if (isNew) {
+                    setGpioPlan(new TimeGpioPlan(), true);
+                }
             } else {
                 log.error("Unknown value when selection type radio in Gpio form");
             }
@@ -136,6 +141,7 @@ public class GpioPlanForm extends LitTemplate {
 
     public void setGpioPlan(GpioPlan gpioPlan, boolean isNew) {
         this.gpioPlan = gpioPlan;
+        this.isNew = isNew;
 
         if (gpioPlan != null) {
             setPlanType(gpioPlan);
