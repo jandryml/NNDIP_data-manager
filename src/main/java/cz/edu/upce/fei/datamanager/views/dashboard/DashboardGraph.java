@@ -3,14 +3,7 @@ package cz.edu.upce.fei.datamanager.views.dashboard;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.charts.Chart;
-import com.vaadin.flow.component.charts.model.Configuration;
-import com.vaadin.flow.component.charts.model.ChartType;
-import com.vaadin.flow.component.charts.model.AxisType;
-import com.vaadin.flow.component.charts.model.YAxis;
-import com.vaadin.flow.component.charts.model.AxisTitle;
-import com.vaadin.flow.component.charts.model.DataSeries;
-import com.vaadin.flow.component.charts.model.DataSeriesItem;
-import com.vaadin.flow.component.charts.model.PlotOptionsLine;
+import com.vaadin.flow.component.charts.model.*;
 import com.vaadin.flow.component.charts.model.style.SolidColor;
 import com.vaadin.flow.component.charts.model.style.Style;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -28,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -93,6 +87,7 @@ public class DashboardGraph extends LitTemplate {
 
     private void configDateComponents() {
         selectedDate.setValue(LocalDate.now());
+        selectedDate.setLocale(Locale.forLanguageTag("cs_CZ"));
 
         selectedDate.addValueChangeListener(event -> updateGraphData());
 
@@ -146,7 +141,7 @@ public class DashboardGraph extends LitTemplate {
         DataSeries dataSeries = new DataSeries();
 
         dataList.forEach(sensorData -> {
-            DataSeriesItem item = new DataSeriesItem(sensorData.getTimestamp().toInstant(), extractData(sensorData, valueType));
+            DataSeriesItem item = new DataSeriesItem(sensorData.getTimestamp(), extractData(sensorData, valueType));
             dataSeries.add(item);
         });
 
