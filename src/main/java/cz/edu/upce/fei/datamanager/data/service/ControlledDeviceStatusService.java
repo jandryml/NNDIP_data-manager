@@ -6,7 +6,7 @@ import cz.edu.upce.fei.datamanager.data.entity.enums.ControlledDeviceType;
 import java.util.List;
 import java.util.Optional;
 
-public interface ControlledDeviceAddressConfigService {
+public interface ControlledDeviceStatusService {
 
     List<ControlledDeviceAddressConfig> findAllAddressConfig();
 

@@ -12,7 +12,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import cz.edu.upce.fei.datamanager.data.entity.ControlledDeviceAddressConfig;
 import cz.edu.upce.fei.datamanager.data.entity.enums.ControlledDeviceType;
 import cz.edu.upce.fei.datamanager.data.entity.enums.OutputType;
-import cz.edu.upce.fei.datamanager.data.service.ControlledDeviceAddressConfigService;
+import cz.edu.upce.fei.datamanager.data.service.ControlledDeviceStatusService;
 
 /**
  * A Designer generated component for the setting-device-config template.
@@ -43,12 +43,12 @@ public class SettingDeviceConfig extends LitTemplate {
     @Id("saveDeviceConfig")
     private Button saveDeviceConfig;
 
-    private final ControlledDeviceAddressConfigService configService;
+    private final ControlledDeviceStatusService configService;
 
     /**
      * Creates a new SettingDeviceConfig.
      */
-    public SettingDeviceConfig(ControlledDeviceAddressConfigService configService) {
+    public SettingDeviceConfig(ControlledDeviceStatusService configService) {
         this.configService = configService;
 
         configureComboBox(acStatusType);

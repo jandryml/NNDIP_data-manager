@@ -40,9 +40,9 @@ export class DashboardView extends LitElement {
  </vaadin-form-layout>
  <h3 style="align-self: center; margin-top: var(--lumo-space-m);">Device status</h3>
  <vaadin-form-layout style="align-self: center; margin: var(--lumo-space-m); flex-shrink: 0;">
-  <vaadin-text-field label="Air Conditioning" placeholder="Unavailable" style="flex: 1; padding-right: var(--lumo-space-l); padding-left: var(--lumo-space-l); padding-bottom: var(--lumo-space-l);" type="text" readonly tabindex=""></vaadin-text-field>
-  <vaadin-text-field label="Recuperation" style="flex: 1; padding-right: var(--lumo-space-l); padding-left: var(--lumo-space-l); padding-bottom: var(--lumo-space-l);" type="text" readonly tabindex=""></vaadin-text-field>
-  <vaadin-text-field label="Ventilator" style="flex: 1; padding-right: var(--lumo-space-l); padding-left: var(--lumo-space-l); padding-bottom: var(--lumo-space-l);" type="text" readonly tabindex=""></vaadin-text-field>
+  <vaadin-text-field label="Air Conditioning" placeholder="Unavailable" style="flex: 1; padding-right: var(--lumo-space-l); padding-left: var(--lumo-space-l); padding-bottom: var(--lumo-space-l);" type="text" readonly tabindex="" id="acStatus"></vaadin-text-field>
+  <vaadin-text-field label="Recuperation" style="flex: 1; padding-right: var(--lumo-space-l); padding-left: var(--lumo-space-l); padding-bottom: var(--lumo-space-l);" type="text" readonly tabindex="" id="recuperationStatus"></vaadin-text-field>
+  <vaadin-text-field label="Ventilator" style="flex: 1; padding-right: var(--lumo-space-l); padding-left: var(--lumo-space-l); padding-bottom: var(--lumo-space-l);" type="text" readonly tabindex="" id="ventStatus"></vaadin-text-field>
  </vaadin-form-layout>
  <dashboard-graph style="width: 100%;" id="graphComponent"></dashboard-graph>
 </vaadin-vertical-layout>

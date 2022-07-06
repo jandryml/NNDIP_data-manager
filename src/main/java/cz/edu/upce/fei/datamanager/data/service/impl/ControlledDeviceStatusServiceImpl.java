@@ -3,7 +3,7 @@ package cz.edu.upce.fei.datamanager.data.service.impl;
 import cz.edu.upce.fei.datamanager.data.entity.ControlledDeviceAddressConfig;
 import cz.edu.upce.fei.datamanager.data.entity.enums.ControlledDeviceType;
 import cz.edu.upce.fei.datamanager.data.repository.ControlledDeviceAddressConfigRepository;
-import cz.edu.upce.fei.datamanager.data.service.ControlledDeviceAddressConfigService;
+import cz.edu.upce.fei.datamanager.data.service.ControlledDeviceStatusService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class ControlledDeviceAddressConfigServiceImpl implements ControlledDeviceAddressConfigService {
+public class ControlledDeviceStatusServiceImpl implements ControlledDeviceStatusService {
 
     private final ControlledDeviceAddressConfigRepository addressConfigRepository;
 

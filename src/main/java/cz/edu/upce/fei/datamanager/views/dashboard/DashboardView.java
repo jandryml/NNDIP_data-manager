@@ -11,10 +11,19 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import cz.edu.upce.fei.datamanager.data.dto.DashboardSensorDataDto;
+import cz.edu.upce.fei.datamanager.data.entity.AddressState;
+import cz.edu.upce.fei.datamanager.data.entity.AddressStateId;
+import cz.edu.upce.fei.datamanager.data.entity.ControlledDeviceAddressConfig;
+import cz.edu.upce.fei.datamanager.data.entity.enums.ControlledDeviceType;
+import cz.edu.upce.fei.datamanager.data.service.AddressStateService;
+import cz.edu.upce.fei.datamanager.data.service.ControlledDeviceStatusService;
 import cz.edu.upce.fei.datamanager.data.service.DashboardService;
+import cz.edu.upce.fei.datamanager.exception.AddressStateNotHandledException;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A Designer generated component for the dashboard-view template.
@@ -22,6 +31,7 @@ import java.util.List;
  * Designer will add and remove fields with @Id mappings but
  * does not overwrite or otherwise change this file.
  */
+@Slf4j
 @PageTitle("Dashboard")
 @Route(value = "dashboard", layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
@@ -41,14 +51,26 @@ public class DashboardView extends LitTemplate {
     @Id("graphComponent")
     private DashboardGraph graphComponent;
 
+    @Id("acStatus")
+    private TextField acStatus;
+    @Id("recuperationStatus")
+    private TextField recuperationStatus;
+    @Id("ventStatus")
+    private TextField ventStatus;
+
     private final DashboardService dashboardService;
+    private final AddressStateService addressStateService;
+    private final ControlledDeviceStatusService controlledDeviceStatusService;
 
     /**
      * Creates a new DashboardView.
      */
-    public DashboardView(DashboardService dashboardService) {
+    public DashboardView(DashboardService dashboardService, AddressStateService addressStateService, ControlledDeviceStatusService controlledDeviceStatusService) {
         this.dashboardService = dashboardService;
+        this.addressStateService = addressStateService;
+        this.controlledDeviceStatusService = controlledDeviceStatusService;
         initSensorStatus();
+        resolveControlledDeviceStatus();
     }
 
     private void initSensorStatus() {
@@ -67,4 +89,124 @@ public class DashboardView extends LitTemplate {
         });
     }
 
+    private void resolveControlledDeviceStatus() {
+        acStatus.setValue(resolveAcStatus());
+        recuperationStatus.setValue(resolveRecuperationStatus());
+        ventStatus.setValue(resolveVentStatus());
+    }
+
+    private String resolveVentStatus() {
+        String result;
+        try {
+            int status = getValueForDeviceType(ControlledDeviceType.AC_STATUS);
+
+            if (status == 0) {
+                result = "\uD83D\uDD34";
+            } else {
+                int mode = getValueForDeviceType(ControlledDeviceType.AC_FAN);
+
+                switch (mode) {
+                    case 1: {
+                        result = "\uD83D\uDFE2 - 1️⃣";
+                        break;
+                    }
+                    case 2: {
+                        result = "\uD83D\uDFE2 - 2️⃣";
+                        break;
+                    }
+                    case 3: {
+                        result = "\uD83D\uDFE2 - 3️⃣";
+                        break;
+                    }
+                    case 4: {
+                        result = "\uD83D\uDFE2 - 4️⃣";
+                        break;
+                    }
+                    default: {
+                        result = "\uD83D\uDFE2 - \uD83E\uDD37\u200D♂️";
+                        break;
+                    }
+                }
+            }
+        } catch (AddressStateNotHandledException e) {
+            result = "Unavailable";
+        }
+        return result;
+    }
+
+    private String resolveRecuperationStatus() {
+        String result;
+        try {
+            int status = getValueForDeviceType(ControlledDeviceType.RECUPERATION);
+            if (status == 0) {
+                result = "\uD83D\uDD34";
+            } else {
+                result = "\uD83D\uDFE2";
+            }
+        } catch (AddressStateNotHandledException e) {
+            result = "Unavailable";
+        }
+        return result;
+    }
+
+    private String resolveAcStatus() {
+        String result;
+        try {
+            int status = getValueForDeviceType(ControlledDeviceType.AC_STATUS);
+
+            if (status == 0) {
+                result = "\uD83D\uDD34";
+            } else {
+                int mode = getValueForDeviceType(ControlledDeviceType.AC_MODE);
+
+                switch (mode) {
+                    case 0: {
+                        result = "\uD83D\uDFE2 - \uD83E\uDD16";
+                        break;
+                    }
+                    case 1: {
+                        result = "\uD83D\uDFE2 - \uD83D\uDD25";
+                        break;
+                    }
+                    case 2: {
+                        result = "\uD83D\uDFE2 - \uD83C\uDFDC";
+                        break;
+                    }
+                    case 3: {
+                        result = "\uD83D\uDFE2 - \uD83D\uDCA8";
+                        break;
+                    }
+                    case 4: {
+                        result = "\uD83D\uDFE2 - ❄️";
+                        break;
+                    }
+                    default: {
+                        result = "\uD83D\uDFE2 - \uD83E\uDD37\u200D♂️";
+                        break;
+                    }
+                }
+            }
+        } catch (AddressStateNotHandledException e) {
+            result = "Unavailable";
+        }
+        return result;
+    }
+
+    private int getValueForDeviceType(ControlledDeviceType deviceType) throws AddressStateNotHandledException {
+        Optional<ControlledDeviceAddressConfig> optional = controlledDeviceStatusService.findByAddressConfig(deviceType);
+
+        if (optional.isPresent()) {
+            ControlledDeviceAddressConfig addressConfig = optional.get();
+            Optional<AddressState> optionalAddressState
+                    = addressStateService.getById(new AddressStateId(addressConfig.getOutputType(), addressConfig.getAddress()));
+            if (optionalAddressState.isPresent()) {
+                AddressState addressState = optionalAddressState.get();
+                return Integer.parseInt(addressState.getValue());
+            } else {
+                throw new AddressStateNotHandledException(deviceType.getPrettyName() + " - address state is not handled!");
+            }
+        } else {
+            throw new AddressStateNotHandledException(deviceType.getPrettyName() + " - address state is not configured!");
+        }
+    }
 }
