@@ -39,6 +39,7 @@ public class AddressStateView extends LitTemplate {
      */
     public AddressStateView(AddressStateService addressStateService) {
         this.addressStateService = addressStateService;
+        grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         grid.addColumn(addressState -> addressState.getOutputType().getPrettyName()).setHeader("Output type");
         grid.addColumn(AddressState::getAddress).setHeader("Address");
