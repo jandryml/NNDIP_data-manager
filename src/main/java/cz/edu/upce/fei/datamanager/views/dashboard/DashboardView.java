@@ -100,33 +100,18 @@ public class DashboardView extends LitTemplate {
         try {
             int status = getValueForDeviceType(ControlledDeviceType.AC_STATUS);
 
-            if (status == 0) {
-                result = "\uD83D\uDD34";
-            } else {
+            if (status == 2) {
                 int mode = getValueForDeviceType(ControlledDeviceType.AC_FAN);
 
                 switch (mode) {
-                    case 1: {
-                        result = "\uD83D\uDFE2 - 1️⃣";
-                        break;
-                    }
-                    case 2: {
-                        result = "\uD83D\uDFE2 - 2️⃣";
-                        break;
-                    }
-                    case 3: {
-                        result = "\uD83D\uDFE2 - 3️⃣";
-                        break;
-                    }
-                    case 4: {
-                        result = "\uD83D\uDFE2 - 4️⃣";
-                        break;
-                    }
-                    default: {
-                        result = "\uD83D\uDFE2 - \uD83E\uDD37\u200D♂️";
-                        break;
-                    }
+                    case 2 -> result = "\uD83D\uDFE2 - 1️⃣"; // quiet
+                    case 3 -> result = "\uD83D\uDFE2 - 2️⃣"; // low
+                    case 4 -> result = "\uD83D\uDFE2 - 3️⃣"; // medium
+                    case 5 -> result = "\uD83D\uDFE2 - 4️⃣"; // high
+                    default -> result = "\uD83D\uDFE2 - \uD83E\uDD37\u200D♂️"; // running but unknown? - auto might
                 }
+            } else {
+                result = "\uD83D\uDD34";
             }
         } catch (AddressStateNotHandledException e) {
             result = "Unavailable";
@@ -160,30 +145,12 @@ public class DashboardView extends LitTemplate {
                 int mode = getValueForDeviceType(ControlledDeviceType.AC_MODE);
 
                 switch (mode) {
-                    case 0: {
-                        result = "\uD83D\uDFE2 - \uD83E\uDD16";
-                        break;
-                    }
-                    case 1: {
-                        result = "\uD83D\uDFE2 - \uD83D\uDD25";
-                        break;
-                    }
-                    case 2: {
-                        result = "\uD83D\uDFE2 - \uD83C\uDFDC";
-                        break;
-                    }
-                    case 3: {
-                        result = "\uD83D\uDFE2 - \uD83D\uDCA8";
-                        break;
-                    }
-                    case 4: {
-                        result = "\uD83D\uDFE2 - ❄️";
-                        break;
-                    }
-                    default: {
-                        result = "\uD83D\uDFE2 - \uD83E\uDD37\u200D♂️";
-                        break;
-                    }
+                    case 1 -> result = "\uD83D\uDFE2 - \uD83E\uDD16"; // auto
+                    case 2 -> result = "\uD83D\uDFE2 - ❄️"; // cool
+                    case 3 -> result = "\uD83D\uDFE2 - \uD83C\uDFDC"; // dry
+                    case 4 -> result = "\uD83D\uDFE2 - \uD83D\uDD25"; // heat
+                    case 5 -> result = "\uD83D\uDFE2 - \uD83D\uDCA8️"; // fan
+                    default -> result = "\uD83D\uDFE2 - \uD83E\uDD37\u200D♂️";
                 }
             }
         } catch (AddressStateNotHandledException e) {

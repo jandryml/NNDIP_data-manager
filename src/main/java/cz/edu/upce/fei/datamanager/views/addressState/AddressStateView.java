@@ -45,7 +45,7 @@ public class AddressStateView extends LitTemplate {
         grid.addColumn(AddressState::getAddress).setHeader("Address");
         grid.addColumn(AddressState::getValue).setHeader("Value");
 
-        grid.addColumn(AddressState::getPlanName).setHeader("Trigger plan");
+        grid.addColumn(AddressState::getPlanName).setHeader("Trigger event");
         grid.addColumn(AddressState::getActionName).setHeader("Trigger action");
 
         updateList();
