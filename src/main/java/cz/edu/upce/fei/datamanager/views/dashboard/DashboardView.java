@@ -81,8 +81,6 @@ public class DashboardView extends LitTemplate {
 
         updateSensorData();
         updateControlledDeviceStatus();
-
-        activeTimePlan.setValue(limitPlanService.getActiveYearPeriod().getPrettyName());
     }
 
     @Scheduled(fixedRateString = "${dashboard.refreshRate.milis:15000}")
@@ -102,6 +100,8 @@ public class DashboardView extends LitTemplate {
     }
 
     private void updateSensorData() {
+        activeTimePlan.setValue(limitPlanService.getActiveYearPeriod().getPrettyName());
+
         temperatureContainer.removeAll();
         updateSensorDataLayout(dashboardService.getViewableTemperatureData(), temperatureContainer);
         humidityContainer.removeAll();
