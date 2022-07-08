@@ -100,16 +100,15 @@ public class DashboardServiceImpl implements DashboardService {
         String value;
         try {
             SensorData sensorData = sensorDataService.getLatestData(sensor.getId());
-            if (isDataValid(sensorData)) {
-                value = switch (valueType) {
-                    case TEMPERATURE -> formatSensorData(sensorData.getTemperature(), TEMPERATURE.getUnits());
-                    case HUMIDITY -> formatSensorData(sensorData.getHumidity(), HUMIDITY.getUnits());
-                    case CO2 -> formatSensorData(sensorData.getCo2(), CO2.getUnits());
-                };
-            } else {
-                value = "Not available";
+            boolean oldData = isDataOld(sensorData);
+            if (oldData) {
                 log.warn("Sensor {} data found but is older than {} ", sensor, maxMinutesAgeOfDataAllowed);
             }
+            value = switch (valueType) {
+                case TEMPERATURE -> formatSensorData(sensorData.getTemperature(), TEMPERATURE.getUnits(), oldData);
+                case HUMIDITY -> formatSensorData(sensorData.getHumidity(), HUMIDITY.getUnits(), oldData);
+                case CO2 -> formatSensorData(sensorData.getCo2(), CO2.getUnits(), oldData);
+            };
         } catch (NotFoundException ex) {
             value = "Not available";
             log.warn("Data for sensor {} not found!", sensor);
@@ -117,16 +116,22 @@ public class DashboardServiceImpl implements DashboardService {
         return value;
     }
 
-    private String formatSensorData(Number data, String unit) {
+    private String formatSensorData(Number data, String unit, boolean oldData) {
         if (data != null) {
-            return data + " " + unit;
+            String result = data + " " + unit;
+
+            if (oldData) {
+                result += " -  ! old data !";
+            }
+
+            return result;
         } else {
             return "Not available";
         }
     }
 
-    private boolean isDataValid(SensorData sensorData) {
+    private boolean isDataOld(SensorData sensorData) {
         return sensorData.getTimestamp().toLocalDateTime()
-                .isAfter(LocalDateTime.now().minusMinutes(maxMinutesAgeOfDataAllowed + 1));
+                .isBefore(LocalDateTime.now().minusMinutes(maxMinutesAgeOfDataAllowed + 1));
     }
 }
