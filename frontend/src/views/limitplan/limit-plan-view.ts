@@ -1,10 +1,11 @@
 import { LitElement, html, css, customElement } from 'lit-element';
-import '@vaadin/number-field/src/vaadin-number-field.js';
 import '@vaadin/horizontal-layout/src/vaadin-horizontal-layout.js';
-import '@vaadin/checkbox/src/vaadin-checkbox.js';
 import '@vaadin/button/src/vaadin-button.js';
 import '@vaadin/vertical-layout/src/vaadin-vertical-layout.js';
 import '@vaadin/combo-box/src/vaadin-combo-box.js';
+import '@vaadin/integer-field/src/vaadin-integer-field.js';
+import '@vaadin/number-field/src/vaadin-number-field.js';
+import '@vaadin/checkbox/src/vaadin-checkbox.js';
 
 @customElement('limit-plan-view')
 export class LimitPlanView extends LitElement {
@@ -26,20 +27,20 @@ export class LimitPlanView extends LitElement {
  <vaadin-horizontal-layout id="seasonLayout" style="flex-grow: 0; flex-shrink: 1; width: 100%; align-self: center; justify-content: center;"></vaadin-horizontal-layout>
  <h2 style="align-self: center;">Temperature config </h2>
  <vaadin-horizontal-layout style="align-self: center; flex-wrap: wrap; align-items: flex-end;" theme="spacing-xl">
-  <vaadin-number-field id="optimalTemperature" has-controls type="number" min="0" tabindex="" label="Optimal value"></vaadin-number-field>
-  <vaadin-number-field has-controls type="number" min="0" tabindex="" label="Tolerance" id="toleranceTemperature"></vaadin-number-field>
-  <vaadin-checkbox style="align-self: flex-end;" tabindex="" label="Enabled" type="checkbox" value="on" id="enabledTemperature"></vaadin-checkbox>
+  <vaadin-number-field id="optimalTemperature" has-controls type="number" min="0" tabindex="" label="Optimal value" style="size: var(--lumo-size-xl);"></vaadin-number-field>
  </vaadin-horizontal-layout>
  <vaadin-horizontal-layout style="margin: var(--lumo-space-s); flex-wrap: wrap;" theme="spacing-xl">
-  <vaadin-vertical-layout style="align-self: flex-end;">
-   <h4>Min threshold violation event</h4>
-   <vaadin-integer-field id="minEventPriority" has-controls type="number" required min="0" placeholder="0-100" value="0" max="100" tabindex="" label="Priority" name="minEventPriority" step="5"></vaadin-integer-field>
-   <vaadin-combo-box tabindex="" label="Event" id="minEventTemperature"></vaadin-combo-box>
+  <vaadin-vertical-layout style="align-self: flex-end; align-items: center;">
+   <h4>Low temp threshold</h4>
+   <vaadin-checkbox tabindex="" label="Enabled" type="checkbox" value="on" id="lowTempEnabled"></vaadin-checkbox>
+   <vaadin-number-field has-controls type="number" min="0" tabindex="" label="Low threshold" id="lowTempThreshold"></vaadin-number-field>
+   <vaadin-combo-box tabindex="" label="Event" id="lowTempEvent"></vaadin-combo-box>
   </vaadin-vertical-layout>
-  <vaadin-vertical-layout style="align-self: flex-end; flex-wrap: wrap;">
-   <h4>Max threshold violation event </h4>
-   <vaadin-integer-field id="maxEventPriority" has-controls type="number" required min="0" placeholder="0-100" value="0" max="100" tabindex="" label="Priority" name="maxEventPriority" step="5" style="flex-grow: 0;"></vaadin-integer-field>
-   <vaadin-combo-box tabindex="" label="Event" id="maxEventTemperature"></vaadin-combo-box>
+  <vaadin-vertical-layout style="align-self: flex-end; flex-wrap: wrap; align-items: center;">
+   <h4>High temp threshold </h4>
+   <vaadin-checkbox tabindex="" label="Enabled" type="checkbox" value="on" id="highTempEnabled"></vaadin-checkbox>
+   <vaadin-number-field has-controls type="number" min="0" tabindex="" label="High threshold" id="highTempThreshold"></vaadin-number-field>
+   <vaadin-combo-box tabindex="" label="Event" id="highTempEvent"></vaadin-combo-box>
   </vaadin-vertical-layout>
  </vaadin-horizontal-layout>
  <h2>Co2 config</h2>

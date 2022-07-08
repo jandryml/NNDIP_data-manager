@@ -139,7 +139,7 @@ public class DashboardView extends LitTemplate {
         try {
             int status = getValueForDeviceType(ControlledDeviceType.AC_STATUS);
 
-            if (status == 0) {
+            if (status == 1) {
                 result = "\uD83D\uDD34";
             } else {
                 int mode = getValueForDeviceType(ControlledDeviceType.AC_MODE);

@@ -41,36 +41,42 @@ public class LimitPlanView extends LitTemplate {
 
     @Id("optimalTemperature")
     private NumberField optimalTemperature;
-    @Id("toleranceTemperature")
-    private NumberField toleranceTemperature;
+
+    @Id("lowTempThreshold")
+    private NumberField lowTempThreshold;
+    @Id("lowTempEvent")
+    private ComboBox<Event> lowTempEvent;
+    @Id("lowTempEnabled")
+    private Checkbox lowTempEnabled;
+
+    @Id("highTempThreshold")
+    private NumberField highTempThreshold;
+    @Id("highTempEvent")
+    private ComboBox<Event> highTempEvent;
+    @Id("highTempEnabled")
+    private Checkbox highTempEnabled;
+
     @Id("optimalCo2")
     private NumberField optimalCo2;
     @Id("thresholdCo2")
     private NumberField thresholdCo2;
-    @Id("maxEventTemperature")
-    private ComboBox<Event> maxEventTemperature;
-    @Id("minEventTemperature")
-    private ComboBox<Event> minEventTemperature;
     @Id("eventCo2")
     private ComboBox<Event> eventCo2;
-    @Id("enabledTemperature")
-    private Checkbox enabledTemperature;
     @Id("enabledCo2")
     private Checkbox enabledCo2;
+    @Id("co2Priority")
+    private IntegerField co2Priority;
+
     @Id("saveButton")
     private Button button;
 
-    private final EventService eventService;
-    private final LimitPlanService limitPlanService;
-    @Id("minEventPriority")
-    private IntegerField minEventPriority;
-    @Id("maxEventPriority")
-    private IntegerField maxEventPriority;
-    @Id("co2Priority")
-    private IntegerField co2Priority;
     @Id("seasonLayout")
     private HorizontalLayout seasonLayout;
+
     private final RadioButtonGroup<YearPeriodType> typeRadioGroup = new RadioButtonGroup<>();
+
+    private final EventService eventService;
+    private final LimitPlanService limitPlanService;
 
     /**
      * Creates a new LimitPlanView.
@@ -90,8 +96,8 @@ public class LimitPlanView extends LitTemplate {
     }
 
     private void configureComboBoxes() {
-        configureComboBox(minEventTemperature);
-        configureComboBox(maxEventTemperature);
+        configureComboBox(lowTempEvent);
+        configureComboBox(highTempEvent);
         configureComboBox(eventCo2);
     }
 
@@ -102,7 +108,8 @@ public class LimitPlanView extends LitTemplate {
 
     private void configureNumberFields() {
         configNumberField(optimalTemperature, 0.1);
-        configNumberField(toleranceTemperature, 0.1);
+        configNumberField(lowTempThreshold, 0.1);
+        configNumberField(highTempThreshold, 0.1);
         configNumberField(optimalCo2, 25);
         configNumberField(thresholdCo2, 25);
     }
@@ -125,18 +132,18 @@ public class LimitPlanView extends LitTemplate {
     }
 
     private void saveLimitPlans() {
-        saveLimitPlan(LimitPlanType.TEMPERATURE_LOW, optimalTemperature.getValue(),
-                BigDecimal.valueOf(optimalTemperature.getValue()).subtract(BigDecimal.valueOf(toleranceTemperature.getValue())).doubleValue(),
-                enabledTemperature.getValue(), minEventTemperature.getValue(), minEventPriority.getValue());
+        saveLimitPlan(LimitPlanType.TEMPERATURE_LOW, optimalTemperature.getValue(), lowTempThreshold.getValue(),
+                lowTempEnabled.getValue(), lowTempEvent.getValue(), 0);
 
-        saveLimitPlan(LimitPlanType.TEMPERATURE_HIGH, optimalTemperature.getValue(),
-                optimalTemperature.getValue() + toleranceTemperature.getValue(),
-                enabledTemperature.getValue(), maxEventTemperature.getValue(), maxEventPriority.getValue());
+        saveLimitPlan(LimitPlanType.TEMPERATURE_HIGH, optimalTemperature.getValue(), highTempThreshold.getValue(),
+                highTempEnabled.getValue(), highTempEvent.getValue(), 0);
 
         saveLimitPlan(LimitPlanType.CO2, optimalCo2.getValue(),
                 thresholdCo2.getValue(), enabledCo2.getValue(), eventCo2.getValue(), co2Priority.getValue());
     }
 
+
+        // TODO dont delete, update
     private void saveLimitPlan(LimitPlanType type, Double optimalValue, Double thresholdValue, boolean enabled, Event event, int priority) {
         LimitPlan limitPlan = new LimitPlan(type, optimalValue, thresholdValue);
         limitPlan.setName(type.name());
@@ -153,15 +160,15 @@ public class LimitPlanView extends LitTemplate {
         LimitPlan co2Plan = getLimitPlan(LimitPlanType.CO2, periodType);
 
         optimalTemperature.setValue(lowTempPlan.getOptimalValue());
-        toleranceTemperature.setValue(BigDecimal.valueOf(lowTempPlan.getOptimalValue()).subtract(BigDecimal.valueOf(lowTempPlan.getThresholdValue())).doubleValue());
+        lowTempThreshold.setValue(lowTempPlan.getThresholdValue());
+        highTempThreshold.setValue(highTempPlan.getThresholdValue());
         optimalCo2.setValue(co2Plan.getOptimalValue());
         thresholdCo2.setValue(co2Plan.getThresholdValue());
-        maxEventTemperature.setValue(highTempPlan.getEvent());
-        maxEventPriority.setValue(highTempPlan.getPriority());
-        minEventTemperature.setValue(lowTempPlan.getEvent());
-        minEventPriority.setValue(lowTempPlan.getPriority());
+        highTempEvent.setValue(highTempPlan.getEvent());
+        lowTempEvent.setValue(lowTempPlan.getEvent());
         eventCo2.setValue(co2Plan.getEvent());
-        enabledTemperature.setValue(lowTempPlan.isEnabled());
+        lowTempEnabled.setValue(lowTempPlan.isEnabled());
+        highTempEnabled.setValue(highTempPlan.isEnabled());
         enabledCo2.setValue(co2Plan.isEnabled());
         co2Priority.setValue(co2Plan.getPriority());
     }
