@@ -18,6 +18,7 @@ import cz.edu.upce.fei.datamanager.data.entity.enums.ControlledDeviceType;
 import cz.edu.upce.fei.datamanager.data.service.AddressStateService;
 import cz.edu.upce.fei.datamanager.data.service.ControlledDeviceStatusService;
 import cz.edu.upce.fei.datamanager.data.service.DashboardService;
+import cz.edu.upce.fei.datamanager.data.service.plan.LimitPlanService;
 import cz.edu.upce.fei.datamanager.exception.AddressStateNotHandledException;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,9 @@ import java.util.Optional;
 @JsModule("./src/views/dashboard/dashboard-view.ts")
 public class DashboardView extends LitTemplate {
 
+    @Id("activeTimePlan")
+    private TextField activeTimePlan;
+
     @Id("temperatureContainer")
     private VerticalLayout temperatureContainer;
     @Id("humidityContainer")
@@ -61,16 +65,22 @@ public class DashboardView extends LitTemplate {
     private final DashboardService dashboardService;
     private final AddressStateService addressStateService;
     private final ControlledDeviceStatusService controlledDeviceStatusService;
+    private final LimitPlanService limitPlanService;
+
 
     /**
      * Creates a new DashboardView.
      */
-    public DashboardView(DashboardService dashboardService, AddressStateService addressStateService, ControlledDeviceStatusService controlledDeviceStatusService) {
+    public DashboardView(DashboardService dashboardService, AddressStateService addressStateService, LimitPlanService limitPlanService, ControlledDeviceStatusService controlledDeviceStatusService) {
         this.dashboardService = dashboardService;
         this.addressStateService = addressStateService;
         this.controlledDeviceStatusService = controlledDeviceStatusService;
+        this.limitPlanService = limitPlanService;
+
         initSensorStatus();
         resolveControlledDeviceStatus();
+
+        activeTimePlan.setValue(limitPlanService.getActiveYearPeriod().getPrettyName());
     }
 
     private void initSensorStatus() {

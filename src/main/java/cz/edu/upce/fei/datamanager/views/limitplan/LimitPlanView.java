@@ -22,8 +22,6 @@ import cz.edu.upce.fei.datamanager.data.service.EventService;
 import cz.edu.upce.fei.datamanager.data.service.plan.LimitPlanService;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
 
-import java.math.BigDecimal;
-
 /**
  * A Designer generated component for the limit-plan-view template.
  * <p>
@@ -117,7 +115,7 @@ public class LimitPlanView extends LitTemplate {
     private void configureRadioGroup() {
         typeRadioGroup.setLabel("Type");
         typeRadioGroup.setItems(YearPeriodType.SUMMER, YearPeriodType.WINTER);
-        typeRadioGroup.setItemLabelGenerator(YearPeriodType::getName);
+        typeRadioGroup.setItemLabelGenerator(YearPeriodType::getPrettyName);
         seasonLayout.add(typeRadioGroup);
 
         typeRadioGroup.addValueChangeListener(it -> {

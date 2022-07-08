@@ -27,6 +27,7 @@ export class DashboardView extends LitElement {
  <vaadin-vertical-layout style="width: 100%;">
   <h3 style="align-self: center; margin-top: var(--lumo-space-m);">Sensor status</h3>
  </vaadin-vertical-layout>
+ <vaadin-text-field label="Active time plan" placeholder="Placeholder" id="activeTimePlan" style="align-self: center;" type="text" readonly tabindex=""></vaadin-text-field>
  <vaadin-form-layout style="align-self: center; margin: var(--lumo-space-m); flex-shrink: 0; flex-grow: 0;">
   <vaadin-vertical-layout style="flex: 1; padding-right: var(--lumo-space-l); padding-bottom: var(--lumo-space-l); padding-left: var(--lumo-space-l); flex-direction: column;" id="temperatureContainer">
    <h5 style="width: 100%; align-self: center; flex-shrink: 0;">Temperature </h5>

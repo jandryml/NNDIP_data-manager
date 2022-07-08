@@ -7,9 +7,9 @@ public enum YearPeriodType {
     WINTER("Winter"),
     SUMMER("Summer");
     
-    private String name;
+    private String prettyName;
 
-    YearPeriodType(String name) {
-        this.name = name;
+    YearPeriodType(String prettyName) {
+        this.prettyName = prettyName;
     }
 }
