@@ -1,6 +1,7 @@
 package cz.edu.upce.fei.datamanager.views.dashboard;
 
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.UIDetachedException;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -22,6 +23,7 @@ import cz.edu.upce.fei.datamanager.data.service.plan.LimitPlanService;
 import cz.edu.upce.fei.datamanager.exception.AddressStateNotHandledException;
 import cz.edu.upce.fei.datamanager.views.MainLayout;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.List;
 import java.util.Optional;
@@ -77,19 +79,38 @@ public class DashboardView extends LitTemplate {
         this.controlledDeviceStatusService = controlledDeviceStatusService;
         this.limitPlanService = limitPlanService;
 
-        initSensorStatus();
-        resolveControlledDeviceStatus();
+        updateSensorData();
+        updateControlledDeviceStatus();
 
         activeTimePlan.setValue(limitPlanService.getActiveYearPeriod().getPrettyName());
     }
 
-    private void initSensorStatus() {
-        initTextFields(dashboardService.getViewableTemperatureData(), temperatureContainer);
-        initTextFields(dashboardService.getViewableHumidityData(), humidityContainer);
-        initTextFields(dashboardService.getViewableCo2Data(), co2Container);
+    @Scheduled(fixedRateString = "${dashboard.refreshRate.milis:15000}")
+    public void refreshData() {
+        try {
+            getUI().ifPresent(ui -> ui.access(() ->
+                    {
+                        updateControlledDeviceStatus();
+                        updateSensorData();
+                        ui.push();
+                    }
+            ));
+        } catch (UIDetachedException e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
-    private void initTextFields(List<DashboardSensorDataDto> data, VerticalLayout layout) {
+    private void updateSensorData() {
+        temperatureContainer.removeAll();
+        updateSensorDataLayout(dashboardService.getViewableTemperatureData(), temperatureContainer);
+        humidityContainer.removeAll();
+        updateSensorDataLayout(dashboardService.getViewableHumidityData(), humidityContainer);
+        co2Container.removeAll();
+        updateSensorDataLayout(dashboardService.getViewableCo2Data(), co2Container);
+    }
+
+    private void updateSensorDataLayout(List<DashboardSensorDataDto> data, VerticalLayout layout) {
         data.forEach(it -> {
             TextField textField = new TextField();
             textField.setLabel(it.name());
@@ -99,7 +120,7 @@ public class DashboardView extends LitTemplate {
         });
     }
 
-    private void resolveControlledDeviceStatus() {
+    private void updateControlledDeviceStatus() {
         acStatus.setValue(resolveAcStatus());
         recuperationStatus.setValue(resolveRecuperationStatus());
         ventStatus.setValue(resolveVentStatus());

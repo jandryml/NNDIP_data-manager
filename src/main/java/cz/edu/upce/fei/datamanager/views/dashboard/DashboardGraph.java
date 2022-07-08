@@ -1,6 +1,7 @@
 package cz.edu.upce.fei.datamanager.views.dashboard;
 
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.UIDetachedException;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.charts.Chart;
 import com.vaadin.flow.component.charts.model.*;
@@ -18,6 +19,7 @@ import cz.edu.upce.fei.datamanager.data.entity.enums.MeasuredValueType;
 import cz.edu.upce.fei.datamanager.data.service.DashboardService;
 import cz.edu.upce.fei.datamanager.data.service.SensorService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -118,6 +120,21 @@ public class DashboardGraph extends LitTemplate {
 
         graphComponent.setConfiguration(configuration);
         graphComponent.drawChart();
+    }
+
+    @Scheduled(fixedRateString = "${dashboard.refreshRate.milis:15000}")
+    public void refreshData() {
+        try {
+            getUI().ifPresent(ui -> ui.access(() ->
+                    {
+                        updateGraphData();
+                        ui.push();
+                    }
+            ));
+        } catch (UIDetachedException e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void updateGraphData() {
