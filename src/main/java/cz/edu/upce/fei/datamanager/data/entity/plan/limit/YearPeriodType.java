@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum YearPeriodType {
-    WINTER("Winter"),
-    SUMMER("Summer");
+    WINTER("Winter plan"),
+    SUMMER("Summer plan");
     
     private String prettyName;
 

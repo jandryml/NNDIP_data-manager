@@ -118,11 +118,7 @@ public class LimitPlanView extends LitTemplate {
         typeRadioGroup.setItemLabelGenerator(YearPeriodType::getPrettyName);
         seasonLayout.add(typeRadioGroup);
 
-        typeRadioGroup.addValueChangeListener(it -> {
-            YearPeriodType periodType = it.getValue();
-            limitPlanService.setActiveYearPeriod(periodType);
-            loadLimitPlans(periodType);
-        });
+        typeRadioGroup.addValueChangeListener(it -> loadLimitPlans(typeRadioGroup.getValue()));
     }
 
     private void configNumberField(NumberField numberField, double step) {
@@ -150,6 +146,7 @@ public class LimitPlanView extends LitTemplate {
         limitPlan.setPriority(priority);
 
         limitPlanService.saveLimitPlan(limitPlan, typeRadioGroup.getValue());
+        limitPlanService.setActiveYearPeriod(typeRadioGroup.getValue());
     }
 
     private void loadLimitPlans(YearPeriodType periodType) {
